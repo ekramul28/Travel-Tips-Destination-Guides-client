@@ -9,10 +9,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import loginValidationSchema from "@/src/schemas/logoin.schema";
 import { useUserLogin } from "@/src/hooks/auth.hook";
-import Loading from "@/src/components/UI/Loading";
 import FXInput from "@/src/components/form/FXInput";
 import FXForm from "@/src/components/form/FXForm";
 import { useUser } from "@/src/context/user.provider";
+import Loading from "@/src/components/Ui/Loading";
 
 const LoginPage = () => {
   const searchParams = useSearchParams();
