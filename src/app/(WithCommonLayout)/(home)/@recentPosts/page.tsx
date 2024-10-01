@@ -1,9 +1,9 @@
-import CardPage from "@/src/components/Ui/Card/CardPage";
+import Card from "@/src/components/Ui/Card/Card";
 
 const RecentPost = () => {
   return (
     <div>
-      <CardPage />
+      <Card />
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import "@/src/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
-import { siteConfig } from "@/src/config/site";
 import { Providers } from "../lib/Providers";
+
+import { siteConfig } from "@/src/config/site";
 
 export const metadata: Metadata = {
   title: {
