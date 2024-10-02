@@ -15,13 +15,14 @@ import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
+
+import NavbarDropdown from "./NavbarDropdown";
 
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
 import { SearchIcon, Logo } from "@/src/assets/icons";
-import { useRouter } from "next/navigation";
 import { useUser } from "@/src/context/user.provider";
-import NavbarDropdown from "./NavbarDropdown";
 
 export const Navbar = () => {
   const { user, isLoading } = useUser();

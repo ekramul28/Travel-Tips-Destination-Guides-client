@@ -1,70 +1,119 @@
-/* eslint-disable react/jsx-sort-props */
+/* eslint-disable import/order */
+"use client";
+import { useState } from "react";
+import {
+  FaHeart,
+  FaComment,
+  FaShare,
+  FaArrowUp,
+  FaArrowDown,
+} from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { FaHeart, FaComment, FaShare } from "react-icons/fa";
+import { IPost } from "@/src/types";
 
-interface InstaCardProps {
-  profileImage: string;
-  username: string;
-  location: string;
-  postImage: string;
-  likes: number;
-  description: string;
-  timeAgo: string;
-}
+const CardPage = ({ post }: { post: IPost }) => {
+  const [upvoteCount, setUpvoteCount] = useState(post?.upvote || 0);
+  const [downvoteCount, setDownvoteCount] = useState(post?.downvote || 0);
+  const [comments, setComments] = useState(post?.comments || []);
+  const [commentInput, setCommentInput] = useState("");
+  const [showComments, setShowComments] = useState(false);
 
-const CardPage: React.FC<InstaCardProps> = ({
-  profileImage,
-  username,
-  location,
-  postImage,
-  likes,
-  description,
-  timeAgo,
-}) => {
+  const handleUpvote = () => {
+    setUpvoteCount((prev) => prev + 1);
+  };
+
+  const handleDownvote = () => {
+    setDownvoteCount((prev) => prev + 1);
+  };
+
+  const handleAddComment = () => {
+    if (commentInput.trim()) {
+      setComments([
+        ...comments,
+        { author: post?.authorId?.name, text: commentInput },
+      ]);
+      setCommentInput(""); // Clear the input
+    }
+  };
+
   return (
-    <Card className="p-2">
+    <Card className="p-2 my-4">
       {/* Header */}
       <CardHeader className="flex items-center justify-between">
         <div className="flex items-center">
-          <Avatar size="lg" src={profileImage} />
+          <Avatar size="lg" src={post?.authorId?.profilePhoto} />
           <div className="ml-4">
-            <div className="font-bold">{username}</div>
-            <div className="text-sm text-gray-500">{location}</div>
+            <div className="font-bold">{post?.authorId?.name}</div>
+            <div className="text-sm text-gray-500">{post?.location}</div>
           </div>
         </div>
         <span>•••</span>
       </CardHeader>
 
       {/* Post Image */}
-      <CardBody>
-        <Image alt="Post" height={300} src={postImage} className="w-full" />
+      <CardBody className="cursor-pointer">
+        <Image alt="Post" height={400} width={"100%"} src={post?.images[0]} />
       </CardBody>
 
       {/* Actions */}
       <CardFooter className="flex justify-between px-4">
         <div className="flex gap-4">
-          <FaHeart className="text-xl cursor-pointer text-gray-500" />
-          <FaComment className="text-xl cursor-pointer text-gray-500" />
+          <FaArrowUp
+            className="text-xl cursor-pointer text-gray-500"
+            onClick={handleUpvote}
+          />
+          <strong>{upvoteCount} Upvotes</strong> |{" "}
+          <FaArrowDown
+            className="text-xl cursor-pointer text-gray-500"
+            onClick={handleDownvote}
+          />
+          <strong>{downvoteCount} Downvotes</strong>
+        </div>
+        <div className=" flex gap-4">
+          <FaComment
+            className="text-xl cursor-pointer text-gray-500"
+            onClick={() => setShowComments(!showComments)}
+          />
+          <strong>{downvoteCount} Comment</strong>
           <FaShare className="text-xl cursor-pointer text-gray-500" />
         </div>
       </CardFooter>
 
-      {/* Likes */}
-      <CardBody className="px-4 py-2">
-        <strong>{likes} likes</strong>
-      </CardBody>
-
       {/* Description */}
       <CardBody className="px-4">
-        <strong>{username}</strong> {description}
+        <strong>{post?.title}</strong> {post?.description.slice(0, 100)}...{" "}
       </CardBody>
 
-      {/* Time Ago */}
-      <CardFooter className="text-sm text-gray-500 px-4 py-2">
-        {timeAgo}
-      </CardFooter>
+      {/* Comments Section */}
+      {showComments && (
+        <CardBody className="px-4">
+          <div className="mb-2">
+            <strong>Comments</strong>
+          </div>
+          {comments.map((comment, index) => (
+            <div key={index} className="mb-2">
+              <strong>{comment.author}</strong>: {comment.text}
+            </div>
+          ))}
+          <div className="flex gap-2 mt-4">
+            <input
+              className="border p-2 w-full"
+              type="text"
+              value={commentInput}
+              onChange={(e) => setCommentInput(e.target.value)}
+              placeholder="Add a comment..."
+            />
+            <button
+              className="bg-blue-500 text-white p-2 rounded-md"
+              onClick={handleAddComment}
+            >
+              Comment
+            </button>
+          </div>
+        </CardBody>
+      )}
     </Card>
   );
 };

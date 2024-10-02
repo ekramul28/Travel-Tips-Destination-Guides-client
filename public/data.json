@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Luxurious Beachfront Villa",
+    "description": "Experience the pinnacle of relaxation and luxury in this stunning beachfront villa located on the picturesque coast of California. With sweeping ocean views, this property provides an unparalleled experience for those seeking a tranquil escape from the hustle and bustle of city life. The villa features expansive open-plan living spaces, designed with floor-to-ceiling windows that allow natural light to flood in, highlighting the fine interior finishes. The living room opens out onto a private deck where you can enjoy the serene sounds of the ocean while watching the sunset. This exclusive retreat is perfect for hosting gatherings or simply unwinding in style. The villa's spacious kitchen is equipped with top-of-the-line appliances, and the bedrooms offer comfort and privacy, each with its own en-suite bathroom.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883533/Contemporary_Kitchen_and_Dining_Interior_sphu88.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883523/Elegant_Cityscape_Living_Room_e8ybwl.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883525/Modern_Apartment_Interior_gyod2x.jpg"
+    ],
+    "city": "Los Angeles",
+    "location": "123 Ocean Drive, Malibu",
+    "status": "AVAILABLE",
+    "authorId": "66f8e12b9a1fd8920be78120",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-07-20T12:45:00Z",
+    "updatedAt": "2024-09-01T08:30:00Z"
+  },
+  {
+    "title": "Modern City Apartment",
+    "description": "Located in the heart of the city, this modern apartment is a prime choice for urban dwellers seeking comfort and convenience. With sleek, contemporary design and premium finishes, this residence is ideal for professionals or young families. The open-plan kitchen and living area create a spacious feel, complemented by large windows that offer vibrant city views. The apartment complex includes amenities such as a gym, swimming pool, and 24/7 security, ensuring a safe and comfortable living environment. The master bedroom features a walk-in closet and an en-suite bathroom with a luxurious bathtub. Public transport, shops, and restaurants are all within walking distance, making this apartment an attractive option for those wanting to be at the center of it all.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883523/Elegant_Cityscape_Living_Room_e8ybwl.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883519/Rustic_Serenity_Bedroom_Oasis_oropua.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883516/Serene_Spa_Room_s3camt.jpg"
+    ],
+    "city": "New York",
+    "location": "456 Manhattan Avenue, New York",
+    "status": "AVAILABLE",
+    "authorId": "66f8e12b9a1fd8920be78120",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-06-15T10:25:00Z",
+    "updatedAt": "2024-09-01T09:45:00Z"
+  },
+  {
+    "title": "Rustic Mountain Cabin",
+    "description": "Escape to the tranquility of the mountains in this rustic yet modern cabin. Nestled in the woods with breathtaking views of the surrounding peaks, this property is perfect for those who enjoy outdoor adventures and a peaceful retreat. The cabin features exposed wooden beams, a stone fireplace, and a cozy living room that invites you to relax with a cup of hot chocolate after a day of hiking. The spacious kitchen is fully equipped, and the dining area opens up to a large outdoor deck, perfect for al fresco dining. The master bedroom includes a large window that frames the stunning mountain views. With access to nearby trails, lakes, and ski resorts, this cabin is a haven for nature lovers.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883532/Red_Cabin_by_the_Lake_z7sf2p.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883521/Serene_Landscape_with_Red_Cabin_mqpjvw.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883515/Traditional_House_at_Countryside_Sunset_l1e86i.jpg"
+    ],
+    "city": "Aspen",
+    "location": "789 Mountain Trail, Aspen",
+    "status": "SOLD",
+    "authorId": "66fa05cc981ea91ee828bbf2",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-05-10T14:55:00Z",
+    "updatedAt": "2024-08-25T11:00:00Z"
+  },
+  {
+    "title": "Cozy Suburban Home",
+    "description": "This charming suburban home offers the perfect blend of comfort and convenience for a growing family. Situated in a quiet neighborhood, the house boasts three spacious bedrooms, a large backyard, and a modern kitchen. The living room is bright and airy, with plenty of natural light pouring in from the large bay windows. The open floor plan creates a seamless flow between the kitchen, dining, and living areas, making it ideal for family gatherings. The backyard features a patio area, perfect for barbecues or relaxing in the sun. Located near excellent schools, parks, and shopping centers, this home is an excellent choice for families looking to settle in a friendly, community-oriented area.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883511/Serene_Coastal_Scene_with_Red_Wooden_House_xvbbca.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883510/Meadow_Solitude_Retreat_sj9vet.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883515/Traditional_House_at_Countryside_Sunset_l1e86i.jpg"
+    ],
+    "city": "Austin",
+    "location": "101 Greenway Drive, Austin",
+    "status": "AVAILABLE",
+    "authorId": "66fa05cc981ea91ee828bbf2",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-07-01T16:35:00Z",
+    "updatedAt": "2024-08-30T15:00:00Z"
+  },
+  {
+    "title": "Luxury Penthouse Suite",
+    "description": "Located at the top of a prestigious high-rise, this luxury penthouse suite offers unparalleled views of the city skyline. The spacious, open-plan living area is perfect for entertaining, with floor-to-ceiling windows providing breathtaking views from every angle. The sleek modern design is complemented by high-end finishes, including marble countertops, hardwood floors, and custom lighting. The master bedroom features a private balcony, walk-in closet, and a spa-like en-suite bathroom with a soaking tub. This exclusive residence includes private elevator access and 24/7 concierge service. The building amenities include a rooftop pool, fitness center, and valet parking.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883527/Luxurious_Oceanfront_Lounge_Area_mv7nwr.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883533/Luxurious_Modern_Beachfront_Residence_qswo7p.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883529/Luxurious_Seaside_Villa_with_Infinity_Pool_lrpzsd.jpg"
+    ],
+    "city": "Miami",
+    "location": "123 Skyview Drive, Miami",
+    "status": "AVAILABLE",
+    "authorId": "66fc129df50b70b80fbea929",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-06-05T11:20:00Z",
+    "updatedAt": "2024-09-02T14:15:00Z"
+  },
+  {
+    "title": "Charming Countryside Cottage",
+    "description": "This charming countryside cottage offers a peaceful retreat from the city. Surrounded by lush gardens and rolling hills, the property is ideal for those looking to enjoy a quiet and serene lifestyle. The cottage features a cozy living room with a wood-burning fireplace, a spacious kitchen with farmhouse-style cabinets, and a bright dining area with views of the garden. The master bedroom offers direct access to the patio, where you can enjoy your morning coffee while listening to the sounds of nature. With its idyllic setting and rustic charm, this property is perfect for anyone looking to escape the hustle and bustle and immerse themselves in nature.",
+    "images": [
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883506/Serene_Tropical_Overwater_Bungalow_Resort_jis8r1.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883506/Serene_Colorful_Beach_Houses_gdh9sb.jpg",
+      "https://res.cloudinary.com/dvtdneocc/image/upload/v1727883505/Serene_Tropical_Beachfront_with_Rustic_Hut_xcy6uy.jpg"
+    ],
+    "city": "Nashville",
+    "location": "456 Country Lane, Nashville",
+    "status": "AVAILABLE",
+    "authorId": "66fc129df50b70b80fbea929",
+    "category": "REAL_ESTATE",
+    "upvote": 0,
+    "downvote": 0,
+    "createdAt": "2024-05-20T09:45:00Z",
+    "updatedAt": "2024-08-29T13:25:00Z"
+  }
+]

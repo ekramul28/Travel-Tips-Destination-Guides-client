@@ -16,10 +16,12 @@ export interface IPost {
   isReported: boolean;
   reportCount: number;
   category: ICategory;
-  user: IUser;
-  questions: string[];
+  authorId: IUser;
+  upvote: number;
+  downvote: number;
   createdAt: string;
   updatedAt: string;
+
   __v: number;
 }
 
@@ -39,6 +41,8 @@ export interface IUser {
   role: string;
   email: string;
   status: string;
+  verified: boolean;
+  flower: number;
   mobileNumber: string;
   profilePhoto: string;
   createdAt?: string;

@@ -2,18 +2,17 @@ import React from "react";
 
 import CardPage from "./CardPage";
 
-const Card = () => {
+import { getAllPost } from "@/src/services/post";
+import { IPost } from "@/src/types";
+
+const Card = async () => {
+  const { data: posts } = await getAllPost();
+
   return (
     <div>
-      <CardPage
-        description="Enjoying the beautiful sunset by the beach!"
-        likes={150}
-        location="New York, USA"
-        postImage="https://nextui.org/images/hero-card-complete.jpeg"
-        profileImage="https://nextui.org/images/hero-card-complete.jpeg"
-        timeAgo="2 hours ago"
-        username="john_doe"
-      />
+      {posts.map((post: IPost) => (
+        <CardPage key={post._id} post={post} />
+      ))}
     </div>
   );
 };
