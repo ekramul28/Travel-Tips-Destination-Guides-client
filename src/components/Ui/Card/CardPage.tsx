@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-sort-props */
 import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { FaHeart, FaComment, FaShare } from "react-icons/fa";

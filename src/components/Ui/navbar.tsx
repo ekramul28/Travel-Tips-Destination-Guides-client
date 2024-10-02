@@ -1,3 +1,5 @@
+/* eslint-disable import/order */
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -17,9 +19,13 @@ import clsx from "clsx";
 
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
-import { HeartFilledIcon, SearchIcon, Logo } from "@/src/assets/icons";
+import { SearchIcon, Logo } from "@/src/assets/icons";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/user.provider";
 
 export const Navbar = () => {
+  const { user, isLoading } = useUser();
+  const router = useRouter();
   const searchInput = (
     <Input
       aria-label="Search"
@@ -78,14 +84,15 @@ export const Navbar = () => {
         <ThemeSwitch />
 
         <NavbarItem className="hidden md:flex">
-          <Link href="/login">
-            <Button
-              className="text-sm font-normal text-default-600 bg-default-100"
-              startContent={<HeartFilledIcon className="text-danger" />}
-            >
-              Login
-            </Button>
-          </Link>
+          {user?.email ? (
+            <NavbarItem className="hidden sm:flex gap-2">
+              <NavbarDropdown />
+            </NavbarItem>
+          ) : (
+            <NavbarItem className="hidden sm:flex gap-2">
+              <Button onClick={() => router.push("/login")}>Login</Button>
+            </NavbarItem>
+          )}
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
