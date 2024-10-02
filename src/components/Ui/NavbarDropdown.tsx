@@ -11,7 +11,7 @@ import { Avatar } from "@nextui-org/avatar";
 
 import { logout } from "@/src/services/AuthService";
 import { useUser } from "@/src/context/user.provider";
-import { protectedRoutes } from "@/src/utils/constant";
+import { protectedRoutes } from "@/src/constant";
 
 export default function NavbarDropdown() {
   const router = useRouter();

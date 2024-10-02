@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 "use client";
 import {
   Navbar as NextUINavbar,
@@ -22,6 +21,7 @@ import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
 import { SearchIcon, Logo } from "@/src/assets/icons";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/src/context/user.provider";
+import NavbarDropdown from "./NavbarDropdown";
 
 export const Navbar = () => {
   const { user, isLoading } = useUser();
@@ -50,7 +50,8 @@ export const Navbar = () => {
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <NavbarBrand as="li" className="gap-3 max-w-fit">
+        {/* Replace <li> with a div or span for the brand */}
+        <NavbarBrand className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
             <p className="font-bold text-inherit">ACME</p>
@@ -58,8 +59,9 @@ export const Navbar = () => {
         </NavbarBrand>
         {searchInput}
       </NavbarContent>
+
       <NavbarContent>
-        <ul className="hidden  md:flex gap-4 justify-start ml-2">
+        <NavbarBrand className="hidden  md:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -74,7 +76,7 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
-        </ul>
+        </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent
@@ -95,10 +97,12 @@ export const Navbar = () => {
           )}
         </NavbarItem>
       </NavbarContent>
+
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
+
       <NavbarMenu>
         {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
