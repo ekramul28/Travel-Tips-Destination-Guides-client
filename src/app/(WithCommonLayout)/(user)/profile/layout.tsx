@@ -1,10 +1,11 @@
+/* eslint-disable import/order */
+import Container from "@/src/components/Ui/Container";
 import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
-      <h1>user layout</h1>
-      {children}
+      <Container>{children}</Container>
     </div>
   );
 };
