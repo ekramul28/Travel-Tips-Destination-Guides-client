@@ -19,9 +19,9 @@ export default function PhotoGrid() {
       {posts.map((post) => (
         <div key={post.id} className="relative">
           <img
-            src={post.src}
             alt={`Post ${post.id}`}
             className="w-full h-auto object-cover"
+            src={post.src}
           />
           {/* Overlay on hover */}
           <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-25 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">

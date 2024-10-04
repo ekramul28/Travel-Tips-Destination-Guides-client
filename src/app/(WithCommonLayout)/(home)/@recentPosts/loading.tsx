@@ -22,7 +22,7 @@ const SkeletonCardLoadingPage = () => {
       {/* Post Image Skeleton */}
       <div className="cursor-pointer">
         <Skeleton className="rounded-lg">
-          <div className="h-96 rounded-lg bg-default-300"></div>
+          <div className="h-96 rounded-lg bg-default-300" />
         </Skeleton>
       </div>
 

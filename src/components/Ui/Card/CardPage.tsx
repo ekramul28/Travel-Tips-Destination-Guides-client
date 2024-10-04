@@ -1,13 +1,8 @@
+/* eslint-disable react/jsx-sort-props */
 /* eslint-disable import/order */
 "use client";
 import { useState } from "react";
-import {
-  FaHeart,
-  FaComment,
-  FaShare,
-  FaArrowUp,
-  FaArrowDown,
-} from "react-icons/fa";
+import { FaComment, FaShare, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
@@ -61,7 +56,9 @@ const CardPage = ({ post }: { post: IPost }) => {
 
       {/* Post Image */}
       <CardBody className="cursor-pointer">
-        <Image alt="Post" height={400} width={"100%"} src={post?.images[0]} />
+        <Link href={`postDetails/${post._id}`}>
+          <Image alt="Post" height={400} width={"100%"} src={post?.images[0]} />
+        </Link>
       </CardBody>
 
       {/* Actions */}

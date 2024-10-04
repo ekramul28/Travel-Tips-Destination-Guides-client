@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { createPost } from "../services/post";
+import { createPost, getPost } from "../services/post";
 
 export const useCreatePost = () => {
   return useMutation<any, Error, FormData>({
@@ -13,5 +13,12 @@ export const useCreatePost = () => {
     onError: (error) => {
       toast.error(error.message);
     },
+  });
+};
+
+export const useGetPost = (id: string) => {
+  return useQuery({
+    queryKey: ["USER", id],
+    queryFn: () => getPost(id),
   });
 };
