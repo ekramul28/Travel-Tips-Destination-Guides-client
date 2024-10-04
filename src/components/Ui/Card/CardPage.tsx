@@ -12,6 +12,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { IPost } from "@/src/types";
+import Link from "next/link";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const [upvoteCount, setUpvoteCount] = useState(post?.upvote || 0);
@@ -43,9 +44,15 @@ const CardPage = ({ post }: { post: IPost }) => {
       {/* Header */}
       <CardHeader className="flex items-center justify-between">
         <div className="flex items-center">
-          <Avatar size="lg" src={post?.authorId?.profilePhoto} />
+          <Link href={`profile/${post?.authorId?._id}`}>
+            <Avatar size="lg" src={post?.authorId?.profilePhoto} />
+          </Link>
           <div className="ml-4">
-            <div className="font-bold">{post?.authorId?.name}</div>
+            <Link href={`profile/${post?.authorId?._id}`}>
+              <div className="font-bold hover:underline">
+                {post?.authorId?.name}
+              </div>
+            </Link>
             <div className="text-sm text-gray-500">{post?.location}</div>
           </div>
         </div>

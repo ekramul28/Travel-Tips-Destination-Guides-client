@@ -33,7 +33,6 @@ export const getAllPost = async () => {
 
   const res = await fetch(`${envConfig.baseApi}/post`, fetchOptions);
 
-  console.log("this is res", res);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -47,7 +46,25 @@ export const getPost = async (postId: string) => {
     cache: "no-store",
   };
 
-  const res = await fetch(`${envConfig.baseApi}/items/${postId}`, fetchOptions);
+  const res = await fetch(`${envConfig.baseApi}/post/${postId}`, fetchOptions);
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+export const getUserByPost = async (userId: string) => {
+  let fetchOptions = {};
+
+  fetchOptions = {
+    cache: "no-store",
+  };
+
+  const res = await fetch(
+    `${envConfig.baseApi}/post/userPost/${userId}`,
+    fetchOptions,
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");
