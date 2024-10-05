@@ -13,13 +13,20 @@ import {
 import { useState } from "react";
 import PhotoGrid from "@/src/app/(WithCommonLayout)/(user)/profile/_components/Post";
 import { IUser } from "@/src/types";
+import EditProfileModal from "./EditProfile";
+import { useDisclosure } from "@nextui-org/modal";
 const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
   console.log("inside profile", profileData);
   const [isFollowing, setIsFollowing] = useState(false);
   const handleFollowToggle = () => {
     setIsFollowing(!isFollowing);
   };
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [onUpdate, setOnUpdate] = useState(false);
+  const handelModal = () => {
+    setIsModalOpen(true);
+  };
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* Profile Header */}
@@ -40,6 +47,9 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
               <h2 className="text-2xl font-bold">{profileData?.name}</h2>
               <Button color="primary" size="sm" onClick={handleFollowToggle}>
                 {isFollowing ? "Unfollow" : "Follow"}
+              </Button>
+              <Button color="secondary" onPress={onOpen}>
+                Edit
               </Button>
 
               {/* Dropdown for Profile Options */}
@@ -107,6 +117,14 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
           <div>No posts available.</div>
         )}
       </div>
+
+      <EditProfileModal
+        onOpenChange={onOpenChange}
+        isOpen={isOpen}
+        onClose={onClose}
+        user={profileData}
+        onUpdate={onUpdate}
+      />
     </div>
   );
 };

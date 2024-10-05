@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
-import React, { useState } from "react";
+import React from "react";
 
 const CommentsSection = ({ postId }: { postId: string }) => {
   return (
@@ -10,13 +10,13 @@ const CommentsSection = ({ postId }: { postId: string }) => {
 
       <div className="mb-4">
         <Input
-          underlined
           fullWidth
+          underlined
           placeholder="Add a comment..."
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
-        <Button onClick={handleAddComment} className="mt-2">
+        <Button className="mt-2" onClick={handleAddComment}>
           Post Comment
         </Button>
       </div>

@@ -6,7 +6,6 @@ import {
   FieldValues,
   FormProvider,
   SubmitHandler,
-  useFieldArray,
   useForm,
 } from "react-hook-form";
 import { allDistict } from "@bangladeshi/bangladesh-address";
@@ -14,13 +13,10 @@ import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import FXInput from "@/src/components/form/FXInput";
-import FXDatePicker from "@/src/components/form/FXDatePicker";
 import FXSelect from "@/src/components/form/FXSelect";
 import FXTextarea from "@/src/components/form/FXTextArea";
 import { useUser } from "@/src/context/user.provider";
-import dateToISO from "@/src/utils/dateToISO";
 import Loading from "@/src/components/Ui/Loading";
-import { AddIcon, TrashIcon } from "@/src/assets/icons";
 import { useCreatePost } from "@/src/hooks/post.hook";
 import { useGetCategories } from "@/src/hooks/categoreis.hook";
 import generateDescription from "@/src/services/ImageDescription";
@@ -45,10 +41,8 @@ export default function CreatePost() {
   const {
     mutate: handleCreatePost,
     isPending: createPostPending,
-    error: handelerrr,
     isSuccess,
   } = useCreatePost();
-  console.log(handelerrr);
   const { user } = useUser();
   const {
     data: categoriesData,
@@ -68,7 +62,7 @@ export default function CreatePost() {
 
   const methods = useForm();
 
-  const { control, handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   // const { fields, append, remove } = useFieldArray({
   //   control,
@@ -77,7 +71,6 @@ export default function CreatePost() {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
-    console.log({ data });
     const postData = {
       ...data,
       authorId: user!._id,
@@ -89,8 +82,7 @@ export default function CreatePost() {
     for (let image of imageFiles) {
       formData.append("postImages", image);
     }
-    console.log(formData);
-    console.log(imageFiles);
+
     handleCreatePost(formData);
   };
 

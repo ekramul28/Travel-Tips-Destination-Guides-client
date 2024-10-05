@@ -27,7 +27,7 @@ export default async function ProfilePage({ params: { id } }: IProps) {
 
   return (
     <>
-      <Profile profileData={profileData} postsData={postsData} />
+      <Profile postsData={postsData} profileData={profileData} />
     </>
   );
 }

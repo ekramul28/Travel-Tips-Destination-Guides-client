@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import Image from "next/image";
+import { Image } from "@nextui-org/image";
 
 import { SidebarOptions } from "./SidebarOptions";
 import { adminLinks, userLinks } from "./constants";
@@ -11,16 +11,14 @@ import { useUser } from "@/src/context/user.provider";
 const Sidebar = () => {
   const { user } = useUser();
 
+  console.log(user);
+
   return (
     <div>
-      <div className="rounded-xl bg-default-100 p-2">
-        <div className="h-[330px] w-full rounded-md">
+      <div className="rounded-xl bg-default-100 p-2 ">
+        <div className="h-[130px] w-[130px] rounded-md flex justify-center items-center">
           <Image
-            alt="profile"
-            className="w-full h-full object-cover rounded-md"
-            height={330}
-            src={user?.profilePhoto as string}
-            width={330}
+            src={user?.profilePhoto || "https://via.placeholder.com/150"}
           />
         </div>
         <div className="my-3">

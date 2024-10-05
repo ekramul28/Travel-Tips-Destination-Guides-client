@@ -6,7 +6,7 @@ import { FaComment, FaShare, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IComment, IPost } from "@/src/types";
+import { IPost } from "@/src/types";
 import Link from "next/link";
 
 const CardPage = ({ post }: { post: IPost }) => {

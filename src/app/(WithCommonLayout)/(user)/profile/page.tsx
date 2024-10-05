@@ -1,7 +1,20 @@
 import React from "react";
 
-const page = () => {
-  return <div>mainpage</div>;
+import Profile from "@/src/components/Ui/Profile/profile";
+import { getMyProfile } from "@/src/services/Profile";
+
+const MyProfile = async () => {
+  const data = await getMyProfile();
+  const profileData = data?.data;
+  const postsData = {};
+
+  console.log(data);
+
+  return (
+    <div>
+      <Profile postsData={postsData} profileData={profileData} />
+    </div>
+  );
 };
 
-export default page;
+export default MyProfile;

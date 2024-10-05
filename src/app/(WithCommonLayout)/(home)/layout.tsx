@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import Container from "@/src/components/Ui/Container";
+import { Navbar } from "@/src/components/Ui/navbar";
 
 export default function layout({
   children,
@@ -14,6 +15,7 @@ export default function layout({
   return (
     <>
       <Container>
+        <Navbar />
         <div className="flex justify-center ">
           <div className="md:w-1/4 hidden md:block">{children}</div>
           <div className="md:w-2/4">{recentPosts}</div>
