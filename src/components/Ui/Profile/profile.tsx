@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 "use client";
 
 import { FaEllipsisH } from "react-icons/fa"; // React Icons for the Ellipsis (Options) Icon
@@ -11,7 +12,9 @@ import {
 } from "@nextui-org/dropdown";
 import { useState } from "react";
 import PhotoGrid from "@/src/app/(WithCommonLayout)/(user)/profile/_components/Post";
-const Profile = ({ profileData }) => {
+import { IUser } from "@/src/types";
+const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
+  console.log("inside profile", profileData);
   const [isFollowing, setIsFollowing] = useState(false);
   const handleFollowToggle = () => {
     setIsFollowing(!isFollowing);
@@ -21,21 +24,22 @@ const Profile = ({ profileData }) => {
     <div className="max-w-5xl mx-auto p-6">
       {/* Profile Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-6">
-          <Avatar
-            alt="Profile Image"
-            className="border-4 border-gray-200 w-[200px] h-[200px]"
-            size="lg"
-            src={profileData?.profilePhoto || "https://via.placeholder.com/150"}
-          />
+        <div className="md:flex items-center md:space-x-6 ">
+          <div className="flex items-center justify-center mb-4">
+            <Avatar
+              alt="Profile Image"
+              className="border-4  border-gray-200 w-[200px] h-[200px]"
+              size="lg"
+              src={
+                profileData?.profilePhoto || "https://via.placeholder.com/150"
+              }
+            />
+          </div>
           <div>
             <div className="flex items-center space-x-4">
               <h2 className="text-2xl font-bold">{profileData?.name}</h2>
               <Button color="primary" size="sm" onClick={handleFollowToggle}>
                 {isFollowing ? "Unfollow" : "Follow"}
-              </Button>
-              <Button color="secondary" size="sm">
-                Message
               </Button>
 
               {/* Dropdown for Profile Options */}
@@ -81,10 +85,10 @@ const Profile = ({ profileData }) => {
       {/* Stories/Highlights Section */}
       <div className="mt-6">
         <h3 className="font-semibold text-gray-700">Highlights</h3>
-        <div className="flex space-x-4 mt-2">
+        <div className="flex   space-x-4 mt-2">
           {/* Example Highlight */}
           {[...Array(5)].map((_, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div key={index} className="flex flex-col  items-center">
               <Avatar
                 size="lg"
                 src={`https://via.placeholder.com/100?text=H${index + 1}`}

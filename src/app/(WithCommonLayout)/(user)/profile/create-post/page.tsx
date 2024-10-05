@@ -45,24 +45,23 @@ export default function CreatePost() {
   const {
     mutate: handleCreatePost,
     isPending: createPostPending,
+    error: handelerrr,
     isSuccess,
   } = useCreatePost();
-
+  console.log(handelerrr);
   const { user } = useUser();
-
   const {
     data: categoriesData,
     isLoading: categoryLoading,
     isSuccess: categorySuccess,
   } = useGetCategories();
-
   let categoryOption: { key: string; label: string }[] = [];
 
   if (categoriesData?.data && !categoryLoading) {
     categoryOption = categoriesData.data
       .sort()
       .map((category: { _id: string; name: string }) => ({
-        key: category._id,
+        key: category.name,
         label: category.name,
       }));
   }
@@ -71,33 +70,33 @@ export default function CreatePost() {
 
   const { control, handleSubmit } = methods;
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "questions",
-  });
+  // const { fields, append, remove } = useFieldArray({
+  //   control,
+  //   name: "questions",
+  // });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
-
+    console.log({ data });
     const postData = {
       ...data,
-      questions: data.questions.map((que: { value: string }) => que.value),
-      dateFound: dateToISO(data.dateFound),
-      user: user!._id,
+      authorId: user!._id,
+      images: ["mmmmmmmmmm"],
     };
 
     formData.append("data", JSON.stringify(postData));
 
     for (let image of imageFiles) {
-      formData.append("itemImages", image);
+      formData.append("postImages", image);
     }
-
+    console.log(formData);
+    console.log(imageFiles);
     handleCreatePost(formData);
   };
 
-  const handleFieldAppend = () => {
-    append({ name: "questions" });
-  };
+  // const handleFieldAppend = () => {
+  //   append({ name: "questions" });
+  // };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
@@ -148,9 +147,9 @@ export default function CreatePost() {
               <div className="min-w-fit flex-1">
                 <FXInput label="Title" name="title" />
               </div>
-              <div className="min-w-fit flex-1">
+              {/* <div className="min-w-fit flex-1">
                 <FXDatePicker label="Found date" name="dateFound" />
-              </div>
+              </div> */}
             </div>
             <div className="flex flex-wrap gap-2 py-2">
               <div className="min-w-fit flex-1">
@@ -226,14 +225,14 @@ export default function CreatePost() {
 
             <Divider className="my-5" />
 
-            <div className="flex justify-between items-center mb-5">
+            {/* <div className="flex justify-between items-center mb-5">
               <h1 className="text-xl">Owner verification questions</h1>
               <Button isIconOnly onClick={() => handleFieldAppend()}>
                 <AddIcon />
               </Button>
-            </div>
+            </div> */}
 
-            <div className="space-y-5">
+            {/* <div className="space-y-5">
               {fields.map((field, index) => (
                 <div key={field.id} className="flex gap-2 items-center">
                   <FXInput label="Question" name={`questions.${index}.value`} />
@@ -246,7 +245,7 @@ export default function CreatePost() {
                   </Button>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <Divider className="my-5" />
             <div className="flex justify-end">

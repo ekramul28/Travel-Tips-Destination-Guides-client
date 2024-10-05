@@ -6,13 +6,13 @@ import { FaComment, FaShare, FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IPost } from "@/src/types";
+import { IComment, IPost } from "@/src/types";
 import Link from "next/link";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const [upvoteCount, setUpvoteCount] = useState(post?.upvote || 0);
   const [downvoteCount, setDownvoteCount] = useState(post?.downvote || 0);
-  const [comments, setComments] = useState(post?.comments || []);
+  // const [comments, setComments] = useState(post?.images || []);
   const [commentInput, setCommentInput] = useState("");
   const [showComments, setShowComments] = useState(false);
 
@@ -24,15 +24,15 @@ const CardPage = ({ post }: { post: IPost }) => {
     setDownvoteCount((prev) => prev + 1);
   };
 
-  const handleAddComment = () => {
-    if (commentInput.trim()) {
-      setComments([
-        ...comments,
-        { author: post?.authorId?.name, text: commentInput },
-      ]);
-      setCommentInput(""); // Clear the input
-    }
-  };
+  // const handleAddComment = () => {
+  //   if (commentInput.trim()) {
+  //     setComments([
+  //       ...comments,
+  //       { author: post?.authorId?.name, text: commentInput },
+  //     ]);
+  //     setCommentInput(""); // Clear the input
+  //   }
+  // };
 
   return (
     <Card className="p-2 my-4">
@@ -57,12 +57,12 @@ const CardPage = ({ post }: { post: IPost }) => {
       {/* Post Image */}
       <CardBody className="cursor-pointer">
         <Link href={`postDetails/${post._id}`}>
-          <Image alt="Post" height={400} width={"100%"} src={post?.images[0]} />
+          <Image alt="Post" height={300} width={"100%"} src={post?.images[0]} />
         </Link>
       </CardBody>
 
       {/* Actions */}
-      <CardFooter className="flex justify-between px-4">
+      <CardFooter className="flex justify-between items-center px-4">
         <div className="flex gap-4">
           <FaArrowUp
             className="text-xl cursor-pointer text-gray-500"
@@ -96,11 +96,12 @@ const CardPage = ({ post }: { post: IPost }) => {
           <div className="mb-2">
             <strong>Comments</strong>
           </div>
-          {comments.map((comment, index) => (
+          {/* {comments.map((comment: IComment, index: number) => (
             <div key={index} className="mb-2">
-              <strong>{comment.author}</strong>: {comment.text}
+              <strong>{comment?.authorId?.name}</strong>: {comment.content}
             </div>
-          ))}
+          ))} */}
+
           <div className="flex gap-2 mt-4">
             <input
               className="border p-2 w-full"
@@ -111,7 +112,7 @@ const CardPage = ({ post }: { post: IPost }) => {
             />
             <button
               className="bg-blue-500 text-white p-2 rounded-md"
-              onClick={handleAddComment}
+              // onClick={handleAddComment}
             >
               Comment
             </button>

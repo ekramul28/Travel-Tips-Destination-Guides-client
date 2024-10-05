@@ -2,53 +2,32 @@
 /* eslint-disable react/self-closing-comp */
 
 import Profile from "@/src/components/Ui/Profile/profile";
-import { useGetSingleUser } from "@/src/hooks/singleUse";
-import { useGetUserPosts } from "@/src/hooks/userPosts";
+import { getUserByPost } from "@/src/services/post";
+import { getSingleUser } from "@/src/services/user";
+
 interface IProps {
   params: {
     id: string;
   };
 }
-export default function ProfilePage({ params: { id } }: IProps) {
-  const {
-    data: userData,
-    isLoading: isUserLoading,
-    error: userError,
-  } = useGetSingleUser(id as string);
 
-  // Fetch user posts
-  const {
-    data: postsData,
-    isLoading: isPostsLoading,
-    error: postsError,
-  } = useGetUserPosts(id as string);
+export default async function ProfilePage({ params: { id } }: IProps) {
+  // Fetch the user and posts data
+  const userData = await getSingleUser(id);
 
-  console.log("seee", postsData);
+  const posts = await getUserByPost(id);
 
-  // Handle loading states
-  if (isUserLoading || isPostsLoading) {
-    return <div>Loading...</div>;
-  }
-
-  // Handle error states
-  if (userError) {
-    return <div>Error loading user data.</div>;
-  }
-
-  if (postsError) {
-    return <div>Error loading posts.</div>;
-  }
-
-  // If no user data is available
-  if (!userData) {
+  // Handle if no user data is available
+  if (!userData || !userData.data) {
     return <div>No user data available.</div>;
   }
 
   const profileData = userData.data;
+  const postsData = posts?.data || [];
 
   return (
     <>
-      <Profile profileData={profileData}></Profile>
+      <Profile profileData={profileData} postsData={postsData} />
     </>
   );
 }

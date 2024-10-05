@@ -4,16 +4,6 @@ import { Input } from "@nextui-org/input";
 import React, { useState } from "react";
 
 const CommentsSection = ({ postId }: { postId: string }) => {
-  const [comments, setComments] = useState<string[]>([]); // List of comments
-  const [newComment, setNewComment] = useState<string>("");
-
-  const handleAddComment = () => {
-    if (newComment.trim()) {
-      setComments([...comments, newComment.trim()]);
-      setNewComment(""); // Clear input after adding
-    }
-  };
-
   return (
     <div className="mt-6">
       <h2 className="text-xl font-bold mb-4">Comments</h2>

@@ -120,3 +120,12 @@ export interface ISearchResult {
   thumbnail: string;
   id: string;
 }
+
+export type IComment = {
+  postId: IPost;
+  authorId: IUser;
+  content: string;
+  parentId?: IUser;
+  createdAt: Date;
+  updatedAt: Date;
+};

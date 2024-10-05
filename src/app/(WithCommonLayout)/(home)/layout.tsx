@@ -15,9 +15,9 @@ export default function layout({
     <>
       <Container>
         <div className="flex justify-center ">
-          <div className="w-1/4 hidden md:block">{children}</div>
-          <div className="w-2/4">{recentPosts}</div>
-          <div className="w-1/4 hidden md:block">{usersId}</div>
+          <div className="md:w-1/4 hidden md:block">{children}</div>
+          <div className="md:w-2/4">{recentPosts}</div>
+          <div className="md:w-1/4 hidden md:block">{usersId}</div>
         </div>
       </Container>
     </>

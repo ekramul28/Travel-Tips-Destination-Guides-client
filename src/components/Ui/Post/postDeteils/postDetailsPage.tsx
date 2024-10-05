@@ -1,3 +1,5 @@
+/* eslint-disable import/order */
+/* eslint-disable react/jsx-sort-props */
 "use client";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa"; // React Icons
 import { format } from "date-fns"; // For formatting dates
@@ -7,7 +9,8 @@ import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { Badge } from "@nextui-org/badge";
-const PostDetailsPage = ({ post }) => {
+import { IPost } from "@/src/types";
+const PostDetailsPage = ({ post }: { post: IPost }) => {
   const [comments, setComments] = useState<string[]>([]); // List of comments
   const [newComment, setNewComment] = useState<string>("");
 
@@ -69,7 +72,7 @@ const PostDetailsPage = ({ post }) => {
             <Button color="success">
               <FaThumbsUp /> <span className="ml-1">{upvote}</span>
             </Button>
-            <Button color="error">
+            <Button>
               <FaThumbsDown /> <span className="ml-1">{downvote}</span>
             </Button>
           </div>
@@ -92,8 +95,6 @@ const PostDetailsPage = ({ post }) => {
 
         <div className="mb-4">
           <Input
-            underlined
-            fullWidth
             placeholder="Add a comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
