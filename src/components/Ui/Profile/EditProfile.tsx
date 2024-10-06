@@ -43,6 +43,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
     // Prepare form data
     const formData = new FormData();
+
     formData.append("name", name);
     formData.append("bio", bio);
     if (profilePicture) {
@@ -82,38 +83,38 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
   return (
     <Modal
+      aria-labelledby="edit-profile-modal-title"
+      isDismissable={false}
+      isKeyboardDismissDisabled={true}
       isOpen={isOpen}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
-      isDismissable={false}
-      isKeyboardDismissDisabled={true}
-      aria-labelledby="edit-profile-modal-title"
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">
           <h3 id="edit-profile-modal-title">Edit Profile</h3>
         </ModalHeader>
         <ModalBody>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <Input
               required
+              aria-label="Name"
               label="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              aria-label="Name"
             />
             <Textarea
+              aria-label="Bio"
               label="Bio"
               rows={3}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              aria-label="Bio"
             />
             <div>
               <label
-                htmlFor="profile-picture-upload"
                 className="block text-sm font-medium text-gray-700 mb-1"
+                htmlFor="profile-picture-upload"
               >
                 Profile Picture
               </label>
@@ -126,8 +127,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                   onChange={handlePictureChange}
                 />
                 <label
-                  htmlFor="profile-picture-upload"
                   className="cursor-pointer flex items-center text-blue-500"
+                  htmlFor="profile-picture-upload"
                 >
                   <FaUpload className="mr-2" /> Choose File
                 </label>
@@ -141,9 +142,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
         <ModalFooter>
           <Button
             color="danger"
+            disabled={isSubmitting}
             variant="light"
             onPress={onClose}
-            disabled={isSubmitting}
           >
             Close
           </Button>

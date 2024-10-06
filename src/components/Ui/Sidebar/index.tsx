@@ -14,9 +14,9 @@ const Sidebar = () => {
   console.log(user);
 
   return (
-    <div>
-      <div className="rounded-xl bg-default-100 p-2 ">
-        <div className="h-[130px] w-[130px] rounded-md flex justify-center items-center">
+    <div className="">
+      <div className="rounded-xl bg-default-100 p-2 h-[calc(100vh-50px)]">
+        <div className="h-[50px] w-[50px] rounded-md flex justify-end items-end">
           <Image
             src={user?.profilePhoto || "https://via.placeholder.com/150"}
           />
@@ -32,11 +32,11 @@ const Sidebar = () => {
         >
           Create a post
         </Button>
-      </div>
-      <div className="mt-3 space-y-2 rounded-xl bg-default-100 p-2">
-        <SidebarOptions
-          links={user?.role === "USER" ? userLinks : adminLinks}
-        />
+        <div className="mt-3 space-y-2 rounded-xl bg-default-100 p-2 ">
+          <SidebarOptions
+            links={user?.role === "USER" ? userLinks : adminLinks}
+          />
+        </div>
       </div>
     </div>
   );

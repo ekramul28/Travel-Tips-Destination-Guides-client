@@ -13,10 +13,10 @@ export default function layout({ children }: { children: ReactNode }) {
         <p className="font-bold text-inherit">ACME</p>
       </NextLink>
       <div className="my-3 flex w-full gap-12">
-        <div className="w-2/5">
+        <div className="w-1/4">
           <Sidebar />
         </div>
-        <div className="w-4/5 ">{children}</div>
+        <div className="w-3/4 ">{children}</div>
       </div>
     </Container>
   );

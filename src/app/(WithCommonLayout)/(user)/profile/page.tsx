@@ -7,9 +7,7 @@ const MyProfile = async () => {
   const data = await getMyProfile();
   const profileData = data?.data;
   const postsData = {};
-
-  console.log(data);
-
+  console.log("hava", data);
   return (
     <div>
       <Profile postsData={postsData} profileData={profileData} />

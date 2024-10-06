@@ -15,6 +15,7 @@ import PhotoGrid from "@/src/app/(WithCommonLayout)/(user)/profile/_components/P
 import { IUser } from "@/src/types";
 import EditProfileModal from "./EditProfile";
 import { useDisclosure } from "@nextui-org/modal";
+import { useUser } from "@/src/context/user.provider";
 const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
   console.log("inside profile", profileData);
   const [isFollowing, setIsFollowing] = useState(false);
@@ -27,6 +28,8 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
     setIsModalOpen(true);
   };
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { user } = useUser();
+  console.log(user);
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* Profile Header */}
@@ -48,9 +51,13 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
               <Button color="primary" size="sm" onClick={handleFollowToggle}>
                 {isFollowing ? "Unfollow" : "Follow"}
               </Button>
-              <Button color="secondary" onPress={onOpen}>
-                Edit
-              </Button>
+              {profileData._id === user?._id ? (
+                <Button color="secondary" onPress={onOpen}>
+                  Edit
+                </Button>
+              ) : (
+                ""
+              )}
 
               {/* Dropdown for Profile Options */}
               <Dropdown>
@@ -119,10 +126,10 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
       </div>
 
       <EditProfileModal
-        onOpenChange={onOpenChange}
         isOpen={isOpen}
-        onClose={onClose}
         user={profileData}
+        onClose={onClose}
+        onOpenChange={onOpenChange}
         onUpdate={onUpdate}
       />
     </div>
