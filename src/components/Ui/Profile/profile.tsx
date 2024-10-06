@@ -12,11 +12,18 @@ import {
 } from "@nextui-org/dropdown";
 import { useState } from "react";
 import PhotoGrid from "@/src/app/(WithCommonLayout)/(user)/profile/_components/Post";
-import { IUser } from "@/src/types";
+import { IPost, IUser } from "@/src/types";
 import EditProfileModal from "./EditProfile";
 import { useDisclosure } from "@nextui-org/modal";
 import { useUser } from "@/src/context/user.provider";
-const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
+import Link from "next/link";
+const Profile = ({
+  profileData,
+  postsData,
+}: {
+  profileData: IUser;
+  postsData: IPost[];
+}) => {
   console.log("inside profile", profileData);
   const [isFollowing, setIsFollowing] = useState(false);
   const handleFollowToggle = () => {
@@ -104,12 +111,11 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
         <h3 className="font-semibold text-gray-700">Highlights</h3>
         <div className="flex   space-x-4 mt-2">
           {/* Example Highlight */}
-          {[...Array(5)].map((_, index) => (
+          {postsData?.slice(0, 6).map((post, index) => (
             <div key={index} className="flex flex-col  items-center">
-              <Avatar
-                size="lg"
-                src={`https://via.placeholder.com/100?text=H${index + 1}`}
-              />
+              <Link href={`/postDetails/${post._id}`}>
+                <Avatar size="lg" src={post?.images[2]} />
+              </Link>
               <span className="text-xs mt-1">Highlight {index + 1}</span>
             </div>
           ))}
@@ -118,8 +124,9 @@ const Profile = ({ profileData, postsData }: { profileData: IUser }) => {
 
       {/* User Posts Section */}
       <div className="mt-8">
-        {postsData && postsData?.data?.length > 0 ? (
-          <PhotoGrid posts={postsData.data} />
+        <h3 className="font-semibold text-gray-700 mb-3">All Post</h3>
+        {postsData && postsData?.length > 0 ? (
+          <PhotoGrid posts={postsData} />
         ) : (
           <div>No posts available.</div>
         )}
