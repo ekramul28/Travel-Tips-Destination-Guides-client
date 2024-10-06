@@ -2,7 +2,7 @@
 /* eslint-disable import/order */
 "use client";
 import { useState } from "react";
-import { FaComment, FaShare, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { FaComment, FaShare, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
@@ -64,12 +64,12 @@ const CardPage = ({ post }: { post: IPost }) => {
       {/* Actions */}
       <CardFooter className="flex justify-between items-center px-4">
         <div className="flex gap-4">
-          <FaArrowUp
+          <FaThumbsUp
             className="text-xl cursor-pointer text-gray-500"
             onClick={handleUpvote}
           />
           <strong>{upvoteCount} Upvotes</strong> |{" "}
-          <FaArrowDown
+          <FaThumbsDown
             className="text-xl cursor-pointer text-gray-500"
             onClick={handleDownvote}
           />

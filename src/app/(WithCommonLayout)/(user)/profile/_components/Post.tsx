@@ -13,9 +13,9 @@ export default function PhotoGrid({ posts }: { posts: IPost[] }) {
           <Link href={`/postDetails/${post?._id}`}>
             <Image
               alt={`Post ${post._id}`}
-              className="w-full h-auto object-cover"
+              className="w-full h-auto object-cover grid-cols-3"
               src={post?.images[1]}
-              width={200}
+              width={400}
               height={200}
             />
           </Link>
