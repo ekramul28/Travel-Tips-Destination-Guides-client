@@ -24,14 +24,20 @@ export const createPost = async (formData: FormData): Promise<any> => {
   }
 };
 
-export const getAllPost = async () => {
+export const getAllPost = async (
+  currentPage: Number,
+  POSTS_PER_PAGE: Number,
+) => {
   let fetchOptions = {};
 
   fetchOptions = {
     cache: "no-store",
   };
 
-  const res = await fetch(`${envConfig.baseApi}/post`, fetchOptions);
+  const res = await fetch(
+    `${envConfig.baseApi}/post?page=${currentPage}&limit=${POSTS_PER_PAGE}`,
+    fetchOptions,
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

@@ -1,38 +1,143 @@
 /* eslint-disable react/jsx-sort-props */
 /* eslint-disable import/order */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaComment, FaShare, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IPost } from "@/src/types";
+import { IPost, IComment } from "@/src/types";
 import Link from "next/link";
+import axios from "axios";
+import { useUser } from "@/src/context/user.provider";
+import { toast } from "sonner";
+import { CreateVote } from "@/src/services/Vote";
 
 const CardPage = ({ post }: { post: IPost }) => {
+  const { user } = useUser();
   const [upvoteCount, setUpvoteCount] = useState(post?.upvote || 0);
   const [downvoteCount, setDownvoteCount] = useState(post?.downvote || 0);
-  // const [comments, setComments] = useState(post?.images || []);
+  const [comments, setComments] = useState<IComment[]>(post?.comment || []);
   const [commentInput, setCommentInput] = useState("");
   const [showComments, setShowComments] = useState(false);
+  const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
+  const [loadingVote, setLoadingVote] = useState(false);
 
-  const handleUpvote = () => {
-    setUpvoteCount((prev) => prev + 1);
+  // Fetch the current user's vote for this post when component mounts
+  useEffect(() => {
+    const fetchUserVote = async () => {
+      if (user?._id) {
+        try {
+          const res = await axios.get(`/api/userVote?postId=${post._id}`);
+          if (res.data.voteType) {
+            setUserVote(res.data.voteType);
+          } else {
+            setUserVote(null);
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error("Failed to fetch your vote.");
+        }
+      }
+    };
+
+    fetchUserVote();
+  }, [user, post._id]);
+
+  // Fetch comments when comments section is opened
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (showComments) {
+        try {
+          const res = await axios.get(`/api/fetchComments?postId=${post._id}`);
+          if (res.status === 200) {
+            setComments(res.data.comments);
+          }
+        } catch (error) {
+          console.error(error);
+          toast.error("Failed to fetch comments.");
+        }
+      }
+    };
+
+    fetchComments();
+  }, [showComments, post._id]);
+
+  const handleVote = async (type: "upvote" | "downvote") => {
+    if (!user?._id) {
+      toast.error("Please log in to vote.");
+      return;
+    }
+
+    if (loadingVote) return; // Prevent multiple clicks
+
+    setLoadingVote(true); // Enable loading state
+
+    const voteData = {
+      userId: user._id,
+      postId: post._id,
+      voteType: type,
+    };
+
+    try {
+      const res = await CreateVote(voteData);
+      console.log("inside", res.message);
+      if (res?.success) {
+        const message = res.message || res.data.message;
+        if (message === "Vote added!") {
+          if (type === "upvote") setUpvoteCount(upvoteCount + 1);
+          else setDownvoteCount(downvoteCount + 1);
+          setUserVote(type);
+          toast.success("Vote added!");
+        } else if (message === "Vote removed") {
+          if (type === "upvote") setUpvoteCount(upvoteCount - 1);
+          else setDownvoteCount(downvoteCount - 1);
+          setUserVote(null);
+          toast.success("Vote removed!");
+        } else if (message === "Vote updated") {
+          if (type === "upvote") {
+            setUpvoteCount(upvoteCount + 1);
+            setDownvoteCount(downvoteCount - 1);
+          } else {
+            setDownvoteCount(downvoteCount + 1);
+            setUpvoteCount(upvoteCount - 1);
+          }
+          setUserVote(type);
+          toast.success("Vote updated!");
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while voting.");
+    } finally {
+      setLoadingVote(false);
+    }
   };
 
-  const handleDownvote = () => {
-    setDownvoteCount((prev) => prev + 1);
-  };
+  const handleAddComment = async () => {
+    if (!user?._id) {
+      toast.error("Please log in to comment.");
+      return;
+    }
 
-  // const handleAddComment = () => {
-  //   if (commentInput.trim()) {
-  //     setComments([
-  //       ...comments,
-  //       { author: post?.authorId?.name, text: commentInput },
-  //     ]);
-  //     setCommentInput(""); // Clear the input
-  //   }
-  // };
+    if (commentInput.trim()) {
+      try {
+        const res = await axios.post("/api/comments", {
+          postId: post._id,
+          text: commentInput,
+        });
+
+        if (res.status === 201) {
+          setComments([...comments, res.data.comment]);
+          setCommentInput("");
+          toast.success("Comment added!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("An error occurred while adding a comment.");
+      }
+    }
+  };
 
   return (
     <Card className="p-2 my-4">
@@ -65,23 +170,35 @@ const CardPage = ({ post }: { post: IPost }) => {
       <CardFooter className="flex justify-between items-center px-4">
         <div className="flex gap-4">
           <FaThumbsUp
-            className="text-xl cursor-pointer text-gray-500"
-            onClick={handleUpvote}
+            className={`text-xl cursor-pointer ${
+              userVote === "upvote" ? "text-blue-500" : "text-gray-500"
+            }`}
+            onClick={() => handleVote("upvote")}
+            title={userVote === "upvote" ? "Remove Upvote" : "Upvote"}
           />
           <strong>{upvoteCount} Upvotes</strong> |{" "}
           <FaThumbsDown
-            className="text-xl cursor-pointer text-gray-500"
-            onClick={handleDownvote}
+            className={`text-xl cursor-pointer ${
+              userVote === "downvote" ? "text-red-500" : "text-gray-500"
+            }`}
+            onClick={() => handleVote("downvote")}
+            title={userVote === "downvote" ? "Remove Downvote" : "Downvote"}
           />
           <strong>{downvoteCount} Downvotes</strong>
         </div>
-        <div className=" flex gap-4">
+        <div className="flex gap-4">
           <FaComment
             className="text-xl cursor-pointer text-gray-500"
             onClick={() => setShowComments(!showComments)}
+            title="Comment"
           />
-          <strong>{downvoteCount} Comment</strong>
-          <FaShare className="text-xl cursor-pointer text-gray-500" />
+          <strong>
+            {comments.length} Comment{comments.length !== 1 ? "s" : ""}
+          </strong>
+          <FaShare
+            className="text-xl cursor-pointer text-gray-500"
+            title="Share"
+          />
         </div>
       </CardFooter>
 
@@ -96,15 +213,15 @@ const CardPage = ({ post }: { post: IPost }) => {
           <div className="mb-2">
             <strong>Comments</strong>
           </div>
-          {/* {comments.map((comment: IComment, index: number) => (
+          {comments.map((comment: IComment, index: number) => (
             <div key={index} className="mb-2">
-              <strong>{comment?.authorId?.name}</strong>: {comment.content}
+              <strong>{comment?.authorId?.name}</strong>: {comment.text}
             </div>
-          ))} */}
+          ))}
 
           <div className="flex gap-2 mt-4">
             <input
-              className="border p-2 w-full"
+              className="border p-2 w-full rounded-md"
               type="text"
               value={commentInput}
               onChange={(e) => setCommentInput(e.target.value)}
@@ -112,7 +229,7 @@ const CardPage = ({ post }: { post: IPost }) => {
             />
             <button
               className="bg-blue-500 text-white p-2 rounded-md"
-              // onClick={handleAddComment}
+              onClick={handleAddComment}
             >
               Comment
             </button>

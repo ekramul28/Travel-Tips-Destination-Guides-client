@@ -129,3 +129,11 @@ export type IComment = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type IVote = {
+  userId: IUser;
+  postId: IPost;
+  voteType: "upvote" | "downvote";
+  createdAt?: Date;
+  updatedAt?: Date;
+};
