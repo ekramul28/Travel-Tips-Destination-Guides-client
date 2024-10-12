@@ -11,24 +11,45 @@ import Link from "next/link";
 import axios from "axios";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
-import { CreateVote } from "@/src/services/Vote";
+import { CreateVote, getVote } from "@/src/services/Vote";
+import { useRouter } from "next/navigation";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
-  const [upvoteCount, setUpvoteCount] = useState(post?.upvote || 0);
-  const [downvoteCount, setDownvoteCount] = useState(post?.downvote || 0);
+  const [upvoteCount, setUpvoteCount] = useState<number>(0);
+  const [downvoteCount, setDownvoteCount] = useState<number>(0);
   const [comments, setComments] = useState<IComment[]>(post?.comment || []);
   const [commentInput, setCommentInput] = useState("");
   const [showComments, setShowComments] = useState(false);
+  const [like, setLike] = useState(false);
+  const [unLike, setUnLike] = useState(false);
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
   const [loadingVote, setLoadingVote] = useState(false);
+  const router = useRouter();
+  console.log("like like", like);
+  // Set upvote count
+  useEffect(() => {
+    const upvotes = post?.vote?.filter((vot) => vot?.voteType === "upvote");
+    setUpvoteCount(upvotes?.length); // Set the count of upvotes
+    const allLike = upvotes?.some((vot) => vot?.userId === user?._id);
+    setLike(allLike);
+    console.log(allLike);
+  }, [post.vote, user?._id]);
+  // Set downvote count
+  useEffect(() => {
+    const downVotes = post?.vote?.filter((vot) => vot?.voteType === "downvote");
+    setDownvoteCount(downVotes?.length); // Set the count of downvotes
+    const unlike = downVotes?.some((vot) => vot?.userId === user?._id);
+    setUnLike(unlike);
+  }, [post.vote, user?._id]);
 
   // Fetch the current user's vote for this post when component mounts
   useEffect(() => {
     const fetchUserVote = async () => {
       if (user?._id) {
         try {
-          const res = await axios.get(`/api/userVote?postId=${post._id}`);
+          const res = await getVote(post._id);
+          console.log("vote", res);
           if (res.data.voteType) {
             setUserVote(res.data.voteType);
           } else {
@@ -66,6 +87,7 @@ const CardPage = ({ post }: { post: IPost }) => {
   const handleVote = async (type: "upvote" | "downvote") => {
     if (!user?._id) {
       toast.error("Please log in to vote.");
+      router.push("/login");
       return;
     }
 
@@ -81,26 +103,36 @@ const CardPage = ({ post }: { post: IPost }) => {
 
     try {
       const res = await CreateVote(voteData);
+      console.log("res", res);
       console.log("inside", res.message);
       if (res?.success) {
         const message = res.message || res.data.message;
-        if (message === "Vote added!") {
-          if (type === "upvote") setUpvoteCount(upvoteCount + 1);
-          else setDownvoteCount(downvoteCount + 1);
+        if (message === "Vote added") {
+          if (type === "upvote") {
+            setUpvoteCount(upvoteCount + 1);
+            setLike(true);
+          } else setDownvoteCount(downvoteCount + 1);
           setUserVote(type);
-          toast.success("Vote added!");
+
+          toast.success("Vote added");
         } else if (message === "Vote removed") {
           if (type === "upvote") setUpvoteCount(upvoteCount - 1);
           else setDownvoteCount(downvoteCount - 1);
+          setLike(false);
+          setUnLike(false);
           setUserVote(null);
           toast.success("Vote removed!");
         } else if (message === "Vote updated") {
           if (type === "upvote") {
             setUpvoteCount(upvoteCount + 1);
             setDownvoteCount(downvoteCount - 1);
+            setLike(true);
+            setUnLike(false);
           } else {
             setDownvoteCount(downvoteCount + 1);
             setUpvoteCount(upvoteCount - 1);
+            setUnLike(true);
+            setLike(false);
           }
           setUserVote(type);
           toast.success("Vote updated!");
@@ -169,36 +201,45 @@ const CardPage = ({ post }: { post: IPost }) => {
       {/* Actions */}
       <CardFooter className="flex justify-between items-center px-4">
         <div className="flex gap-4">
-          <FaThumbsUp
-            className={`text-xl cursor-pointer ${
-              userVote === "upvote" ? "text-blue-500" : "text-gray-500"
-            }`}
-            onClick={() => handleVote("upvote")}
-            title={userVote === "upvote" ? "Remove Upvote" : "Upvote"}
-          />
-          <strong>{upvoteCount} Upvotes</strong> |{" "}
-          <FaThumbsDown
-            className={`text-xl cursor-pointer ${
-              userVote === "downvote" ? "text-red-500" : "text-gray-500"
-            }`}
-            onClick={() => handleVote("downvote")}
-            title={userVote === "downvote" ? "Remove Downvote" : "Downvote"}
-          />
-          <strong>{downvoteCount} Downvotes</strong>
+          <div className="flex items-center">
+            <FaThumbsUp
+              className={`text-xl cursor-pointer ${
+                userVote === "downvote" ? "text-blue-500" : ""
+              } ${like ? "text-blue-500" : "text-gray-500"}`}
+              onClick={() => handleVote("upvote")}
+              title={userVote === "upvote" ? "Remove Upvote" : "Upvote"}
+            />
+            <strong className="ml-1">{upvoteCount}</strong>
+          </div>
+          <div className="flex items-center">
+            <FaThumbsDown
+              className={`text-xl cursor-pointer ${
+                userVote === "downvote" ? "text-red-500" : "text-gray-500"
+              } ${unLike ? "text-red-500" : "text-gray-500"}`}
+              onClick={() => handleVote("downvote")}
+              title={userVote === "downvote" ? "Remove Downvote" : "Downvote"}
+            />
+            <strong className="ml-1">{downvoteCount}</strong>
+          </div>
         </div>
         <div className="flex gap-4">
-          <FaComment
-            className="text-xl cursor-pointer text-gray-500"
-            onClick={() => setShowComments(!showComments)}
-            title="Comment"
-          />
-          <strong>
-            {comments.length} Comment{comments.length !== 1 ? "s" : ""}
-          </strong>
-          <FaShare
-            className="text-xl cursor-pointer text-gray-500"
-            title="Share"
-          />
+          <div className="flex items-center">
+            <FaComment
+              className="text-xl cursor-pointer text-gray-500"
+              onClick={() => setShowComments(!showComments)}
+              title="Comment"
+            />
+            <strong className="ml-1">
+              {comments.length} Comment{comments.length !== 1 ? "s" : ""}
+            </strong>
+          </div>
+          <div className="flex items-center">
+            <FaShare
+              className="text-xl cursor-pointer text-gray-500"
+              title="Share"
+            />
+            {/* You can add share functionality here */}
+          </div>
         </div>
       </CardFooter>
 

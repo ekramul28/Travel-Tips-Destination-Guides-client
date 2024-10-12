@@ -12,15 +12,15 @@ export const CreateVote = async (VoteData) => {
     throw new Error(error.message);
   }
 };
-// export const getAllUser = async () => {
-//   try {
-//     const { data } = await axiosInstance.get("/user");
+export const getVote = async (id: string) => {
+  try {
+    const { data } = await axiosInstance.get(`/vote/${id}`);
 
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error.message);
-//   }
-// };
+    return data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
 // export const getSingleUser = async (id: string) => {
 //   try {
 //     const { data } = await axiosInstance.get(`/user/${id}`);

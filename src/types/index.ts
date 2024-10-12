@@ -17,8 +17,8 @@ export interface IPost {
   reportCount: number;
   category: ICategory;
   authorId: IUser;
-  upvote: number;
-  downvote: number;
+  vote: string[];
+  comment: [];
   createdAt: string;
   updatedAt: string;
 
