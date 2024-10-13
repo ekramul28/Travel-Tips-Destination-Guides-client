@@ -13,6 +13,7 @@ import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
 import { CreateVote, getVote } from "@/src/services/Vote";
 import { useRouter } from "next/navigation";
+import { CreateComment } from "@/src/services/comments";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
@@ -26,8 +27,9 @@ const CardPage = ({ post }: { post: IPost }) => {
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
   const [loadingVote, setLoadingVote] = useState(false);
   const router = useRouter();
-  console.log("like like", like);
   // Set upvote count
+  console.log("post", post);
+  console.log("comment", comments);
   useEffect(() => {
     const upvotes = post?.vote?.filter((vot) => vot?.voteType === "upvote");
     setUpvoteCount(upvotes?.length); // Set the count of upvotes
@@ -42,47 +44,6 @@ const CardPage = ({ post }: { post: IPost }) => {
     const unlike = downVotes?.some((vot) => vot?.userId === user?._id);
     setUnLike(unlike);
   }, [post.vote, user?._id]);
-
-  // Fetch the current user's vote for this post when component mounts
-  useEffect(() => {
-    const fetchUserVote = async () => {
-      if (user?._id) {
-        try {
-          const res = await getVote(post._id);
-          console.log("vote", res);
-          if (res.data.voteType) {
-            setUserVote(res.data.voteType);
-          } else {
-            setUserVote(null);
-          }
-        } catch (error) {
-          console.error(error);
-          toast.error("Failed to fetch your vote.");
-        }
-      }
-    };
-
-    fetchUserVote();
-  }, [user, post._id]);
-
-  // Fetch comments when comments section is opened
-  useEffect(() => {
-    const fetchComments = async () => {
-      if (showComments) {
-        try {
-          const res = await axios.get(`/api/fetchComments?postId=${post._id}`);
-          if (res.status === 200) {
-            setComments(res.data.comments);
-          }
-        } catch (error) {
-          console.error(error);
-          toast.error("Failed to fetch comments.");
-        }
-      }
-    };
-
-    fetchComments();
-  }, [showComments, post._id]);
 
   const handleVote = async (type: "upvote" | "downvote") => {
     if (!user?._id) {
@@ -149,17 +110,21 @@ const CardPage = ({ post }: { post: IPost }) => {
   const handleAddComment = async () => {
     if (!user?._id) {
       toast.error("Please log in to comment.");
+      router.push("/login");
       return;
     }
 
     if (commentInput.trim()) {
+      console.log(commentInput);
+      const data = {
+        userId: user._id,
+        postId: post._id,
+        content: commentInput,
+      };
       try {
-        const res = await axios.post("/api/comments", {
-          postId: post._id,
-          text: commentInput,
-        });
-
-        if (res.status === 201) {
+        const res = await CreateComment(data);
+        console.log("comment", res);
+        if (res.success) {
           setComments([...comments, res.data.comment]);
           setCommentInput("");
           toast.success("Comment added!");
@@ -256,7 +221,7 @@ const CardPage = ({ post }: { post: IPost }) => {
           </div>
           {comments.map((comment: IComment, index: number) => (
             <div key={index} className="mb-2">
-              <strong>{comment?.authorId?.name}</strong>: {comment.text}
+              <strong>{comment?.userId?.name}</strong>: {comment?.content}
             </div>
           ))}
 

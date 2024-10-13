@@ -123,7 +123,7 @@ export interface ISearchResult {
 
 export type IComment = {
   postId: IPost;
-  authorId: IUser;
+  userId: IUser;
   content: string;
   parentId?: IUser;
   createdAt: Date;

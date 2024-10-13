@@ -64,11 +64,6 @@ export default function CreatePost() {
 
   const { handleSubmit } = methods;
 
-  // const { fields, append, remove } = useFieldArray({
-  //   control,
-  //   name: "questions",
-  // });
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
     const postData = {
@@ -85,10 +80,6 @@ export default function CreatePost() {
 
     handleCreatePost(formData);
   };
-
-  // const handleFieldAppend = () => {
-  //   append({ name: "questions" });
-  // };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0];
@@ -139,9 +130,6 @@ export default function CreatePost() {
               <div className="min-w-fit flex-1">
                 <FXInput label="Title" name="title" />
               </div>
-              {/* <div className="min-w-fit flex-1">
-                <FXDatePicker label="Found date" name="dateFound" />
-              </div> */}
             </div>
             <div className="flex flex-wrap gap-2 py-2">
               <div className="min-w-fit flex-1">
@@ -216,28 +204,6 @@ export default function CreatePost() {
             </div>
 
             <Divider className="my-5" />
-
-            {/* <div className="flex justify-between items-center mb-5">
-              <h1 className="text-xl">Owner verification questions</h1>
-              <Button isIconOnly onClick={() => handleFieldAppend()}>
-                <AddIcon />
-              </Button>
-            </div> */}
-
-            {/* <div className="space-y-5">
-              {fields.map((field, index) => (
-                <div key={field.id} className="flex gap-2 items-center">
-                  <FXInput label="Question" name={`questions.${index}.value`} />
-                  <Button
-                    isIconOnly
-                    className="h-14 w-16"
-                    onClick={() => remove(index)}
-                  >
-                    <TrashIcon />
-                  </Button>
-                </div>
-              ))}
-            </div> */}
 
             <Divider className="my-5" />
             <div className="flex justify-end">
