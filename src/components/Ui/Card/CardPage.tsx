@@ -6,7 +6,7 @@ import { FaComment, FaShare, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IPost, IComment } from "@/src/types";
+import { IPost, IComment, IUser } from "@/src/types";
 import Link from "next/link";
 import axios from "axios";
 import { useUser } from "@/src/context/user.provider";
@@ -14,6 +14,13 @@ import { toast } from "sonner";
 import { CreateVote, getVote } from "@/src/services/Vote";
 import { useRouter } from "next/navigation";
 import { CreateComment } from "@/src/services/comments";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
+import { CreateFollow } from "@/src/services/Follow";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
@@ -28,8 +35,6 @@ const CardPage = ({ post }: { post: IPost }) => {
   const [loadingVote, setLoadingVote] = useState(false);
   const router = useRouter();
   // Set upvote count
-  console.log("post", post);
-  console.log("comment", comments);
   useEffect(() => {
     const upvotes = post?.vote?.filter((vot) => vot?.voteType === "upvote");
     setUpvoteCount(upvotes?.length); // Set the count of upvotes
@@ -123,9 +128,8 @@ const CardPage = ({ post }: { post: IPost }) => {
       };
       try {
         const res = await CreateComment(data);
-        console.log("comment", res);
         if (res.success) {
-          setComments([...comments, res.data.comment]);
+          setComments([...comments]);
           setCommentInput("");
           toast.success("Comment added!");
         }
@@ -133,6 +137,24 @@ const CardPage = ({ post }: { post: IPost }) => {
         console.error(error);
         toast.error("An error occurred while adding a comment.");
       }
+    }
+  };
+
+  const handleFollow = async () => {
+    if (!user?._id) {
+      toast.error("Please log in to follow.");
+      router.push("/login");
+      return;
+    }
+
+    try {
+      const res = await CreateFollow();
+      if (res.success) {
+        toast.success("follow  added!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while adding a comment.");
     }
   };
 
@@ -153,7 +175,16 @@ const CardPage = ({ post }: { post: IPost }) => {
             <div className="text-sm text-gray-500">{post?.location}</div>
           </div>
         </div>
-        <span>•••</span>
+
+        <Dropdown>
+          <DropdownTrigger>
+            <span className="hover:cursor-pointer">•••</span>
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Static Actions">
+            <DropdownItem onClick={handleFollow}>Follow</DropdownItem>
+            <DropdownItem>Report</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       </CardHeader>
 
       {/* Post Image */}
@@ -195,7 +226,7 @@ const CardPage = ({ post }: { post: IPost }) => {
               title="Comment"
             />
             <strong className="ml-1">
-              {comments.length} Comment{comments.length !== 1 ? "s" : ""}
+              {comments.length} Comments{comments.length !== 1 ? "s" : ""}
             </strong>
           </div>
           <div className="flex items-center">
