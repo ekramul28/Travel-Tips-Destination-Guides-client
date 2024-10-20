@@ -1,6 +1,4 @@
-// components/EditProfileModal.tsx
 import { Button } from "@nextui-org/button";
-import { Input, Textarea } from "@nextui-org/input";
 import {
   Modal,
   ModalBody,
@@ -8,15 +6,23 @@ import {
   ModalHeader,
   ModalContent,
 } from "@nextui-org/modal";
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { FaUpload } from "react-icons/fa";
-
 import { IUser } from "@/src/types";
+import { useUpdateProfile } from "@/src/hooks/updateProfile.hook";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import FXInput from "../../form/FXInput";
+import FXTextarea from "../../form/FXTextArea";
 
 interface EditProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
-  user: IUser; // Ensure IUser has fields: id, name, bio, profilePicture, etc.
+  user: IUser;
   onUpdate: (updatedUser: IUser) => void;
 }
 
@@ -26,57 +32,71 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   user,
   onUpdate,
 }) => {
-  const [name, setName] = useState(user?.name || "");
-  const [bio, setBio] = useState(user?.bio || "");
-  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [profilePicture, setProfilePicture] = useState<File[] | []>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate: updateMyProfileHandel, error } = useUpdateProfile();
+  console.log(error);
+  // Initialize useForm with default values
+  const methods = useForm({
+    defaultValues: {
+      name: user?.name || "",
+      bio: user?.bio || "",
+      website: user?.website || "",
+      mobileNumber: user?.mobileNumber || "",
+    },
+  });
+
+  const { handleSubmit, setValue } = methods;
+
+  // Set values on user change
+  useEffect(() => {
+    if (user) {
+      setValue("name", user.name);
+      setValue("bio", user.bio);
+      setValue("website", user.website);
+      setValue("mobileNumber", user.mobileNumber);
+    }
+  }, [user, setValue]);
 
   const handlePictureChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setProfilePicture(e.target.files[0]);
+    if (e.target.files) {
+      const files = e.target.files[0];
+      setProfilePicture([files]);
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  console.log("profilePicture", profilePicture);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsSubmitting(true);
 
     // Prepare form data
     const formData = new FormData();
+    const updatedData = {
+      ...data,
+    };
 
-    formData.append("name", name);
-    formData.append("bio", bio);
-    if (profilePicture) {
-      formData.append("profilePicture", profilePicture);
+    formData.append("data", JSON.stringify(updatedData));
+
+    // Append profile picture if available
+
+    for (let image of profilePicture) {
+      formData.append("profilePhoto", image);
+      console.log("image", image);
     }
 
     try {
-      // TODO: Replace the following with your actual API call
-      // Example:
-      // const response = await fetch('/api/updateProfile', {
-      //   method: 'POST',
-      //   body: formData,
-      // });
-      // const updatedUser = await response.json();
+      // Update profile using API call
+      updateMyProfileHandel(formData);
 
-      // Simulating the profile update process
-      setTimeout(() => {
-        const updatedUser: IUser = {
-          ...user,
-          name,
-          bio,
-          profilePicture: profilePicture
-            ? URL.createObjectURL(profilePicture) // Replace with actual URL from server
-            : user.profilePicture,
-        };
+      // Call onUpdate with the updated user data
+      // const updatedUser = { ...user, ...data };
+      // onUpdate(updatedUser);
 
-        onUpdate(updatedUser);
-        onClose();
-        setIsSubmitting(false);
-      }, 1000); // Simulate an API delay
+      // // Reset form and close modal
+      // setIsSubmitting(false);
+      // onClose();
     } catch (error) {
       console.error("Error updating profile:", error);
-      // Optionally, handle errors and provide feedback to the user
       setIsSubmitting(false);
     }
   };
@@ -96,67 +116,57 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           <h3 id="edit-profile-modal-title">Edit Profile</h3>
         </ModalHeader>
         <ModalBody>
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <Input
-              required
-              aria-label="Name"
-              label="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Textarea
-              aria-label="Bio"
-              label="Bio"
-              rows={3}
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-            />
-            <div>
-              <label
-                className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="profile-picture-upload"
-              >
-                Profile Picture
-              </label>
-              <div className="flex items-center">
-                <input
-                  accept="image/*"
-                  className="hidden"
-                  id="profile-picture-upload"
-                  type="file"
-                  onChange={handlePictureChange}
-                />
+          <FormProvider {...methods}>
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+              <FXInput label="Name" name="name" />
+              <FXInput label="Website" name="website" />
+              <FXInput label="MobileNumber" name="mobileNumber" />
+              <FXTextarea label="Bio" name="bio" />
+
+              <div>
                 <label
-                  className="cursor-pointer flex items-center text-blue-500"
+                  className="block text-sm font-medium text-gray-700 mb-1"
                   htmlFor="profile-picture-upload"
                 >
-                  <FaUpload className="mr-2" /> Choose File
+                  Profile Picture
                 </label>
-                {profilePicture && (
-                  <span className="ml-2 text-sm">{profilePicture.name}</span>
-                )}
+                <div className="flex items-center">
+                  <input
+                    accept="image/*"
+                    className="hidden"
+                    id="profile-picture-upload"
+                    type="file"
+                    onChange={handlePictureChange}
+                  />
+                  <label
+                    className="cursor-pointer flex items-center text-blue-500"
+                    htmlFor="profile-picture-upload"
+                  >
+                    <FaUpload className="mr-2" /> Choose File
+                  </label>
+                  {profilePicture.length > 0 && (
+                    <span className="ml-2 text-sm">
+                      {profilePicture[0].name}
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          </form>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  disabled={isSubmitting}
+                  variant="light"
+                  onPress={onClose}
+                >
+                  Close
+                </Button>
+                <Button color="primary" disabled={isSubmitting} type="submit">
+                  {isSubmitting ? "Saving..." : "Save Changes"}
+                </Button>
+              </ModalFooter>
+            </form>
+          </FormProvider>
         </ModalBody>
-        <ModalFooter>
-          <Button
-            color="danger"
-            disabled={isSubmitting}
-            variant="light"
-            onPress={onClose}
-          >
-            Close
-          </Button>
-          <Button
-            color="primary"
-            disabled={isSubmitting}
-            type="submit"
-            onPress={handleSubmit}
-          >
-            {isSubmitting ? "Saving..." : "Save Changes"}
-          </Button>
-        </ModalFooter>
       </ModalContent>
     </Modal>
   );

@@ -42,7 +42,10 @@ export interface IUser {
   email: string;
   status: string;
   verified: boolean;
-  flower: number;
+  website: string;
+  bio: string;
+  following: [];
+  followers: [];
   mobileNumber: string;
   profilePhoto: string;
   createdAt?: string;

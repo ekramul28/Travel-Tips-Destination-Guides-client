@@ -8,7 +8,6 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { IPost, IComment, IUser } from "@/src/types";
 import Link from "next/link";
-import axios from "axios";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
 import { CreateVote, getVote } from "@/src/services/Vote";
@@ -20,7 +19,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { CreateFollow } from "@/src/services/Follow";
+import { CreateFollow, unFollow } from "@/src/services/Follow";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
@@ -55,6 +54,9 @@ const CardPage = ({ post }: { post: IPost }) => {
       toast.error("Please log in to vote.");
       router.push("/login");
       return;
+    }
+    if (type === "upvote") {
+      setLike(true);
     }
 
     if (loadingVote) return; // Prevent multiple clicks
@@ -148,9 +150,32 @@ const CardPage = ({ post }: { post: IPost }) => {
     }
 
     try {
-      const res = await CreateFollow();
+      const res = await CreateFollow({
+        userId: post.authorId._id,
+        followId: user?._id,
+      });
       if (res.success) {
         toast.success("follow  added!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred while adding a comment.");
+    }
+  };
+  const handleUnFollow = async () => {
+    if (!user?._id) {
+      toast.error("Please log in to UnFollow.");
+      router.push("/login");
+      return;
+    }
+
+    try {
+      const res = await unFollow({
+        userId: post.authorId._id,
+        followId: user?._id,
+      });
+      if (res.success) {
+        toast.success("UnFollow  added!");
       }
     } catch (error) {
       console.error(error);
@@ -182,6 +207,7 @@ const CardPage = ({ post }: { post: IPost }) => {
           </DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
             <DropdownItem onClick={handleFollow}>Follow</DropdownItem>
+            <DropdownItem onClick={handleUnFollow}>UnFollow</DropdownItem>
             <DropdownItem>Report</DropdownItem>
           </DropdownMenu>
         </Dropdown>
