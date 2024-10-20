@@ -20,6 +20,8 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { CreateFollow, unFollow } from "@/src/services/Follow";
+import { formatDistanceToNow } from "date-fns";
+import CommentsSection from "../Post/PostComment";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
@@ -27,7 +29,6 @@ const CardPage = ({ post }: { post: IPost }) => {
   const [downvoteCount, setDownvoteCount] = useState<number>(0);
   const [comments, setComments] = useState<IComment[]>(post?.comment || []);
   const [commentInput, setCommentInput] = useState("");
-  const [showComments, setShowComments] = useState(false);
   const [like, setLike] = useState(false);
   const [unLike, setUnLike] = useState(false);
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
@@ -200,7 +201,13 @@ const CardPage = ({ post }: { post: IPost }) => {
             <div className="text-sm text-gray-500">{post?.location}</div>
           </div>
         </div>
-
+        <div>
+          <p>
+            {formatDistanceToNow(new Date(post?.createdAt), {
+              addSuffix: true,
+            })}
+          </p>
+        </div>
         <Dropdown>
           <DropdownTrigger>
             <span className="hover:cursor-pointer">•••</span>
@@ -245,14 +252,16 @@ const CardPage = ({ post }: { post: IPost }) => {
           </div>
         </div>
         <div className="flex gap-4">
-          <div className="flex items-center">
+          <div
+            className="flex items-center"
+            onClick={() => router.push(`postDetails/${post._id}`)}
+          >
             <FaComment
               className="text-xl cursor-pointer text-gray-500"
-              onClick={() => setShowComments(!showComments)}
               title="Comment"
             />
-            <strong className="ml-1">
-              {comments.length} Comments{comments.length !== 1 ? "s" : ""}
+            <strong className="ml-1 cursor-pointer hover:underline">
+              {comments.length} Comments
             </strong>
           </div>
           <div className="flex items-center">
@@ -271,17 +280,12 @@ const CardPage = ({ post }: { post: IPost }) => {
       </CardBody>
 
       {/* Comments Section */}
-      {showComments && (
+      <CommentsSection
+        authorId={post?.authorId?._id}
+        comments={comments.slice(0, 1)}
+      ></CommentsSection>
+      {
         <CardBody className="px-4">
-          <div className="mb-2">
-            <strong>Comments</strong>
-          </div>
-          {comments.map((comment: IComment, index: number) => (
-            <div key={index} className="mb-2">
-              <strong>{comment?.userId?.name}</strong>: {comment?.content}
-            </div>
-          ))}
-
           <div className="flex gap-2 mt-4">
             <input
               className="border p-2 w-full rounded-md"
@@ -298,7 +302,7 @@ const CardPage = ({ post }: { post: IPost }) => {
             </button>
           </div>
         </CardBody>
-      )}
+      }
     </Card>
   );
 };

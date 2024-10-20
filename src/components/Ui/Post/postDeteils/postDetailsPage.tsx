@@ -2,16 +2,19 @@
 /* eslint-disable react/jsx-sort-props */
 "use client";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa"; // React Icons
-import { format } from "date-fns"; // For formatting dates
+import { format, formatDistanceToNow } from "date-fns"; // For formatting dates
 import { Card } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 import { Badge } from "@nextui-org/badge";
-import { IPost } from "@/src/types";
+import { IComment, IPost } from "@/src/types";
+import CommentsSection from "../PostComment";
 const PostDetailsPage = ({ post }: { post: IPost }) => {
-  const [comments, setComments] = useState<string[]>([]); // List of comments
+  console.log("postDePage", post);
+
+  const [comments, setComments] = useState<IComment[]>(post?.comment || []);
   const [newComment, setNewComment] = useState<string>("");
 
   const handleAddComment = () => {
@@ -79,6 +82,11 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
         </div>
 
         <div className="text-sm text-gray-500">
+          <div>
+            <p>
+              {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}
+            </p>
+          </div>
           <p>
             <strong>Created At:</strong>{" "}
             {format(new Date(createdAt), "MMMM dd, yyyy HH:mm")}
@@ -103,18 +111,7 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
             Post Comment
           </Button>
         </div>
-
-        {comments.length > 0 ? (
-          <div>
-            {comments.map((comment, index) => (
-              <Card key={index} className="mb-2">
-                <p>{comment}</p>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500">No comments yet.</p>
-        )}
+        <CommentsSection authorId={post?.authorId?._id} comments={comments} />
       </div>
     </div>
   );
