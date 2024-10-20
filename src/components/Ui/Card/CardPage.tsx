@@ -185,7 +185,7 @@ const CardPage = ({ post }: { post: IPost }) => {
   };
 
   return (
-    <Card className="p-2 my-4">
+    <Card className="p-2 m-4">
       {/* Header */}
       <CardHeader className="flex items-center justify-between">
         <div className="flex items-center">
@@ -280,10 +280,12 @@ const CardPage = ({ post }: { post: IPost }) => {
       </CardBody>
 
       {/* Comments Section */}
-      <CommentsSection
-        authorId={post?.authorId?._id}
-        comments={comments.slice(0, 1)}
-      ></CommentsSection>
+      <CardBody>
+        <CommentsSection
+          authorId={post?.authorId?._id}
+          comments={comments.slice(0, 1)}
+        ></CommentsSection>
+      </CardBody>
       {
         <CardBody className="px-4">
           <div className="flex gap-2 mt-4">
