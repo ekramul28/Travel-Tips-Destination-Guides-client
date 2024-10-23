@@ -1,22 +1,34 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
-import { paymentByArmPay } from "@/src/services/payment";
+import { useAmrPayment } from "@/src/hooks/payment.hook";
 import React from "react";
 
+interface PaymentResult {
+  data: {
+    payment_url: string;
+  };
+}
 const Pricing = () => {
+  const { mutate: executePayment, isPending } = useAmrPayment();
   const { user } = useUser();
+
   const handelPayment = async () => {
     const data = {
       totalPrice: 30,
       userId: user!._id,
     };
-    const result = await paymentByArmPay(data);
-    console.log(result);
-    if (result.success) {
-      console.log("result", result.data.payment_url);
-      window.location.href = result?.data?.payment_url;
-    }
+
+    executePayment(data, {
+      onSuccess: (result) => {
+        console.log("result", result.data.payment_url);
+        window.location.href = result?.data?.payment_url;
+      },
+      onError: (error) => {
+        console.error("Payment failed", error);
+      },
+    });
   };
+
   return (
     <div className="">
       <div className=" px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
@@ -160,7 +172,7 @@ const Pricing = () => {
               onClick={handelPayment}
               className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:outline-none focus:ring active:text-indigo-500"
             >
-              Get Started
+              {isPending ? "Loading...." : "Get Started"}
             </button>
           </div>
         </div>

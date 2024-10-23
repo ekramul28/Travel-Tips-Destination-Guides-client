@@ -1,7 +1,10 @@
 "use server";
 import axiosInstance from "@/src/lib/AxiosInstance";
 
-export const paymentByArmPay = async (paymentData) => {
+export const paymentByArmPay = async (paymentData: {
+  totalPrice: number;
+  userId: string;
+}) => {
   try {
     const { data } = await axiosInstance.post("/payment/amrPay", paymentData);
 
