@@ -42,12 +42,19 @@ const Profile = ({
   const [error, setError] = useState<string | null>(null);
   console.log("data", profileData);
   useEffect(() => {
-    if (user && profileData?.following.includes(user?._id)) {
+    if (user && profileData?.following.includes(user!._id)) {
       setIsFollowing(true);
     } else {
       setIsFollowing(false);
     }
   }, [profileData, user]);
+
+  // Function to refresh the profile data after an update
+  const handleProfileUpdate = (updatedUser: IUser) => {
+    console.log("Updated user data: ", updatedUser);
+
+    router.replace(router.asPath); // Or refetch profile data based on your API
+  };
 
   const handleFollow = async () => {
     if (!user?._id) {
@@ -237,10 +244,7 @@ const Profile = ({
           onClose={onClose}
           // onOpenChange={onOpenChange}
           // Assuming onUpdate is a callback to refresh profile data
-          onUpdate={() => {
-            // Implement refresh logic, e.g., refetch profile data
-            // setOnUpdate(!onUpdate); // If using onUpdate to trigger useEffect
-          }}
+          onUpdate={handleProfileUpdate}
         />
       )}
     </div>

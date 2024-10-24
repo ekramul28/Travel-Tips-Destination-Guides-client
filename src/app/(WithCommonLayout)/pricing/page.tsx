@@ -3,11 +3,6 @@ import { useUser } from "@/src/context/user.provider";
 import { useAmrPayment } from "@/src/hooks/payment.hook";
 import React from "react";
 
-interface PaymentResult {
-  data: {
-    payment_url: string;
-  };
-}
 const Pricing = () => {
   const { mutate: executePayment, isPending } = useAmrPayment();
   const { user } = useUser();

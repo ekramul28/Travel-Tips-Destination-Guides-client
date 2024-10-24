@@ -89,16 +89,19 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       updateMyProfileHandel(formData);
 
       // Call onUpdate with the updated user data
-      // const updatedUser = { ...user, ...data };
-      // onUpdate(updatedUser);
-
-      // // Reset form and close modal
-      // setIsSubmitting(false);
-      // onClose();
+      const updatedUser = { ...user, ...data };
+      onUpdate(updatedUser);
     } catch (error) {
       console.error("Error updating profile:", error);
       setIsSubmitting(false);
     }
+  };
+
+  const handaleClose = () => {
+    setTimeout(() => {
+      setIsSubmitting(false);
+      onClose(); // Make sure this correctly triggers closing the modal
+    }, 4000);
   };
 
   return (
@@ -160,7 +163,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 >
                   Close
                 </Button>
-                <Button color="primary" disabled={isSubmitting} type="submit">
+                <Button
+                  onClick={handaleClose}
+                  color="primary"
+                  disabled={isSubmitting}
+                  type="submit"
+                >
                   {isSubmitting ? "Saving..." : "Save Changes"}
                 </Button>
               </ModalFooter>
