@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { updateMyProfile } from "../services/Profile"; // Ensure this is correctly imported
+import { revalidateTag } from "next/cache";
 
 export const useUpdateProfile = () => {
   return useMutation<any, Error, FormData>({
@@ -9,12 +10,14 @@ export const useUpdateProfile = () => {
 
     onSuccess: () => {
       toast.success("Profile updated successfully!");
+      revalidateTag("profile");
     },
     onError: (error) => {
       // Safely access error message or provide a fallback
       const errorMessage =
         error.message || "An error occurred while updating the profile.";
       toast.error(errorMessage);
+      console.log(errorMessage);
     },
   });
 };

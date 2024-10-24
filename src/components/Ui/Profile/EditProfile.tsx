@@ -87,10 +87,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     try {
       // Update profile using API call
       updateMyProfileHandel(formData);
-
-      // Call onUpdate with the updated user data
-      const updatedUser = { ...user, ...data };
-      onUpdate(updatedUser);
     } catch (error) {
       console.error("Error updating profile:", error);
       setIsSubmitting(false);

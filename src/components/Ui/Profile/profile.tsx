@@ -49,13 +49,6 @@ const Profile = ({
     }
   }, [profileData, user]);
 
-  // Function to refresh the profile data after an update
-  const handleProfileUpdate = (updatedUser: IUser) => {
-    console.log("Updated user data: ", updatedUser);
-
-    router.replace(router.asPath); // Or refetch profile data based on your API
-  };
-
   const handleFollow = async () => {
     if (!user?._id) {
       toast.error("Please log in to follow.");
@@ -242,9 +235,7 @@ const Profile = ({
           isOpen={isOpen}
           user={profileData}
           onClose={onClose}
-          // onOpenChange={onOpenChange}
-          // Assuming onUpdate is a callback to refresh profile data
-          onUpdate={handleProfileUpdate}
+          onUpdate={onOpen}
         />
       )}
     </div>

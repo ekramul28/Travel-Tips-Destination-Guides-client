@@ -4,28 +4,6 @@ import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
-// export const getMyProfile = async () => {
-//   try {
-//     const { data } = await axiosInstance.get("/profile");
-
-//     return data;
-//   } catch (error: any) {
-//     throw new Error(error.message);
-//   }
-// };
-
-// export const getMyProfile = async () => {
-//   const fetchOption = {
-//     next: {
-//       tags: ["profile"],
-//     },
-//   };
-
-//   const res = await fetch(`${envConfig.baseApi}/profile`, fetchOption);
-
-//   return res.json();
-// };
-
 export const getMyProfile = async () => {
   // Retrieve cookies from the request headers
   const cookieStore = cookies();
@@ -61,7 +39,6 @@ export const updateMyProfile = async (formData: FormData): Promise<any> => {
           "Content-Type": "multipart/form-data",
         },
       },
-      revalidateTag("profile"),
     );
 
     return data;
