@@ -11,16 +11,43 @@ import { useState } from "react";
 import { Badge } from "@nextui-org/badge";
 import { IComment, IPost } from "@/src/types";
 import CommentsSection from "../PostComment";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { CreateComment } from "@/src/services/comments";
+import { useUser } from "@/src/context/user.provider";
 const PostDetailsPage = ({ post }: { post: IPost }) => {
-  console.log("postDePage", post);
-
+  const router = useRouter();
+  const { user } = useUser();
   const [comments, setComments] = useState<IComment[]>(post?.comment || []);
-  const [newComment, setNewComment] = useState<string>("");
 
-  const handleAddComment = () => {
-    if (newComment.trim()) {
-      setComments([...comments, newComment.trim()]);
-      setNewComment(""); // Clear input after adding
+  const [commentInput, setCommentInput] = useState("");
+
+  const handleAddComment = async () => {
+    if (!user?._id) {
+      toast.error("Please log in to comment.");
+      router.push("/login");
+      return;
+    }
+
+    if (commentInput.trim()) {
+      console.log(commentInput);
+      const data = {
+        userId: user?._id,
+        postId: post._id,
+        content: commentInput,
+      };
+      try {
+        const res = await CreateComment(data);
+        if (res.success) {
+          setComments([...comments, res.data.result]);
+          setCommentInput("");
+
+          toast.success("Comment added!");
+        }
+      } catch (error) {
+        console.error(error);
+        toast.error("An error occurred while adding a comment.");
+      }
     }
   };
 
@@ -31,8 +58,7 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
     city,
     status,
     location,
-    upvote,
-    downvote,
+
     createdAt,
     updatedAt,
   } = post;
@@ -63,21 +89,12 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
             </p>
             <p className="text-sm">
               <strong>Status:</strong>{" "}
-              {status === "AVAILABLE" ? (
+              {status === "ACTIVE" ? (
                 <Badge color="success">Available</Badge>
               ) : (
                 <Badge color="warning">Unavailable</Badge>
               )}
             </p>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <Button color="success">
-              <FaThumbsUp /> <span className="ml-1">{upvote}</span>
-            </Button>
-            <Button>
-              <FaThumbsDown /> <span className="ml-1">{downvote}</span>
-            </Button>
           </div>
         </div>
 
@@ -104,8 +121,8 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
         <div className="mb-4">
           <Input
             placeholder="Add a comment..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+            value={commentInput}
+            onChange={(e) => setCommentInput(e.target.value)}
           />
           <Button onClick={handleAddComment} className="mt-2">
             Post Comment

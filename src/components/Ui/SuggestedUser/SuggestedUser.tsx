@@ -26,6 +26,11 @@ const SuggestedUser = ({ users }: { users: IUser[] }) => {
                   className="font-bold hover:underline cursor-pointer"
                 >
                   {user?.name}
+                  {user?.verified && (
+                    <span className="ml-2 text-green-500" title="Verified User">
+                      ✅
+                    </span>
+                  )}
                 </div>
                 <p>Suggested for You</p>
               </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@/src/context/user.provider";
 import { useAmrPayment } from "@/src/hooks/payment.hook";
+import { IUser } from "@/src/types";
 import React from "react";
 import { toast } from "sonner";
 
@@ -12,8 +13,8 @@ const Pricing = () => {
   }
   const handelPayment = async () => {
     const data = {
-      totalPrice: 1000,
-      user,
+      totalPrice: 1000 as number,
+      user: user as IUser,
     };
     console.log(data);
     executePayment(data, {

@@ -20,7 +20,7 @@ const CommentsSection = ({
 
       {comments?.length > 0 ? (
         <div>
-          {comments.map((comment: IComment, index: number) => (
+          {[...comments].reverse().map((comment: IComment, index: number) => (
             <div key={index}>
               <div className="flex  items-center">
                 <Avatar
@@ -37,6 +37,14 @@ const CommentsSection = ({
                       className="font-bold hover:underline cursor-pointer"
                     >
                       {comment?.userId?.name}
+                      {comment?.userId?.verified && (
+                        <span
+                          className="ml-2 text-green-500"
+                          title="Verified User"
+                        >
+                          ✅
+                        </span>
+                      )}
                     </div>
                     <div>{comment?.content}</div>
                   </div>

@@ -3,6 +3,7 @@ import { paymentByArmPay } from "../services/payment";
 import { IUser } from "../types";
 
 type PaymentData = {
+  [x: string]: any;
   totalPrice: number;
   user: IUser;
 };

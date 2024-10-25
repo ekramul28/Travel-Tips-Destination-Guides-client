@@ -28,15 +28,15 @@ export const getAllPost = async (
   currentPage: Number,
   POSTS_PER_PAGE: Number,
 ) => {
-  let fetchOptions = {};
-
-  fetchOptions = {
-    cache: "no-store",
+  const fetchOption = {
+    next: {
+      tags: ["posts"],
+    },
   };
 
   const res = await fetch(
     `${envConfig.baseApi}/post?page=${currentPage}&limit=${POSTS_PER_PAGE}`,
-    fetchOptions,
+    fetchOption,
   );
 
   if (!res.ok) {

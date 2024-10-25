@@ -131,8 +131,10 @@ const CardPage = ({ post }: { post: IPost }) => {
       };
       try {
         const res = await CreateComment(data);
+        console.log(res);
+        console.log(res.data.result);
         if (res.success) {
-          setComments([...comments]);
+          setComments([...comments, res.data.result]);
           setCommentInput("");
           toast.success("Comment added!");
         }
@@ -194,8 +196,13 @@ const CardPage = ({ post }: { post: IPost }) => {
           </Link>
           <div className="ml-4">
             <Link href={`profile/${post?.authorId?._id}`}>
-              <div className="font-bold hover:underline">
+              <div className="font-bold hover:underline flex items-center">
                 {post?.authorId?.name}
+                {post?.authorId?.verified && (
+                  <span className="ml-2 text-green-500" title="Verified User">
+                    ✅
+                  </span>
+                )}
               </div>
             </Link>
             <div className="text-sm text-gray-500">{post?.location}</div>
@@ -295,7 +302,7 @@ const CardPage = ({ post }: { post: IPost }) => {
       <CardBody>
         <CommentsSection
           authorId={post?.authorId?._id}
-          comments={comments.slice(0, 1)}
+          comments={comments.slice(-1)}
         ></CommentsSection>
       </CardBody>
       {
