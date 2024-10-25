@@ -2,19 +2,23 @@
 import { useUser } from "@/src/context/user.provider";
 import { useAmrPayment } from "@/src/hooks/payment.hook";
 import React from "react";
+import { toast } from "sonner";
 
 const Pricing = () => {
   const { mutate: executePayment, isPending } = useAmrPayment();
   const { user } = useUser();
-
+  if (!user) {
+    toast.error("Login first");
+  }
   const handelPayment = async () => {
     const data = {
-      totalPrice: 30,
-      userId: user!._id,
+      totalPrice: 1000,
+      user,
     };
-
+    console.log(data);
     executePayment(data, {
       onSuccess: (result) => {
+        console.log("this is paymet res", result);
         console.log("result", result.data.payment_url);
         window.location.href = result?.data?.payment_url;
       },
@@ -38,7 +42,7 @@ const Pricing = () => {
               <p className="mt-2 sm:mt-4">
                 <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                   {" "}
-                  30${" "}
+                  1000৳{" "}
                 </strong>
 
                 <span className="text-sm font-medium text-gray-700">

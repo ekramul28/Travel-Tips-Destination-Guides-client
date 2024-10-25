@@ -213,9 +213,21 @@ const CardPage = ({ post }: { post: IPost }) => {
             <span className="hover:cursor-pointer">•••</span>
           </DropdownTrigger>
           <DropdownMenu aria-label="Static Actions">
-            <DropdownItem onClick={handleFollow}>Follow</DropdownItem>
-            <DropdownItem onClick={handleUnFollow}>UnFollow</DropdownItem>
-            <DropdownItem>Report</DropdownItem>
+            <DropdownItem onClick={handleFollow}>
+              <div className="flex items-center">
+                <span>Follow</span>
+              </div>
+            </DropdownItem>
+            <DropdownItem onClick={handleUnFollow}>
+              <div className="flex items-center">
+                <span>Unfollow</span>
+              </div>
+            </DropdownItem>
+            <DropdownItem>
+              <div className="flex items-center">
+                <span>Report</span>
+              </div>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </CardHeader>
