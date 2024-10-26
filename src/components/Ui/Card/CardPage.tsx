@@ -6,7 +6,7 @@ import { FaComment, FaShare, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IPost, IComment, IUser } from "@/src/types";
+import { IPost, IComment, IUser, IVote } from "@/src/types";
 import Link from "next/link";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
@@ -22,6 +22,7 @@ import {
 import { CreateFollow, unFollow } from "@/src/services/Follow";
 import { formatDistanceToNow } from "date-fns";
 import CommentsSection from "../Post/PostComment";
+import { Chip } from "@nextui-org/chip";
 
 const CardPage = ({ post }: { post: IPost }) => {
   const { user } = useUser();
@@ -34,21 +35,24 @@ const CardPage = ({ post }: { post: IPost }) => {
   const [userVote, setUserVote] = useState<"upvote" | "downvote" | null>(null);
   const [loadingVote, setLoadingVote] = useState(false);
   const router = useRouter();
-  // Set upvote count
+
   useEffect(() => {
-    const upvotes = post?.vote?.filter((vot) => vot?.voteType === "upvote");
-    setUpvoteCount(upvotes?.length); // Set the count of upvotes
-    const allLike = upvotes?.some((vot) => vot?.userId === user?._id);
+    const upvotes =
+      post?.vote?.filter((vot) => vot.voteType === "upvote") || [];
+    const downVotes =
+      post?.vote?.filter((vot) => vot.voteType === "downvote") || [];
+
+    // Set counts
+    setUpvoteCount(upvotes.length);
+    setDownvoteCount(downVotes.length);
+
+    // Check if user has liked or disliked
+    const allLike = upvotes.some((vot) => vot.userId === user?._id);
+    const unlike = downVotes.some((vot) => vot.userId === user?._id);
+
     setLike(allLike);
-    console.log(allLike);
-  }, [post.vote, user?._id]);
-  // Set downvote count
-  useEffect(() => {
-    const downVotes = post?.vote?.filter((vot) => vot?.voteType === "downvote");
-    setDownvoteCount(downVotes?.length); // Set the count of downvotes
-    const unlike = downVotes?.some((vot) => vot?.userId === user?._id);
     setUnLike(unlike);
-  }, [post.vote, user?._id]);
+  }, [post?.vote, user?._id]);
 
   const handleVote = async (type: "upvote" | "downvote") => {
     if (!user?._id) {
@@ -194,6 +198,7 @@ const CardPage = ({ post }: { post: IPost }) => {
           <Link href={`profile/${post?.authorId?._id}`}>
             <Avatar size="lg" src={post?.authorId?.profilePhoto} />
           </Link>
+
           <div className="ml-4">
             <Link href={`profile/${post?.authorId?._id}`}>
               <div className="font-bold hover:underline flex items-center">
@@ -208,7 +213,13 @@ const CardPage = ({ post }: { post: IPost }) => {
             <div className="text-sm text-gray-500">{post?.location}</div>
           </div>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
+          {post?.premium && (
+            <div>
+              <Chip color="warning">Premium</Chip>
+            </div>
+          )}
+
           <p>
             {formatDistanceToNow(new Date(post?.createdAt), {
               addSuffix: true,
@@ -241,9 +252,47 @@ const CardPage = ({ post }: { post: IPost }) => {
 
       {/* Post Image */}
       <CardBody className="cursor-pointer">
-        <Link href={`postDetails/${post._id}`}>
-          <Image alt="Post" height={300} width={"100%"} src={post?.images[0]} />
-        </Link>
+        {post?.premium ? (
+          user ? (
+            user?.verified ? (
+              <Link href={`postDetails/${post._id}`}>
+                <Image
+                  alt="Post"
+                  height={300}
+                  width={"100%"}
+                  src={post?.images[0]}
+                />
+              </Link>
+            ) : (
+              <Link href={`/pricing`}>
+                <Image
+                  alt="Post"
+                  height={300}
+                  width={"100%"}
+                  src={post?.images[0]}
+                />
+              </Link>
+            )
+          ) : (
+            <Link href={`/login`}>
+              <Image
+                alt="Post"
+                height={300}
+                width={"100%"}
+                src={post?.images[0]}
+              />
+            </Link>
+          )
+        ) : (
+          <Link href={`postDetails/${post._id}`}>
+            <Image
+              alt="Post"
+              height={300}
+              width={"100%"}
+              src={post?.images[0]}
+            />
+          </Link>
+        )}
       </CardBody>
 
       {/* Actions */}

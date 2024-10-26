@@ -13,11 +13,12 @@ export interface IPost {
   city: string;
   dateFound: string;
   status: string;
+  premium: boolean;
   isReported: boolean;
   reportCount: number;
   category: ICategory;
   authorId: IUser;
-  vote: string[];
+  vote: IVote[];
   comment: [];
   createdAt: string;
   updatedAt: string;
@@ -134,8 +135,8 @@ export type IComment = {
 };
 
 export type IVote = {
-  userId: IUser;
-  postId: IPost;
+  userId: string;
+  postId: string;
   voteType: "upvote" | "downvote";
   createdAt?: Date;
   updatedAt?: Date;
