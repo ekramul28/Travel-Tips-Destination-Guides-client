@@ -17,8 +17,8 @@ const Sidebar = () => {
   const isActive = (path: string) => pathName === path;
   const links = [
     { href: "/", icon: FaHome, label: "Home" },
-    { href: "/search", icon: FaSearch, label: "Search" },
-    { href: "/explore", icon: FaCompass, label: "Create" },
+    { href: "/dashboard", icon: FaCompass, label: "Dashboard" },
+    { href: "/profile/create-post", icon: FaCompass, label: "Create Post" },
     { href: "/notifications", icon: FaHeart, label: "Notifications" },
     { href: "/about", icon: FaInfoCircle, label: "About" },
     { href: "/contact", icon: FaEnvelope, label: "Contact" },

@@ -2,7 +2,7 @@
 
 import axiosInstance from "@/src/lib/AxiosInstance";
 type TFollow = {
-  userId: string;
+  userId: string | undefined;
   followId: string;
 };
 export const CreateFollow = async (flowerData: TFollow) => {

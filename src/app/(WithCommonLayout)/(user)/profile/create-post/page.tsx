@@ -154,7 +154,7 @@ export default function CreatePost() {
                 <div className="min-w-fit flex-1">
                   <FXSelect
                     label="IsPremium"
-                    name="Premium"
+                    name="premium"
                     options={[
                       { key: "true", label: "Yes" },
                       { key: "false", label: "No" },

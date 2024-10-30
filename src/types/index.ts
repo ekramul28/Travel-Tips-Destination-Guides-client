@@ -13,7 +13,7 @@ export interface IPost {
   city: string;
   dateFound: string;
   status: string;
-  premium: boolean;
+  premium: string;
   isReported: boolean;
   reportCount: number;
   category: ICategory;
@@ -37,7 +37,7 @@ export interface ICategory {
 }
 
 export interface IUser {
-  _id: string;
+  _id: string | undefined;
   name: string;
   role: string;
   email: string;
@@ -63,6 +63,17 @@ export interface IInput {
   name: string;
   disabled?: boolean;
 }
+
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+  mobileNumber: string;
+  profilePhoto: string;
+  role: "USER" | "ADMIN" | "MODERATOR"; // Adjust roles as necessary
+  status: "ACTIVE" | "INACTIVE";
+  verified: boolean;
+};
 
 export interface ISearchResult {
   title: string;

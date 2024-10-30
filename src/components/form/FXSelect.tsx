@@ -6,7 +6,7 @@ import { IInput } from "@/src/types";
 
 interface IProps extends IInput {
   options: {
-    key: string;
+    key: string | boolean;
     label: string;
   }[];
 }

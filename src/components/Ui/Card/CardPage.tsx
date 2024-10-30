@@ -63,6 +63,9 @@ const CardPage = ({ post }: { post: IPost }) => {
     if (type === "upvote") {
       setLike(true);
     }
+    if (type === "downvote") {
+      setUnLike(true);
+    }
 
     if (loadingVote) return; // Prevent multiple clicks
 
@@ -214,7 +217,7 @@ const CardPage = ({ post }: { post: IPost }) => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          {post?.premium && (
+          {post?.premium === "true" && (
             <div>
               <Chip color="warning">Premium</Chip>
             </div>
@@ -252,7 +255,7 @@ const CardPage = ({ post }: { post: IPost }) => {
 
       {/* Post Image */}
       <CardBody className="cursor-pointer">
-        {post?.premium ? (
+        {post?.premium === "true" ? (
           user ? (
             user?.verified ? (
               <Link href={`postDetails/${post._id}`}>
@@ -344,7 +347,8 @@ const CardPage = ({ post }: { post: IPost }) => {
 
       {/* Description */}
       <CardBody className="px-4">
-        <strong>{post?.title}</strong> {post?.description.slice(0, 100)}...{" "}
+        <strong className="uppercase">{post?.title}</strong>{" "}
+        {post?.description.slice(0, 100)}...{" "}
       </CardBody>
 
       {/* Comments Section */}
