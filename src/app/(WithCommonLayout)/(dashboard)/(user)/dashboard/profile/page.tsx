@@ -1,7 +1,7 @@
 import React from "react";
-import Profile from "@/src/components/Ui/Profile/profile";
 import { getUserByPost } from "@/src/services/post";
 import { getMyProfile } from "@/src/services/Profile";
+import Profile from "@/src/components/Ui/Profile/profile";
 
 const ProfileMainPage = async () => {
   const { data: profileData } = await getMyProfile();

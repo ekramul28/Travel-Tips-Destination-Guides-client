@@ -1,7 +1,18 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { IPost } from "../types";
 
-const InfiniteScrollFn = ({ children, post, fetchData, hasMore }) => {
+const InfiniteScrollFn = ({
+  children,
+  post,
+  fetchData,
+  hasMore,
+}: {
+  children: ReactNode;
+  post: IPost[];
+  fetchData: any;
+  hasMore: boolean;
+}) => {
   return (
     <div>
       <InfiniteScroll

@@ -19,7 +19,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (currentUser && user?.following?.includes(currentUser?._id)) {
+    if (currentUser && user?.following?.includes(currentUser?._id as never)) {
       setIsFollowing(true);
     } else {
       setIsFollowing(false);

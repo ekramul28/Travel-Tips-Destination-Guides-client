@@ -198,12 +198,12 @@ const CardPage = ({ post }: { post: IPost }) => {
       {/* Header */}
       <CardHeader className="flex items-center justify-between">
         <div className="flex items-center">
-          <Link href={`profile/${post?.authorId?._id}`}>
+          <Link href={`dashboard/profile/${post?.authorId?._id}`}>
             <Avatar size="lg" src={post?.authorId?.profilePhoto} />
           </Link>
 
           <div className="ml-4">
-            <Link href={`profile/${post?.authorId?._id}`}>
+            <Link href={`dashboard/profile/${post?.authorId?._id}`}>
               <div className="font-bold hover:underline flex items-center">
                 {post?.authorId?.name}
                 {post?.authorId?.verified && (

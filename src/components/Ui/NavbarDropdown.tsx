@@ -37,13 +37,15 @@ export default function NavbarDropdown() {
         <Avatar className="cursor-pointer" src={user?.profilePhoto} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleNavigation(`/profile`)}>
+        <DropdownItem onClick={() => handleNavigation(`/dashboard/profile`)}>
           Profile
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/settings")}>
+        <DropdownItem onClick={() => handleNavigation("/dashboard/settings")}>
           Settings
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/profile/create-post")}>
+        <DropdownItem
+          onClick={() => handleNavigation("/dashboard/create-post")}
+        >
           Create Post
         </DropdownItem>
         <DropdownItem

@@ -10,7 +10,6 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import { use, useEffect, useState } from "react";
-import PhotoGrid from "@/src/app/(WithCommonLayout)/(user)/profile/_components/Post";
 import { IPost, IUser } from "@/src/types";
 import EditProfileModal from "./EditProfile";
 import { useDisclosure } from "@nextui-org/modal";
@@ -19,6 +18,7 @@ import Link from "next/link";
 import { CreateFollow, unFollow } from "@/src/services/Follow";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import PhotoGrid from "@/src/app/(WithCommonLayout)/(dashboard)/(user)/dashboard/profile/_components/Post";
 
 const Profile = ({
   profileData,
@@ -42,7 +42,7 @@ const Profile = ({
   const [error, setError] = useState<string | null>(null);
   console.log("data", profileData);
   useEffect(() => {
-    if (user && profileData?.following.includes(user!._id)) {
+    if (user && profileData?.following.includes(user?._id as never)) {
       setIsFollowing(true);
     } else {
       setIsFollowing(false);
@@ -230,7 +230,7 @@ const Profile = ({
       <div className="mt-8">
         <h3 className="font-semibold text-gray-700 mb-3">All Posts</h3>
         {postsData && postsData.length > 0 ? (
-          <PhotoGrid posts={postsData} userId={profileData._id} />
+          <PhotoGrid posts={postsData} userId={profileData?._id} />
         ) : (
           <div>No posts available.</div>
         )}

@@ -10,7 +10,7 @@ export default function PhotoGrid({
   userId,
 }: {
   posts: IPost[];
-  userId: string;
+  userId: string | undefined;
 }) {
   console.log("user", userId);
   console.log("user", posts);

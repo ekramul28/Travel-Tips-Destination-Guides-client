@@ -28,7 +28,7 @@ const Sidebar = () => {
         <Button
           as={Link}
           className="mt-2 w-full rounded-md"
-          href={"/profile/create-post"}
+          href={"/dashboard/create-post"}
         >
           Create a post
         </Button>

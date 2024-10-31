@@ -1,4 +1,5 @@
 "use client";
+import { useUser } from "@/src/context/user.provider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -14,15 +15,30 @@ import {
 
 const Sidebar = () => {
   const pathName = usePathname();
+  const { user } = useUser();
+
+  console.log(user);
   const isActive = (path: string) => pathName === path;
   const links = [
     { href: "/", icon: FaHome, label: "Home" },
-    { href: "/dashboard", icon: FaCompass, label: "Dashboard" },
-    { href: "/profile/create-post", icon: FaCompass, label: "Create Post" },
+    {
+      href: `${user ? (user.role === "ADMIN" ? "/admin" : "/dashboard") : "/login"}`,
+      icon: FaCompass,
+      label: "Dashboard",
+    },
+    {
+      href: `${user ? "/dashboard/create-post" : "/login"}`,
+      icon: FaCompass,
+      label: "Create Post",
+    },
+    {
+      href: `${user ? "/dashboard/profile" : "/login"}`,
+      icon: FaUser,
+      label: "Profile",
+    },
     { href: "/notifications", icon: FaHeart, label: "Notifications" },
     { href: "/about", icon: FaInfoCircle, label: "About" },
     { href: "/contact", icon: FaEnvelope, label: "Contact" },
-    { href: "/profile", icon: FaUser, label: "Profile" },
   ];
 
   return (

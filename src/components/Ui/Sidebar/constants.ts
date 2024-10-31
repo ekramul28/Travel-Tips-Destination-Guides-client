@@ -1,7 +1,10 @@
 export const userLinks = [
-  { href: "/profile/", label: "Posts" },
-  { href: "/profile/received-claim-requests", label: "Received Claim Request" },
+  { href: "/dashboard", label: "DashboardHome" },
+  { href: "/dashboard/profile", label: "Posts" },
   { href: "/profile/settings", label: "Settings" },
 ];
 
-export const adminLinks = [{ href: "/admin", label: "Admin" }];
+export const adminLinks = [
+  { href: "/admin", label: "Admin" },
+  { href: "/admin/allUser", label: "AllUser" },
+];

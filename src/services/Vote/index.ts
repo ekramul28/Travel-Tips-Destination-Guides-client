@@ -2,9 +2,12 @@
 "use server";
 
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { IVote } from "@/src/types";
-
-export const CreateVote = async (VoteData) => {
+export type voteType = {
+  userId: string;
+  postId: string;
+  voteType: string;
+};
+export const CreateVote = async (VoteData: voteType) => {
   try {
     const { data } = await axiosInstance.post("/vote", VoteData);
     return data;

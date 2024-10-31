@@ -1,3 +1,4 @@
+"use server";
 import SuggestedUser from "@/src/components/Ui/SuggestedUser/SuggestedUser";
 import { getAllUser } from "@/src/services/user";
 import { IUser } from "@/src/types";
@@ -10,7 +11,6 @@ const usersId = async () => {
       {allUser?.data?.map((user: IUser) => (
         <SuggestedUser user={user}></SuggestedUser>
       ))}
-      {/* <SuggestedUser users={allUser?.data} /> */}
     </div>
   );
 };

@@ -11,7 +11,7 @@ const CommentsSection = ({
   authorId,
 }: {
   comments: IComment[];
-  authorId: string;
+  authorId: string | undefined;
 }) => {
   const router = useRouter();
   return (

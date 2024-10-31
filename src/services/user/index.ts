@@ -12,6 +12,7 @@ export const getAllUser = async () => {
     throw new Error(error.message);
   }
 };
+
 export const getSingleUser = async (id: string) => {
   try {
     const { data } = await axiosInstance.get(`/user/${id}`);
