@@ -1,6 +1,6 @@
 export const userLinks = [
   { href: "/dashboard", label: "DashboardHome" },
-  { href: "/dashboard/profile", label: "Posts" },
+  { href: "/dashboard/profile", label: "Profile" },
   { href: "/profile/settings", label: "Settings" },
 ];
 

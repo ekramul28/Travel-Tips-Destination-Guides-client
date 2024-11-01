@@ -78,13 +78,13 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
             src={user?.profilePhoto || "/default-avatar.png"}
             size="sm"
             className="mr-2 cursor-pointer"
-            onClick={() => router.push(`profile/${user?._id}`)}
+            onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
             alt="User Avatar"
           />
           <div className="mb-2 p-3 flex items-start">
             <div>
               <div
-                onClick={() => router.push(`profile/${user?._id}`)}
+                onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
                 className="font-bold hover:underline cursor-pointer"
               >
                 {user?.name}

@@ -27,13 +27,15 @@ const CommentsSection = ({
                   src={comment?.userId?.profilePhoto || "/default-avatar.png"}
                   size="sm"
                   className="mr-2 cursor-pointer"
-                  onClick={() => router.push(`profile/${authorId}`)}
+                  onClick={() => router.push(`/dashboard/profile/${authorId}`)}
                   alt="User Avatar"
                 />
                 <Card className="mb-2 p-3 flex items-start">
                   <div>
                     <div
-                      onClick={() => router.push(`profile/${authorId}`)}
+                      onClick={() =>
+                        router.push(`/dashboard/profile/${authorId}`)
+                      }
                       className="font-bold hover:underline cursor-pointer"
                     >
                       {comment?.userId?.name}

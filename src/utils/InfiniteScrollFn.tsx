@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IPost } from "../types";
+import SkeletonCardLoadingPage from "../app/(WithCommonLayout)/(home)/@recentPosts/loading";
 
 const InfiniteScrollFn = ({
   children,
@@ -19,7 +20,7 @@ const InfiniteScrollFn = ({
         dataLength={post.length} // This is important field to render the next data
         next={fetchData}
         hasMore={hasMore} // Consider making this dynamic based on your data
-        loader={<h4>Loading...</h4>}
+        loader={<SkeletonCardLoadingPage />}
         endMessage={
           <p style={{ textAlign: "center" }}>
             <b>Yay! You have seen it all</b>

@@ -11,6 +11,7 @@ import {
   FaCompass,
   FaInfoCircle,
   FaEnvelope,
+  FaTachometerAlt,
 } from "react-icons/fa";
 
 const Sidebar = () => {
@@ -22,17 +23,17 @@ const Sidebar = () => {
   const links = [
     { href: "/", icon: FaHome, label: "Home" },
     {
-      href: `${user ? (user.role === "ADMIN" ? "/admin" : "/dashboard") : "/login"}`,
-      icon: FaCompass,
+      href: `${user && user.role === "ADMIN" ? "/admin" : "/dashboard"}`,
+      icon: FaTachometerAlt,
       label: "Dashboard",
     },
     {
-      href: `${user ? "/dashboard/create-post" : "/login"}`,
+      href: `/dashboard/create-post`,
       icon: FaCompass,
       label: "Create Post",
     },
     {
-      href: `${user ? "/dashboard/profile" : "/login"}`,
+      href: `/dashboard/profile`,
       icon: FaUser,
       label: "Profile",
     },

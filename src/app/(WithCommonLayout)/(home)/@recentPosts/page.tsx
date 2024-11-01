@@ -7,13 +7,9 @@ import { IPost } from "@/src/types";
 import InfiniteScrollFn from "@/src/utils/InfiniteScrollFn";
 
 const RecentPost = () => {
-  // State to hold posts
   const [posts, setPosts] = useState<IPost[]>([]);
-  // State to track if more posts are available
   const [hasMore, setHasMore] = useState<boolean>(true);
-  // State to keep track of the current page for pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // Number of posts to fetch per page
   const POSTS_PER_PAGE = 2;
 
   // Fetch initial posts when component mounts

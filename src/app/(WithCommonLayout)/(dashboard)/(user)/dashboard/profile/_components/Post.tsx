@@ -18,7 +18,7 @@ export default function PhotoGrid({
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 md:gap-4">
       {posts?.map((post) => (
         <div key={post._id} className="relative">
-          {userId === post?.authorId?._id && (
+          {userId === post?.authorId?._id ? (
             <div className="  flex justify-evenly">
               <Button>
                 <FaEdit className="text-slate-400" />
@@ -27,7 +27,7 @@ export default function PhotoGrid({
                 <FaTrash className="text-red-600" />
               </Button>
             </div>
-          )}
+          ) : null}
           <Link href={`/postDetails/${post?._id}`}>
             <Image
               alt={`Post ${post._id}`}
