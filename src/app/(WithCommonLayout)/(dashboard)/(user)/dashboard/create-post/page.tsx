@@ -66,7 +66,6 @@ export default function CreatePost() {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const formData = new FormData();
-    console.log({ data });
     const postData = {
       ...data,
       authorId: user!._id,

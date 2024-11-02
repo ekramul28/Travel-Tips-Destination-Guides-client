@@ -29,9 +29,9 @@ const Filtering = () => {
         {categories?.map(({ _id, name }: ICategory) => (
           <Button
             key={_id}
+            className="z-50"
             size="sm"
             variant="shadow"
-            className="z-50"
             onClick={() => handleCategoryChange(`category=${name}`)}
           >
             {name}

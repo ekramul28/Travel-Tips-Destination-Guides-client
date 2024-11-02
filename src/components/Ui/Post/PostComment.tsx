@@ -1,10 +1,12 @@
-import { IComment } from "@/src/types";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Avatar } from "@nextui-org/avatar";
 import { Card } from "@nextui-org/card";
 import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
-
 import React from "react";
+
+import { IComment } from "@/src/types";
 
 const CommentsSection = ({
   comments,
@@ -14,6 +16,7 @@ const CommentsSection = ({
   authorId: string | undefined;
 }) => {
   const router = useRouter();
+
   return (
     <div className="mt-6">
       <h2 className="text-xl font-bold mb-4">Comments</h2>
@@ -24,19 +27,19 @@ const CommentsSection = ({
             <div key={index}>
               <div className="flex  items-center">
                 <Avatar
-                  src={comment?.userId?.profilePhoto || "/default-avatar.png"}
-                  size="sm"
-                  className="mr-2 cursor-pointer"
-                  onClick={() => router.push(`/dashboard/profile/${authorId}`)}
                   alt="User Avatar"
+                  className="mr-2 cursor-pointer"
+                  size="sm"
+                  src={comment?.userId?.profilePhoto || "/default-avatar.png"}
+                  onClick={() => router.push(`/dashboard/profile/${authorId}`)}
                 />
                 <Card className="mb-2 p-3 flex items-start">
                   <div>
                     <div
+                      className="font-bold hover:underline cursor-pointer"
                       onClick={() =>
                         router.push(`/dashboard/profile/${authorId}`)
                       }
-                      className="font-bold hover:underline cursor-pointer"
                     >
                       {comment?.userId?.name}
                       {comment?.userId?.verified && (

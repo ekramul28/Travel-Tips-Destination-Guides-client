@@ -1,8 +1,9 @@
-import { IPost } from "@/src/types";
 import { Button } from "@nextui-org/button";
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 import { FaEdit, FaTrash } from "react-icons/fa";
+
+import { IPost } from "@/src/types";
 
 // components/PhotoGrid.tsx
 export default function PhotoGrid({
@@ -12,8 +13,6 @@ export default function PhotoGrid({
   posts: IPost[];
   userId: string | undefined;
 }) {
-  console.log("user", userId);
-  console.log("user", posts);
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 md:gap-4">
       {posts?.map((post) => (
@@ -32,9 +31,9 @@ export default function PhotoGrid({
             <Image
               alt={`Post ${post._id}`}
               className="w-full h-auto object-cover cursor-pointer"
+              height={200}
               src={post?.images[1] || "/path/to/default/image.jpg"} // Fallback image
               width={400}
-              height={200}
             />
           </Link>
           {/* Overlay on hover */}

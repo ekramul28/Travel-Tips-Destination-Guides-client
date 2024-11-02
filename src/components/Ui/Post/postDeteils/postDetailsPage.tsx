@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
 /* eslint-disable react/jsx-sort-props */
 "use client";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa"; // React Icons
+// React Icons
 import { format, formatDistanceToNow } from "date-fns"; // For formatting dates
 import { Card } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
@@ -26,18 +26,20 @@ const PostDetailsPage = ({ post }: { post: IPost }) => {
     if (!user?._id) {
       toast.error("Please log in to comment.");
       router.push("/login");
+
       return;
     }
 
     if (commentInput.trim()) {
-      console.log(commentInput);
       const data = {
         userId: user?._id,
         postId: post._id,
         content: commentInput,
       };
+
       try {
         const res = await CreateComment(data);
+
         if (res.success) {
           setComments([...comments, res.data.result]);
           setCommentInput("");

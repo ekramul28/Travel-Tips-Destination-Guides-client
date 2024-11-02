@@ -1,6 +1,7 @@
 // RecentPost.jsx
 "use client";
 import React, { useState, useEffect } from "react";
+
 import CardPage from "@/src/components/Ui/Card/CardPage";
 import { getAllPost } from "@/src/services/post";
 import { IPost } from "@/src/types";
@@ -24,6 +25,7 @@ const RecentPost = () => {
         currentPage,
         POSTS_PER_PAGE,
       );
+
       setPosts(initialPosts);
       // If the number of posts fetched is less than POSTS_PER_PAGE, no more posts are available
       if (initialPosts.length < POSTS_PER_PAGE) {
@@ -59,8 +61,8 @@ const RecentPost = () => {
     <div>
       <InfiniteScrollFn
         fetchData={fetchMoreData}
-        post={posts}
         hasMore={hasMore}
+        post={posts}
       >
         {posts.map((post: IPost) => (
           <CardPage key={post._id} post={post} />

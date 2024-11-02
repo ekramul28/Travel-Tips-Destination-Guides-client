@@ -1,17 +1,22 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client";
-import { useUser } from "@/src/context/user.provider";
-import { CreateFollow, unFollow } from "@/src/services/Follow";
-import { IUser } from "@/src/types";
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+import { IUser } from "@/src/types";
+import { CreateFollow, unFollow } from "@/src/services/Follow";
+import { useUser } from "@/src/context/user.provider";
+
 const SuggestedUser = ({ user }: { user: IUser }) => {
   const router = useRouter();
+
   console.log("data", user);
   const { user: currentUser } = useUser();
+
   console.log("data2", currentUser);
 
   const [isFollowing, setIsFollowing] = useState(false);
@@ -30,6 +35,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
     if (!user?._id) {
       toast.error("Please log in to follow.");
       router.push("/login");
+
       return;
     }
 
@@ -38,6 +44,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
         userId: currentUser?._id,
         followId: user._id,
       });
+
       if (res.success) {
         setIsFollowing(true);
         toast.success("follow  added!");
@@ -51,6 +58,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
     if (!user?._id) {
       toast.error("Please log in to UnFollow.");
       router.push("/login");
+
       return;
     }
 
@@ -59,6 +67,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
         userId: currentUser?._id,
         followId: user._id,
       });
+
       if (res.success) {
         setIsFollowing(false);
         toast.success("UnFollow  added!");
@@ -75,17 +84,17 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
       <div>
         <div className="flex  items-center">
           <Avatar
-            src={user?.profilePhoto || "/default-avatar.png"}
-            size="sm"
-            className="mr-2 cursor-pointer"
-            onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
             alt="User Avatar"
+            className="mr-2 cursor-pointer"
+            size="sm"
+            src={user?.profilePhoto || "/default-avatar.png"}
+            onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
           />
           <div className="mb-2 p-3 flex items-start">
             <div>
               <div
-                onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
                 className="font-bold hover:underline cursor-pointer"
+                onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
               >
                 {user?.name}
                 {user?.verified && (

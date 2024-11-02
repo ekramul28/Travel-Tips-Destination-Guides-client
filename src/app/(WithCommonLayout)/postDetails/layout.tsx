@@ -1,11 +1,12 @@
+import React, { ReactNode, Suspense } from "react";
+
 import { Navbar } from "@/src/components/Ui/navbar";
-import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <Navbar />
-      {children}
+      <Suspense>{children}</Suspense>
     </div>
   );
 };

@@ -1,11 +1,9 @@
 "use client";
-import { useUser } from "@/src/context/user.provider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import {
   FaHome,
-  FaSearch,
   FaHeart,
   FaUser,
   FaCompass,
@@ -14,11 +12,12 @@ import {
   FaTachometerAlt,
 } from "react-icons/fa";
 
+import { useUser } from "@/src/context/user.provider";
+
 const Sidebar = () => {
   const pathName = usePathname();
   const { user } = useUser();
 
-  console.log(user);
   const isActive = (path: string) => pathName === path;
   const links = [
     { href: "/", icon: FaHome, label: "Home" },
@@ -46,7 +45,7 @@ const Sidebar = () => {
     <div className="fixed">
       <div className="flex flex-col  items-start ">
         {links.map((link) => (
-          <Link href={link.href} key={link.href}>
+          <Link key={link.href} href={link.href}>
             <div
               className={`flex gap-2   items-start mt-8 ${
                 isActive(link.href) ? "text-gray-300" : "text-slate-700"

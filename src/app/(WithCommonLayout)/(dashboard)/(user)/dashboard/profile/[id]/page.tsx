@@ -25,7 +25,6 @@ export default async function ProfilePage({ params: { id } }: IProps) {
   const profileData = userData.data;
   const postsData = posts?.data || [];
 
-  console.log({ postsData });
   return (
     <>
       <Profile postsData={postsData} profileData={profileData} />

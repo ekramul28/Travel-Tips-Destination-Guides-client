@@ -9,7 +9,7 @@ interface IProps {
 }
 const PostDetails = async ({ params: { id } }: IProps) => {
   const { data: post } = await getPost(id);
-  console.log("insidepar", id);
+
   return (
     <>
       <div className="container mx-auto p-6">

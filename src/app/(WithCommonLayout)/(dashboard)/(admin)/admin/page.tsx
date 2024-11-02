@@ -2,14 +2,6 @@
 import React from "react";
 import { Card, CardHeader, CardBody } from "@nextui-org/card";
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
-} from "@nextui-org/table";
-import {
   LineChart,
   Line,
   XAxis,
@@ -19,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { FaUsers, FaChartLine, FaDollarSign, FaTasks } from "react-icons/fa";
-import { Avatar, Badge, Spacer } from "@nextui-org/react";
+import { Avatar, Spacer } from "@nextui-org/react";
 
 // Sample data for the chart
 const data = [
@@ -39,7 +31,7 @@ const DashboardHome: React.FC = () => {
         <div className="flex-1 min-w-[200px]">
           <Card className="shadow-lg hover:shadow-xl bg-gradient-to-r from-blue-500 to-indigo-500 text-white transition-all duration-300">
             <CardHeader className="flex items-center">
-              <FaUsers size={28} color="white" />
+              <FaUsers color="white" size={28} />
               <Spacer x={0.5} />
               <Avatar size="sm" />
             </CardHeader>
@@ -52,7 +44,7 @@ const DashboardHome: React.FC = () => {
         <div className="flex-1 min-w-[200px]">
           <Card className="shadow-lg hover:shadow-xl bg-gradient-to-r from-green-400 to-emerald-500 text-white transition-all duration-300">
             <CardHeader className="flex items-center">
-              <FaChartLine size={28} color="white" />
+              <FaChartLine color="white" size={28} />
               <Spacer x={0.5} />
               <Avatar size="sm" />
             </CardHeader>
@@ -65,7 +57,7 @@ const DashboardHome: React.FC = () => {
         <div className="flex-1 min-w-[200px]">
           <Card className="shadow-lg hover:shadow-xl bg-gradient-to-r from-yellow-400 to-orange-500 text-white transition-all duration-300">
             <CardHeader className="flex items-center">
-              <FaDollarSign size={28} color="white" />
+              <FaDollarSign color="white" size={28} />
               <Spacer x={0.5} />
               <Avatar size="sm" />
             </CardHeader>
@@ -78,7 +70,7 @@ const DashboardHome: React.FC = () => {
         <div className="flex-1 min-w-[200px]">
           <Card className="shadow-lg hover:shadow-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white transition-all duration-300">
             <CardHeader className="flex items-center">
-              <FaTasks size={28} color="white" />
+              <FaTasks color="white" size={28} />
               <Spacer x={0.5} />
               <Avatar size="sm" />
             </CardHeader>
@@ -95,17 +87,17 @@ const DashboardHome: React.FC = () => {
           <Avatar size="md" />
         </CardHeader>
         <CardBody>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer height={300} width="100%">
             <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Line
-                type="monotone"
                 dataKey="users"
                 stroke="#0072F5"
                 strokeWidth={3}
+                type="monotone"
               />
             </LineChart>
           </ResponsiveContainer>

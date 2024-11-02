@@ -1,7 +1,8 @@
 "use server";
 
-import axiosInstance from "@/src/lib/AxiosInstance";
 import { revalidateTag } from "next/cache";
+
+import axiosInstance from "@/src/lib/AxiosInstance";
 type CommentDataType = {
   postId: string;
   userId: string;
@@ -10,6 +11,7 @@ type CommentDataType = {
 export const CreateComment = async (CommentData: CommentDataType) => {
   try {
     const { data } = await axiosInstance.post("/comment", CommentData);
+
     revalidateTag("posts");
 
     return data;

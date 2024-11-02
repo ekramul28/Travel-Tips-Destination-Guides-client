@@ -1,14 +1,15 @@
 "use client";
 
 import { Input } from "@nextui-org/input";
-
-import { SearchIcon } from "../../../assets/icons";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useDebounce from "@/src/hooks/debounce.hook";
 import { useEffect, useState } from "react";
-import { ISearchResult } from "@/src/types";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
+
+import { SearchIcon } from "../../../assets/icons";
+
+import { ISearchResult } from "@/src/types";
+import useDebounce from "@/src/hooks/debounce.hook";
 import { useSearchPost } from "@/src/hooks/search.hook";
 
 export default function LandingSearch() {

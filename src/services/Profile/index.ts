@@ -1,8 +1,8 @@
 "use server";
+import { cookies } from "next/headers";
+
 import envConfig from "@/src/config/envConfig";
 import axiosInstance from "@/src/lib/AxiosInstance";
-import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
 
 export const getMyProfile = async () => {
   // Retrieve cookies from the request headers

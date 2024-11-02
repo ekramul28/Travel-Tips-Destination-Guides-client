@@ -1,5 +1,4 @@
 import { Avatar } from "@nextui-org/avatar";
-import { Button } from "@nextui-org/button";
 import { Skeleton } from "@nextui-org/skeleton";
 import React from "react";
 

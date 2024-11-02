@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 
 import Container from "@/src/components/Ui/Container";
 import { Navbar } from "@/src/components/Ui/navbar";
-import Filtering from "@/src/components/modules/found-items/Filtering";
 
 export default function layout({
   children,

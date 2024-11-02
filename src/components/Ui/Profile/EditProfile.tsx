@@ -8,16 +8,18 @@ import {
 } from "@nextui-org/modal";
 import { useState, ChangeEvent, useEffect } from "react";
 import { FaUpload } from "react-icons/fa";
-import { IUser } from "@/src/types";
-import { useUpdateProfile } from "@/src/hooks/updateProfile.hook";
 import {
   FieldValues,
   FormProvider,
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+
 import FXInput from "../../form/FXInput";
 import FXTextarea from "../../form/FXTextArea";
+
+import { useUpdateProfile } from "@/src/hooks/updateProfile.hook";
+import { IUser } from "@/src/types";
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -35,7 +37,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const [profilePicture, setProfilePicture] = useState<File[] | []>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { mutate: updateMyProfileHandel, error } = useUpdateProfile();
-  console.log(error);
   // Initialize useForm with default values
   const methods = useForm({
     defaultValues: {
@@ -61,11 +62,11 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const handlePictureChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const files = e.target.files[0];
+
       setProfilePicture([files]);
     }
   };
 
-  console.log("profilePicture", profilePicture);
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsSubmitting(true);
 
@@ -81,7 +82,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
     for (let image of profilePicture) {
       formData.append("profilePhoto", image);
-      console.log("image", image);
     }
 
     try {
@@ -160,10 +160,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                   Close
                 </Button>
                 <Button
-                  onClick={handaleClose}
                   color="primary"
                   disabled={isSubmitting}
                   type="submit"
+                  onClick={handaleClose}
                 >
                   {isSubmitting ? "Saving..." : "Save Changes"}
                 </Button>

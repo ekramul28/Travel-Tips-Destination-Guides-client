@@ -12,11 +12,11 @@ const cancelPage = () => {
             Cancel
           </p>
 
-          <p className="mt-4 text-gray-500"></p>
+          <p className="mt-4 text-gray-500" />
 
           <Link
-            href="/"
             className="mt-6 inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring"
+            href="/"
           >
             Go Back Home
           </Link>

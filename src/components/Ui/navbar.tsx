@@ -9,13 +9,14 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+
+import LandingSearch from "../modules/home/Landing";
+import Filtering from "../modules/found-items/Filtering";
 
 import NavbarDropdown from "./NavbarDropdown";
 
@@ -23,9 +24,6 @@ import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
 import { Logo } from "@/src/assets/icons";
 import { useUser } from "@/src/context/user.provider";
-
-import LandingSearch from "../modules/home/Landing";
-import Filtering from "../modules/found-items/Filtering";
 
 export const Navbar = () => {
   const { user, isLoading } = useUser();
@@ -116,7 +114,7 @@ export const Navbar = () => {
         </NavbarMenu>
       </NextUINavbar>
       <NextUINavbar className="top-14">
-        <Filtering></Filtering>
+        <Filtering />
       </NextUINavbar>
     </>
   );

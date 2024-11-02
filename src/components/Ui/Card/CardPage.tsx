@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-sort-props */
 /* eslint-disable import/order */
 "use client";
@@ -6,11 +8,11 @@ import { FaComment, FaShare, FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { Avatar } from "@nextui-org/avatar";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
-import { IPost, IComment, IUser, IVote } from "@/src/types";
+import { IPost, IComment } from "@/src/types";
 import Link from "next/link";
 import { useUser } from "@/src/context/user.provider";
 import { toast } from "sonner";
-import { CreateVote, getVote } from "@/src/services/Vote";
+import { CreateVote } from "@/src/services/Vote";
 import { useRouter } from "next/navigation";
 import { CreateComment } from "@/src/services/comments";
 import {
@@ -58,6 +60,7 @@ const CardPage = ({ post }: { post: IPost }) => {
     if (!user?._id) {
       toast.error("Please log in to vote.");
       router.push("/login");
+
       return;
     }
     if (type === "upvote") {
@@ -79,10 +82,10 @@ const CardPage = ({ post }: { post: IPost }) => {
 
     try {
       const res = await CreateVote(voteData);
-      console.log("res", res);
-      console.log("inside", res.message);
+
       if (res?.success) {
         const message = res.message || res.data.message;
+
         if (message === "Vote added") {
           if (type === "upvote") {
             setUpvoteCount(upvoteCount + 1);
@@ -126,20 +129,20 @@ const CardPage = ({ post }: { post: IPost }) => {
     if (!user?._id) {
       toast.error("Please log in to comment.");
       router.push("/login");
+
       return;
     }
 
     if (commentInput.trim()) {
-      console.log(commentInput);
       const data = {
         userId: user._id,
         postId: post._id,
         content: commentInput,
       };
+
       try {
         const res = await CreateComment(data);
-        console.log(res);
-        console.log(res.data.result);
+
         if (res.success) {
           setComments([...comments, res.data.result]);
           setCommentInput("");
@@ -156,6 +159,7 @@ const CardPage = ({ post }: { post: IPost }) => {
     if (!user?._id) {
       toast.error("Please log in to follow.");
       router.push("/login");
+
       return;
     }
 
@@ -164,6 +168,7 @@ const CardPage = ({ post }: { post: IPost }) => {
         userId: post.authorId._id,
         followId: user?._id,
       });
+
       if (res.success) {
         toast.success("follow  added!");
       }
@@ -176,6 +181,7 @@ const CardPage = ({ post }: { post: IPost }) => {
     if (!user?._id) {
       toast.error("Please log in to UnFollow.");
       router.push("/login");
+
       return;
     }
 
@@ -184,6 +190,7 @@ const CardPage = ({ post }: { post: IPost }) => {
         userId: post.authorId._id,
         followId: user?._id,
       });
+
       if (res.success) {
         toast.success("UnFollow  added!");
       }
@@ -331,6 +338,7 @@ const CardPage = ({ post }: { post: IPost }) => {
               className="text-xl cursor-pointer text-gray-500"
               title="Comment"
             />
+
             <strong className="ml-1 cursor-pointer hover:underline">
               {comments.length} Comments
             </strong>
@@ -356,7 +364,7 @@ const CardPage = ({ post }: { post: IPost }) => {
         <CommentsSection
           authorId={post?.authorId?._id}
           comments={comments.slice(-1)}
-        ></CommentsSection>
+        />
       </CardBody>
       {
         <CardBody className="px-4">

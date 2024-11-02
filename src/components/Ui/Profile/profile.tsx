@@ -9,15 +9,17 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { use, useEffect, useState } from "react";
-import { IPost, IUser } from "@/src/types";
-import EditProfileModal from "./EditProfile";
+import { useEffect, useState } from "react";
 import { useDisclosure } from "@nextui-org/modal";
-import { useUser } from "@/src/context/user.provider";
 import Link from "next/link";
-import { CreateFollow, unFollow } from "@/src/services/Follow";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+
+import EditProfileModal from "./EditProfile";
+
+import { CreateFollow, unFollow } from "@/src/services/Follow";
+import { useUser } from "@/src/context/user.provider";
+import { IPost, IUser } from "@/src/types";
 import PhotoGrid from "@/src/app/(WithCommonLayout)/(dashboard)/(user)/dashboard/profile/_components/Post";
 
 const Profile = ({
@@ -40,7 +42,7 @@ const Profile = ({
   const [isFollowing, setIsFollowing] = useState(false);
   const [loadingFollow, setLoadingFollow] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  console.log("data", profileData);
+
   useEffect(() => {
     if (user && profileData?.following.includes(user?._id as never)) {
       setIsFollowing(true);
@@ -53,6 +55,7 @@ const Profile = ({
     if (!user?._id) {
       toast.error("Please log in to follow.");
       router.push("/login");
+
       return;
     }
 
@@ -61,6 +64,7 @@ const Profile = ({
         userId: profileData._id,
         followId: user?._id,
       });
+
       if (res.success) {
         setIsFollowing(true);
         setFollowers(profileData?.followers?.length + 1);
@@ -75,6 +79,7 @@ const Profile = ({
     if (!user?._id) {
       toast.error("Please log in to UnFollow.");
       router.push("/login");
+
       return;
     }
 
@@ -83,6 +88,7 @@ const Profile = ({
         userId: profileData._id,
         followId: user?._id,
       });
+
       if (res.success) {
         setIsFollowing(false);
         setFollowers(profileData?.followers?.length - 1);
@@ -123,20 +129,20 @@ const Profile = ({
               {isFollowing ? (
                 <Button
                   color="primary"
+                  disabled={loadingFollow}
+                  isLoading={loadingFollow}
                   size="sm"
                   onClick={handleUnFollow}
-                  isLoading={loadingFollow}
-                  disabled={loadingFollow}
                 >
                   UNFollow
                 </Button>
               ) : (
                 <Button
                   color="primary"
+                  disabled={loadingFollow}
+                  isLoading={loadingFollow}
                   size="sm"
                   onClick={handleFollow}
-                  isLoading={loadingFollow}
-                  disabled={loadingFollow}
                 >
                   Follow
                 </Button>
@@ -152,8 +158,8 @@ const Profile = ({
               <Dropdown>
                 <DropdownTrigger>
                   <button
-                    className="flex items-center justify-center w-8 h-8 rounded-full"
                     aria-label="Profile options"
+                    className="flex items-center justify-center w-8 h-8 rounded-full"
                   >
                     <FaEllipsisH className="h-6 w-6 text-gray-600" />
                   </button>
@@ -189,14 +195,14 @@ const Profile = ({
               </p>
               {profileData?.website && (
                 <a
+                  className="text-sm text-blue-500"
                   href={
                     profileData.website.startsWith("http")
                       ? profileData.website
                       : `https://${profileData.website}`
                   }
-                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-500"
+                  target="_blank"
                 >
                   {profileData.website}
                 </a>
@@ -215,9 +221,9 @@ const Profile = ({
             <div key={post._id} className="flex flex-col items-center">
               <Link href={`/postDetails/${post._id}`}>
                 <Avatar
+                  className="cursor-pointer"
                   size="lg"
                   src={post?.images[0] || "https://via.placeholder.com/150"}
-                  className="cursor-pointer"
                 />
               </Link>
               <span className="text-xs mt-1">Highlight {index + 1}</span>
