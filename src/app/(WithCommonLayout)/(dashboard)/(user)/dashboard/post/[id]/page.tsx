@@ -5,7 +5,7 @@ import PhotoGrid from "../../profile/_components/Post";
 
 import { getUserByPost } from "@/src/services/post";
 
-const page = async ({ params }: any) => {
+const Post = async ({ params }: any) => {
   const { id } = params;
   let postsData;
 
@@ -26,4 +26,4 @@ const page = async ({ params }: any) => {
   );
 };
 
-export default page;
+export default Post;
