@@ -1,3 +1,5 @@
+/* eslint-disable padding-line-between-statements */
+/* eslint-disable import/order */
 import React from "react";
 import PhotoGrid from "../../profile/_components/Post";
 
@@ -9,7 +11,6 @@ const page = async ({ params }: any) => {
 
   if (id) {
     const posts = await getUserByPost(id as string);
-
     postsData = posts?.data || [];
   }
 
