@@ -1,5 +1,4 @@
 import React from "react";
-
 import PhotoGrid from "../../profile/_components/Post";
 
 import { getUserByPost } from "@/src/services/post";
