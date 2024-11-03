@@ -4,6 +4,7 @@ import {
   Dispatch,
   ReactNode,
   SetStateAction,
+  Suspense,
   useContext,
   useEffect,
   useState,
@@ -38,7 +39,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserContext.Provider value={{ user, setUser, isLoading, setIsLoading }}>
-      {children}
+      <Suspense>{children}</Suspense>
     </UserContext.Provider>
   );
 };

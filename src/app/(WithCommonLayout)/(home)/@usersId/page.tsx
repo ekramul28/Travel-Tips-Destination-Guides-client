@@ -2,11 +2,12 @@
 import React from "react";
 
 import SuggestedUser from "@/src/components/Ui/SuggestedUser/SuggestedUser";
-import { getAllUser } from "@/src/services/user";
 import { IUser } from "@/src/types";
+import { getAllUser } from "@/src/services/user";
 
 const usersId = async () => {
   const allUser = await getAllUser();
+  // const allUser = { data: [] };
 
   return (
     <div>

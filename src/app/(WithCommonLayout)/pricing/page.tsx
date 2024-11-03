@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast } from "sonner";
 
 import { useUser } from "@/src/context/user.provider";
@@ -9,14 +9,6 @@ import { IUser } from "@/src/types";
 const Pricing = () => {
   const { mutate: executePayment, isPending } = useAmrPayment();
   const { user } = useUser();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    // This ensures the component only renders on the client
-    setIsClient(true);
-  }, [user]);
-
-  if (!isClient) return null;
 
   if (!user) {
     toast.error("Login first");
@@ -28,14 +20,18 @@ const Pricing = () => {
       user: user as IUser,
     };
 
-    executePayment(data, {
-      onSuccess: (result) => {
-        window.location.href = result?.data?.payment_url;
-      },
-      onError: (error) => {
-        console.error("Payment failed", error);
-      },
-    });
+    try {
+      executePayment(data, {
+        onSuccess: (result) => {
+          window.location.href = result?.data?.payment_url;
+        },
+        onError: (error) => {
+          console.error("Payment failed", error);
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
