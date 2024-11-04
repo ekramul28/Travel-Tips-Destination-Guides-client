@@ -14,10 +14,7 @@ import { useUser } from "@/src/context/user.provider";
 const SuggestedUser = ({ user }: { user: IUser }) => {
   const router = useRouter();
 
-  console.log("data", user);
   const { user: currentUser } = useUser();
-
-  console.log("data2", currentUser);
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [loadingFollow, setLoadingFollow] = useState(false);

@@ -1,73 +1,28 @@
-// RecentPost.jsx
-"use client";
-import React, { useState, useEffect } from "react";
+// RecentPost.jsx (or .tsx if using TypeScript)
+import ClientRecentPosts from "./_components/ClientRecentPosts";
 
-import CardPage from "@/src/components/Ui/Card/CardPage";
 import { getAllPost } from "@/src/services/post";
 import { IPost } from "@/src/types";
-import InfiniteScrollFn from "@/src/utils/InfiniteScrollFn";
 
-const RecentPost = () => {
-  const [posts, setPosts] = useState<IPost[]>([]);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const POSTS_PER_PAGE = 2;
+interface RecentPostProps {
+  initialPosts: IPost[];
+  postsPerPage: number;
+}
 
-  // Fetch initial posts when component mounts
-  useEffect(() => {
-    fetchInitialPosts();
-  }, []);
+const RecentPost = async () => {
+  const postsPerPage = 2;
 
-  // Function to fetch initial posts
-  const fetchInitialPosts = async () => {
-    try {
-      const { data: initialPosts } = await getAllPost(
-        currentPage,
-        POSTS_PER_PAGE,
-      );
-
-      setPosts(initialPosts);
-      // If the number of posts fetched is less than POSTS_PER_PAGE, no more posts are available
-      if (initialPosts.length < POSTS_PER_PAGE) {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Error fetching initial posts:", error);
-    }
-  };
-
-  // Function to fetch more posts
-  const fetchMoreData = async () => {
-    try {
-      const nextPage = currentPage + 1;
-      const { data: morePosts } = await getAllPost(nextPage, POSTS_PER_PAGE);
-
-      // Append the new posts to the existing posts
-      setPosts((prevPosts) => [...prevPosts, ...morePosts]);
-      setCurrentPage(nextPage);
-
-      // If fewer posts are returned than requested, assume no more posts
-      if (morePosts.length < POSTS_PER_PAGE) {
-        setHasMore(false);
-      }
-    } catch (error) {
-      console.error("Error fetching more posts:", error);
-      // Optionally, you can set hasMore to false or handle the error as needed
-      setHasMore(false);
-    }
-  };
+  // Fetch initial posts server-side
+  const initialData = await getAllPost(1, postsPerPage);
+  const initialPosts = initialData?.data || [];
 
   return (
     <div>
-      <InfiniteScrollFn
-        fetchData={fetchMoreData}
-        hasMore={hasMore}
-        post={posts}
-      >
-        {posts.map((post: IPost) => (
-          <CardPage key={post._id} post={post} />
-        ))}
-      </InfiniteScrollFn>
+      {/* Pass the initial posts to a client component for pagination */}
+      <ClientRecentPosts
+        initialPosts={initialPosts}
+        postsPerPage={postsPerPage}
+      />
     </div>
   );
 };

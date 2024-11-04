@@ -1,17 +1,12 @@
 /* eslint-disable import/order */
 /* eslint-disable react/self-closing-comp */
-
-import Profile from "@/src/components/Ui/Profile/profile";
+// import Profile from "@/src/components/Ui/Profile/profile";
 import { getUserByPost } from "@/src/services/post";
 import { getSingleUser } from "@/src/services/user";
+import Profile from "../_components/Profile/profile";
 
-interface IProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function ProfilePage({ params: { id } }: IProps) {
+export default async function ProfilePage({ params }: any) {
+  const { id } = params;
   // Fetch the user and posts data
   const userData = await getSingleUser(id);
 
