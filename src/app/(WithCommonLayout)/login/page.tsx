@@ -55,7 +55,12 @@ const LoginPage = () => {
             <div className="py-3">
               <FXInput label="Password" name="password" type="password" />
             </div>
-
+            <div className="">
+              Forgot your password?{" "}
+              <span className="cursor-pointer">
+                <Link href={"/forgetPassword"}>Click here to reset it</Link>
+              </span>
+            </div>
             <Button
               className="my-3 w-full rounded-md bg-default-900 font-semibold text-default"
               size="lg"
