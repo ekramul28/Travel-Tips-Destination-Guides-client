@@ -1,7 +1,8 @@
 "use client";
-import { forgetPasswordLinkApi } from "@/src/services/AuthService";
 import React, { useState } from "react";
 import { toast } from "sonner";
+
+import { forgetPasswordLinkApi } from "@/src/services/AuthService";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ const ForgotPassword = () => {
 
     try {
       const data = await forgetPasswordLinkApi({ email });
+
       console.log("send email", data);
       if (data?.success) {
         toast.success(data?.message);
@@ -39,30 +41,30 @@ const ForgotPassword = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
-              htmlFor="email"
               className="block text-sm font-medium text-gray-700"
+              htmlFor="email"
             >
               Email address
             </label>
             <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <button
-            type="submit"
-            disabled={loading}
             className="w-full py-2 px-4 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 disabled:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={loading}
+            type="submit"
           >
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
         </form>
         <p className="text-center text-sm text-gray-500">
-          <a href="/login" className="text-indigo-600 hover:underline">
+          <a className="text-indigo-600 hover:underline" href="/login">
             Back to Login
           </a>
         </p>

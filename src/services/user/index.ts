@@ -16,12 +16,12 @@ import axiosInstance from "@/src/lib/AxiosInstance";
 
 export const getAllUser = async () => {
   try {
-    const response = await fetch(`${envConfig.baseApi}/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
+    const fetchOption = {
+      next: {
+        tags: ["user"],
       },
-    });
+    };
+    const response = await fetch(`${envConfig.baseApi}/user`, fetchOption);
 
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);

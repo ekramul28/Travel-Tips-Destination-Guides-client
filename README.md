@@ -1,53 +1,129 @@
-# Next.js & NextUI Template
+# Travel Tips & Destination Guides 🌍
 
-This is a template for creating applications using Next.js 14 (app directory) and NextUI (v2).
+## Overview
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/next-app-template)
+The **Travel Tips & Destination Guides** platform connects travel enthusiasts, enabling users to share personal travel stories, exchange tips, and interact with fellow travelers. It offers user authentication, content sharing, premium access features, and robust social engagement functionalities. The platform empowers users to discover destinations, plan adventures, and create memorable travel experiences.
 
-## Technologies Used
+---
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [NextUI v2](https://nextui.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## Features
 
-## How to Use
+### User Roles:
 
-### Use the template with create-next-app
+- **User**: Can register, post, upvote/downvote, and access premium content (if verified).
+- **Admin**: Manages users, content, and platform activities.
 
-To create a new project based on this template using `create-next-app`, run the following command:
+### Core Features:
 
-```bash
-npx create-next-app -e https://github.com/nextui-org/next-app-template
-```
+1. **User Authentication**:
 
-### Install dependencies
+   - Secure login and registration with JWT.
+   - Password recovery and management.
+   - No complex password requirements.
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+2. **User Profile Management**:
 
-```bash
-npm install
-```
+   - Update profile with pictures.
+   - View personal posts, followers, and following.
+   - Profile verification through payment integration (Aamarpay/Stripe).
+   - Verified badge display.
 
-### Run the development server
+3. **Post Creation & Sharing**:
 
-```bash
-npm run dev
-```
+   - Rich Text Editor for creating travel guides.
+   - Attach images to posts.
+   - Categorization of posts by topics.
+   - Edit/Delete posts.
+   - Premium content tagging.
 
-### Setup pnpm (optional)
+4. **Upvote & Downvote System**:
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+   - Sort posts by popularity.
 
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
+5. **Commenting System**:
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+   - Comment, edit, and delete functionality.
+   - (Optional) Comment reply system.
 
-## License
+6. **News Feed**:
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+   - Dynamic feed with infinite scrolling.
+   - Filter, search, and sort options.
+
+7. **Following System**:
+
+   - Follow/unfollow other users.
+
+8. **Payment Integration**:
+
+   - Payment for profile verification and premium content access via Aamarpay/Stripe.
+
+9. **Admin Dashboard**:
+
+   - Visual data on payments, users, and posts.
+
+10. **Micro Animations**:
+    - Smooth transitions and hover effects.
+
+---
+
+## Pages
+
+1. **Login/Registration Page**: User authentication.
+2. **User Dashboard**: Displays personal content and stats.
+3. **Admin Dashboard**: Manage users, payments, and posts.
+4. **Profile Page**: User’s travel posts and profile details.
+5. **News Feed**: Community travel posts.
+6. **Post Details Page**: Individual post view with comments.
+7. **About Us Page**: Platform’s mission and team details.
+8. **Contact Us Page**: User inquiries and support.
+
+---
+
+## Technology Stack
+
+### Frontend:
+
+- **React.js** with **TypeScript**
+- **Tailwind CSS** for responsive and modern UI
+- **Rich Text Editor**: Quill.js, Draft.js, or TinyMCE
+
+### Backend:
+
+- **Node.js** with **Express.js**
+- **MongoDB** for data storage
+- **JWT** for secure authentication
+
+### Payment Integration:
+
+- **Aamarpay** or **Stripe**
+
+---
+
+## Installation
+
+### Prerequisites:
+
+- Node.js & npm installed
+- MongoDB instance running
+
+### Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ekramul28/Travel-Tips-Destination-Guides-client
+
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+3. Set up environment variables::
+   ```bash
+   # NEXT_PUBLIC_BASE_API=your api
+   ```

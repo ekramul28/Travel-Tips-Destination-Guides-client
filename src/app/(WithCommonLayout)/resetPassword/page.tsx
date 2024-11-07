@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { resetPasswordLinkApi } from "@/src/services/AuthService";
-import axios from "axios";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+
+import { resetPasswordLinkApi } from "@/src/services/AuthService";
 
 const ResetPassword = () => {
   const router = useRouter();
@@ -12,6 +12,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+
     setEmail(params.get("email"));
     setToken(params.get("token"));
   }, []);
@@ -26,6 +27,7 @@ const ResetPassword = () => {
 
     if (newPassword !== confirmPassword) {
       setError("Passwords do not match.");
+
       return;
     }
 
@@ -72,34 +74,34 @@ const ResetPassword = () => {
         )}
 
         <form
-          onSubmit={handlePasswordReset}
           className="flex flex-col space-y-4"
+          onSubmit={handlePasswordReset}
         >
           <label className="flex flex-col">
             <span className="mb-1 text-gray-600">New Password</span>
             <input
+              required
+              className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
           </label>
 
           <label className="flex flex-col">
             <span className="mb-1 text-gray-600">Confirm Password</span>
             <input
+              required
+              className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
             />
           </label>
 
           <button
-            type="submit"
             className="py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+            type="submit"
           >
             Reset Password
           </button>
@@ -107,7 +109,7 @@ const ResetPassword = () => {
 
         <p className="mt-4 text-center text-sm text-gray-500">
           Remembered your password?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <a className="text-blue-600 hover:underline" href="/login">
             Log in
           </a>
         </p>
