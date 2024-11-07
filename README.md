@@ -1,5 +1,33 @@
 # Travel Tips & Destination Guides 🌍
 
+## Installation
+
+### Prerequisites:
+
+- Node.js & npm installed
+- MongoDB instance running
+
+### Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ekramul28/Travel-Tips-Destination-Guides-client
+
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+3. Set up environment variables::
+   ```bash
+   # NEXT_PUBLIC_BASE_API=your api
+   ```
+
 ## Overview
 
 The **Travel Tips & Destination Guides** platform connects travel enthusiasts, enabling users to share personal travel stories, exchange tips, and interact with fellow travelers. It offers user authentication, content sharing, premium access features, and robust social engagement functionalities. The platform empowers users to discover destinations, plan adventures, and create memorable travel experiences.
@@ -99,31 +127,3 @@ The **Travel Tips & Destination Guides** platform connects travel enthusiasts, e
 - **Aamarpay** or **Stripe**
 
 ---
-
-## Installation
-
-### Prerequisites:
-
-- Node.js & npm installed
-- MongoDB instance running
-
-### Steps
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/ekramul28/Travel-Tips-Destination-Guides-client
-
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-
-   ```
-
-3. Set up environment variables::
-   ```bash
-   # NEXT_PUBLIC_BASE_API=your api
-   ```
