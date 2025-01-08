@@ -1,5 +1,14 @@
 export type SiteConfig = typeof siteConfig;
-
+import {
+  FaHome,
+  FaDollarSign,
+  FaPhoneAlt,
+  FaInfoCircle,
+  FaSignOutAlt,
+} from "react-icons/fa";
+import { FiHome } from "react-icons/fi";
+import { AiOutlineDollarCircle, AiOutlineContacts } from "react-icons/ai";
+import { CiCircleMore } from "react-icons/ci";
 export const siteConfig = {
   name: "Travel Tips & Destination Guides",
   description:
@@ -8,43 +17,49 @@ export const siteConfig = {
     {
       label: "Home",
       href: "/",
+      icon: <FiHome size={30} />,
     },
-
     {
       label: "Pricing",
       href: "/pricing",
+      icon: <AiOutlineDollarCircle size={30} />,
     },
-
     {
       label: "Contact",
       href: "/contact",
+      icon: <AiOutlineContacts size={30} />,
     },
     {
       label: "About",
       href: "/about",
+      icon: <CiCircleMore size={30} />,
     },
   ],
   navMenuItems: [
     {
       label: "Home",
       href: "/",
+      icon: <FiHome size={30} />,
     },
     {
       label: "Pricing",
       href: "/pricing",
+      icon: <AiOutlineDollarCircle size={30} />,
     },
-
     {
       label: "Contact",
       href: "/contact",
+      icon: <AiOutlineContacts size={30} />,
     },
     {
       label: "About",
       href: "/about",
+      icon: <CiCircleMore size={30} />,
     },
     {
       label: "Logout",
       href: "/logout",
+      icon: <FaSignOutAlt size={30} />,
     },
   ],
   links: {

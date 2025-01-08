@@ -43,7 +43,6 @@ export const logout = () => {
 
 export const getCurrentUser = async () => {
   const accessToken = cookies().get("accessToken")?.value;
-
   let decodedToken = null;
 
   if (accessToken) {

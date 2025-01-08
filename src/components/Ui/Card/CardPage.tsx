@@ -271,6 +271,7 @@ const CardPage = ({ post }: { post: IPost }) => {
                   height={300}
                   width={"100%"}
                   src={post?.images[0]}
+                  className="object-cover"
                 />
               </Link>
             ) : (
@@ -280,6 +281,7 @@ const CardPage = ({ post }: { post: IPost }) => {
                   height={300}
                   width={"100%"}
                   src={post?.images[0]}
+                  className="object-cover"
                 />
               </Link>
             )
@@ -290,6 +292,7 @@ const CardPage = ({ post }: { post: IPost }) => {
                 height={300}
                 width={"100%"}
                 src={post?.images[0]}
+                className="object-cover"
               />
             </Link>
           )
@@ -300,6 +303,7 @@ const CardPage = ({ post }: { post: IPost }) => {
               height={300}
               width={"100%"}
               src={post?.images[0]}
+              className="object-cover"
             />
           </Link>
         )}
