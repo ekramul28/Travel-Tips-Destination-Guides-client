@@ -2,15 +2,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import {
-  FaHome,
-  FaHeart,
-  FaUser,
-  FaCompass,
-  FaInfoCircle,
-  FaEnvelope,
-  FaTachometerAlt,
-} from "react-icons/fa";
+import { MdOutlineDashboard } from "react-icons/md";
+import { RiAddCircleLine } from "react-icons/ri";
+import { FiHome } from "react-icons/fi";
+import { AiOutlineContacts } from "react-icons/ai";
+import { CiCircleMore } from "react-icons/ci";
+import { CgProfile } from "react-icons/cg";
+import { TbBellRinging } from "react-icons/tb";
 
 import { useUser } from "@/src/context/user.provider";
 
@@ -20,25 +18,25 @@ const Sidebar = () => {
 
   const isActive = (path: string) => pathName === path;
   const links = [
-    { href: "/", icon: FaHome, label: "Home" },
+    { href: "/", icon: FiHome, label: "Home" },
     {
       href: `${user && user.role === "ADMIN" ? "/admin" : "/dashboard"}`,
-      icon: FaTachometerAlt,
+      icon: MdOutlineDashboard,
       label: "Dashboard",
     },
     {
       href: `/dashboard/create-post`,
-      icon: FaCompass,
+      icon: RiAddCircleLine,
       label: "Create Post",
     },
     {
       href: `/dashboard/profile`,
-      icon: FaUser,
+      icon: CgProfile,
       label: "Profile",
     },
-    { href: "/notifications", icon: FaHeart, label: "Notifications" },
-    { href: "/about", icon: FaInfoCircle, label: "About" },
-    { href: "/contact", icon: FaEnvelope, label: "Contact" },
+    { href: "/notifications", icon: TbBellRinging, label: "Notifications" },
+    { href: "/about", icon: CiCircleMore, label: "About" },
+    { href: "/contact", icon: AiOutlineContacts, label: "Contact" },
   ];
 
   return (

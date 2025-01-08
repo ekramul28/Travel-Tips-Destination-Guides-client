@@ -1,11 +1,5 @@
 export type SiteConfig = typeof siteConfig;
-import {
-  FaHome,
-  FaDollarSign,
-  FaPhoneAlt,
-  FaInfoCircle,
-  FaSignOutAlt,
-} from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { AiOutlineDollarCircle, AiOutlineContacts } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
