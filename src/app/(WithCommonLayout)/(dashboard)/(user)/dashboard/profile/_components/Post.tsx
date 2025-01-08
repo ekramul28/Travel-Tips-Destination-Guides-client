@@ -11,7 +11,7 @@ export default function PhotoGrid({
   userId,
 }: {
   posts: IPost[];
-  userId: string | undefined;
+  userId?: string | undefined;
 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 md:gap-4">

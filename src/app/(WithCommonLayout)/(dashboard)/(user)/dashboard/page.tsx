@@ -1,26 +1,106 @@
 "use client";
-import React from "react";
-import { Button } from "@nextui-org/react";
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
+import React, { useEffect, useRef } from "react";
+import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Line, Pie } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+} from "chart.js";
+
+// Register necessary chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+);
 
 const UserDashboard = () => {
+  // Refs to store chart instances
+  const lineChartRef = useRef<any>(null);
+  const pieChartRef = useRef<any>(null);
+
+  // Sample data for the charts
+  const data1 = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    datasets: [
+      {
+        label: "Posts Over Time",
+        data: [12, 19, 3, 5, 2, 3, 7],
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        tension: 0.1,
+      },
+    ],
+  };
+
+  const data2 = {
+    labels: ["Follower", "Following", "Post"],
+    datasets: [
+      {
+        label: "User Activity",
+        data: [3, 12, 2],
+        backgroundColor: [
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+        ],
+        borderColor: [
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 99, 132, 1)",
+          "rgba(75, 192, 192, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // Options for the charts
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+  };
+
+  // Initialize charts after DOM has mounted
+  useEffect(() => {
+    // Check if refs are valid before creating charts
+    if (lineChartRef.current && pieChartRef.current) {
+      // Clean up and destroy previous chart instances to avoid memory leaks
+      if (lineChartRef.current.chart) {
+        lineChartRef.current.chart.destroy();
+      }
+      if (pieChartRef.current.chart) {
+        pieChartRef.current.chart.destroy();
+      }
+    }
+  }, []);
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header */}
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-700">Dashboard</h1>
-        <Button color="primary">Logout</Button>
-      </header>
-
       {/* Stats Section */}
-      <div className="flex flex-wrap gap-6 mb-8">
+      <div className="flex justify-center items-center gap-6 mb-8">
         {/* Card 1 */}
         <Card className="w-full max-w-xs bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">Your Post</h3>
           </CardHeader>
           <CardBody className="p-6">
-            <h2 className="text-3xl font-bold text-blue-500">02</h2>
+            <h2 className="text-3xl font-bold text-blue-500">06</h2>
           </CardBody>
         </Card>
 
@@ -32,7 +112,7 @@ const UserDashboard = () => {
             </h3>
           </CardHeader>
           <CardBody className="p-6">
-            <h2 className="text-3xl font-bold text-green-500">3</h2>
+            <h2 className="text-3xl font-bold text-green-500">2</h2>
           </CardBody>
         </Card>
 
@@ -44,30 +124,46 @@ const UserDashboard = () => {
             </h3>
           </CardHeader>
           <CardBody className="p-6">
-            <h2 className="text-3xl font-bold text-red-500">12</h2>
+            <h2 className="text-3xl font-bold text-red-500">2</h2>
           </CardBody>
         </Card>
       </div>
 
-      {/* Quick Actions Section */}
-      <Card className="bg-white shadow-md">
-        <CardHeader className="p-4 border-b border-gray-200">
-          <h2 className="text-lg font-bold text-gray-700">Quick Actions</h2>
-        </CardHeader>
-        <CardBody className="p-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Button className="w-full" color="primary">
-              Manage Post
-            </Button>
-            <Button className="w-full" color="success">
-              View Following
-            </Button>
-            <Button className="w-full" color="warning">
-              View Follower
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
+      {/* Charts Section */}
+      <div className="flex justify-center items-center gap-6 mb-8">
+        {/* Pie Chart */}
+        <Card className="w-full max-w-xl bg-white shadow-md">
+          <CardHeader className="p-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-700">
+              User Activity
+            </h3>
+          </CardHeader>
+          <CardBody className="p-6">
+            <Pie
+              ref={pieChartRef}
+              data={data2}
+              // options={options}
+              redraw={true} // Ensure chart redraws properly
+            />
+          </CardBody>
+        </Card>
+        {/* Line Chart */}
+        <Card className="w-full max-w-xl bg-white shadow-md">
+          <CardHeader className="p-4 border-b border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-700">
+              Posts Over Time
+            </h3>
+          </CardHeader>
+          <CardBody className="p-6">
+            <Line
+              ref={lineChartRef}
+              data={data1}
+              // options={options}
+              redraw={true} // Ensure chart redraws properly
+            />
+          </CardBody>
+        </Card>
+      </div>
     </div>
   );
 };

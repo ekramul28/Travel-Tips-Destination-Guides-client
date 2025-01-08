@@ -12,8 +12,8 @@ const Sidebar = () => {
   const { user } = useUser();
 
   return (
-    <div className="">
-      <div className="rounded-xl bg-default-100 p-2 h-[calc(100vh-50px)]">
+    <div className="h-screen w-[300px] fixed  top-0 ">
+      <div className="rounded-xl bg-default-100 p-2 h-[calc(100vh)]">
         <div className="h-[50px] w-[50px] rounded-md flex justify-end items-end">
           <Image
             src={user?.profilePhoto || "https://via.placeholder.com/150"}

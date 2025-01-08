@@ -1,9 +1,10 @@
+/* eslint-disable padding-line-between-statements */
 /* eslint-disable import/order */
 "use client";
 
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +24,20 @@ const LoginPage = () => {
 
   const { mutate: handleUserLogin, isPending, isSuccess } = useUserLogin();
 
+  const { setValue } = useForm<FieldValues>({
+    resolver: zodResolver(loginValidationSchema),
+  });
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    handleUserLogin(data);
+    userLoading(true);
+  };
+
+  const handleDemoLogin = (email: string, password: string) => {
+    const data = {
+      email,
+      password,
+    };
     handleUserLogin(data);
     userLoading(true);
   };
@@ -41,8 +55,8 @@ const LoginPage = () => {
   return (
     <>
       {isPending && <Loading />}
-      <div className="flex h-[calc(100vh-200px)] w-full flex-col items-center justify-center">
-        <h3 className="my-2 text-2xl font-bold">Login with Travel guidance</h3>
+      <div className="flex h-[calc(100vh-20px)] w-full flex-col items-center justify-center">
+        <h3 className="my-2 text-2xl font-bold">Login with Travel Guidance</h3>
         <p className="mb-4">Welcome Back! Let&lsquo;s Get Started</p>
         <div className="w-[35%]">
           <FXForm
@@ -70,7 +84,25 @@ const LoginPage = () => {
             </Button>
           </FXForm>
           <div className="text-center">
-            Don&lsquo;t have account ? <Link href={"/register"}>Register</Link>
+            <p>
+              Don&lsquo;t have account? <Link href={"/register"}>Register</Link>
+            </p>
+          </div>
+          <div className="mt-5">
+            <Button
+              className="w-full my-2 bg-blue-500 text-white rounded-md"
+              onClick={() => handleDemoLogin("mir@gmail.com", "123456")}
+            >
+              Login as Demo User
+            </Button>
+            <Button
+              className="w-full my-2 bg-green-500 text-white rounded-md"
+              onClick={() =>
+                handleDemoLogin("mdekramulhassan168@gmail.com", "Ekramul28@")
+              }
+            >
+              Login as Demo Admin
+            </Button>
           </div>
         </div>
       </div>

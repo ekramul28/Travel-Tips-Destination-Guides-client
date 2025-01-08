@@ -28,6 +28,7 @@ export const getAllUser = async () => {
     }
 
     const data = await response.json();
+    console.log("this is a data", data);
     return data;
   } catch (error: any) {
     throw new Error(error.message);
