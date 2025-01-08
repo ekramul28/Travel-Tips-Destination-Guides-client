@@ -17,3 +17,5 @@ const dateToISO = (date: IDate) => {
 };
 
 export default dateToISO;
+
+// "@nextui-org/system": "2.2.6",
