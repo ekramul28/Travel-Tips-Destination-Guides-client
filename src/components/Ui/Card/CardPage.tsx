@@ -200,6 +200,21 @@ const CardPage = ({ post }: { post: IPost }) => {
     }
   };
 
+  const handleShare = async () => {
+    if (typeof window !== "undefined") {
+      const baseUrl = window.location.origin;
+      const dynamicUrl = `${baseUrl}/postDetails/${post._id}`; // Construct the full URL
+
+      try {
+        await navigator.clipboard.writeText(dynamicUrl); // Copy URL to clipboard
+        toast.success("URL copied to clipboard!");
+      } catch (error) {
+        console.error("Failed to copy the URL:", error);
+        toast.error("Failed to copy the URL. Please try again.");
+      }
+    }
+  };
+
   return (
     <Card className="p-2 m-4">
       {/* Header */}
@@ -349,6 +364,7 @@ const CardPage = ({ post }: { post: IPost }) => {
           </div>
           <div className="flex items-center">
             <FaShare
+              onClick={handleShare}
               className="text-xl cursor-pointer text-gray-500"
               title="Share"
             />
