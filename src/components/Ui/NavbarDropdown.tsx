@@ -60,6 +60,7 @@ export default function NavbarDropdown() {
           Settings
         </DropdownItem>
         <DropdownItem
+          key="create"
           onClick={() => handleNavigation("/dashboard/create-post")}
         >
           Create Post
