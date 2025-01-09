@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { IPost } from "../types";
-import SkeletonCardLoadingPage from "../app/(WithCommonLayout)/(home)/@recentPosts/loading";
+import SkeletonCardLoadingPage from "../app/(WithCommonLayout)/(home)/home/@recentPosts/loading";
 
 const InfiniteScrollFn = ({
   children,

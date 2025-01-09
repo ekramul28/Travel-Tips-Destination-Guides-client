@@ -31,7 +31,7 @@ export const DashboardNavbar = () => {
 
   const handleLogout = () => {
     logout();
-
+    router.push("/");
     if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
     }
