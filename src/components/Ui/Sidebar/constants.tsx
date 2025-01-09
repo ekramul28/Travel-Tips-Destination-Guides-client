@@ -8,6 +8,7 @@ import { MdOutlineSupport, MdOutlinePostAdd } from "react-icons/md";
 import { FiUsers, FiSettings } from "react-icons/fi";
 import { BsGraphUp } from "react-icons/bs";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { HiOutlineUserGroup } from "react-icons/hi2";
 
 export const userLinks = [
   {
@@ -19,6 +20,11 @@ export const userLinks = [
     href: "/dashboard/create-post",
     label: "Create Post",
     icon: <IoMdAddCircleOutline size={24} />,
+  },
+  {
+    href: "/dashboard/create-group",
+    label: "Create Group",
+    icon: <HiOutlineUserGroup size={24} />,
   },
   {
     href: "/dashboard/profile",

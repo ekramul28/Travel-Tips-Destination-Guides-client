@@ -3,6 +3,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FiHome } from "react-icons/fi";
 import { AiOutlineDollarCircle, AiOutlineContacts } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
+import { GrGroup } from "react-icons/gr";
 export const siteConfig = {
   name: "Travel Tips & Destination Guides",
   description:
@@ -10,7 +11,7 @@ export const siteConfig = {
   navItems: [
     {
       label: "Home",
-      href: "/",
+      href: "/home",
       icon: <FiHome size={30} />,
     },
     {
@@ -27,6 +28,11 @@ export const siteConfig = {
       label: "About",
       href: "/about",
       icon: <CiCircleMore size={30} />,
+    },
+    {
+      label: "Group",
+      href: "/group",
+      icon: <GrGroup size={24} />,
     },
   ],
   navMenuItems: [
@@ -49,6 +55,11 @@ export const siteConfig = {
       label: "About",
       href: "/about",
       icon: <CiCircleMore size={30} />,
+    },
+    {
+      label: "Group",
+      href: "/group",
+      icon: <GrGroup size={30} />,
     },
     {
       label: "Logout",
