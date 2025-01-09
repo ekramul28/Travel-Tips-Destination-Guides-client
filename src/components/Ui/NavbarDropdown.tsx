@@ -37,10 +37,14 @@ export default function NavbarDropdown() {
         <Avatar className="cursor-pointer" src={user?.profilePhoto} />
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">
-        <DropdownItem onClick={() => handleNavigation(`/dashboard/profile`)}>
+        <DropdownItem
+          key="Profile"
+          onClick={() => handleNavigation(`/dashboard/profile`)}
+        >
           Profile
         </DropdownItem>
         <DropdownItem
+          key="dashboard"
           onClick={() =>
             handleNavigation(
               `${user?.role === "ADMIN" ? "/admin" : "/dashboard"}`,
@@ -49,7 +53,10 @@ export default function NavbarDropdown() {
         >
           Dashboard
         </DropdownItem>
-        <DropdownItem onClick={() => handleNavigation("/dashboard/settings")}>
+        <DropdownItem
+          key="settings"
+          onClick={() => handleNavigation("/dashboard/settings")}
+        >
           Settings
         </DropdownItem>
         <DropdownItem
