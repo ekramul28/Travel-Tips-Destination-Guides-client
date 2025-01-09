@@ -42,7 +42,7 @@ export const DashboardNavbar = () => {
       {/* Left Content */}
       <NavbarContent className="basis-1/4" justify="start">
         <NavbarBrand>
-          <Link className="flex justify-start items-center gap-1" href="/">
+          <Link className="flex justify-start items-center gap-1" href="/home">
             <Logo />
             <p className="font-bold text-inherit">ACME</p>
           </Link>
