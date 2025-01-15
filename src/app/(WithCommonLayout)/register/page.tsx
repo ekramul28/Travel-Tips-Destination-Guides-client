@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@nextui-org/button";
 import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-
 import FXForm from "@/src/components/form/FXForm";
 import FXInput from "@/src/components/form/FXInput";
 import { useUserRegistration } from "@/src/hooks/auth.hook";
@@ -22,7 +21,6 @@ export default function RegisterPage() {
     isSuccess,
   } = useUserRegistration();
   const searchParams = useSearchParams();
-
   const router = useRouter();
   const redirect = searchParams.get("redirect");
 
@@ -48,47 +46,54 @@ export default function RegisterPage() {
 
   return (
     <>
-      {isPending && <Loading />}
-      <div className="flex h-[calc(100vh-100px)] flex-col items-center justify-center">
-        <h3 className="my-2 text-xl font-bold">
-          Register with Travel guidance
-        </h3>
-        <p className="mb-4">Find your right Destination with Us</p>
-        <div className="w-[35%]">
-          <FXForm
-            //! Only for development
-
-            resolver={zodResolver(registerValidationSchema)}
-            onSubmit={onSubmit}
-          >
-            <div className="py-3">
-              <FXInput label="Name" name="name" size="sm" />
-            </div>
-            <div className="py-3">
-              <FXInput label="Email" name="email" size="sm" />
-            </div>
-            <div className="py-3">
-              <FXInput label="Mobile Number" name="mobileNumber" size="sm" />
-            </div>
-            <div className="py-3">
-              <FXInput
-                label="Password"
-                name="password"
-                size="sm"
-                type="password"
-              />
-            </div>
-
-            <Button
-              className="my-3 w-full rounded-md bg-default-900 text-default"
-              size="lg"
-              type="submit"
+      {isPending && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+          <Loading />
+        </div>
+      )}
+      <div className="flex h-screen">
+        {/* Right Section */}
+        <div className="flex w-full  items-center justify-center p-6 bg-white">
+          <div className="w-full max-w-md">
+            <h3 className="text-3xl font-extrabold text-gray-800 text-center mb-4">
+              Create an Account
+            </h3>
+            <p className="text-center text-gray-600 mb-8">
+              Start your journey with us today!
+            </p>
+            <FXForm
+              resolver={zodResolver(registerValidationSchema)}
+              onSubmit={onSubmit}
             >
-              Registration
-            </Button>
-          </FXForm>
-          <div className="text-center">
-            Already have an account ? <Link href={"/login"}>Login</Link>
+              <div className="space-y-4">
+                <FXInput label="Name" name="name" size="sm" />
+                <FXInput label="Email" name="email" size="sm" />
+                <FXInput label="Mobile Number" name="mobileNumber" size="sm" />
+                <FXInput
+                  label="Password"
+                  name="password"
+                  type="password"
+                  size="sm"
+                />
+              </div>
+
+              <Button
+                className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md text-lg font-semibold transition duration-200"
+                size="lg"
+                type="submit"
+              >
+                Register
+              </Button>
+            </FXForm>
+            <div className="text-center mt-4 text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="text-blue-500 hover:underline font-semibold"
+              >
+                Login
+              </Link>
+            </div>
           </div>
         </div>
       </div>

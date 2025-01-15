@@ -41,7 +41,7 @@ const Sidebar = () => {
 
   return (
     <div className="fixed">
-      <div className="flex flex-col  items-start ">
+      <div className="flex flex-col  items-start border-r-1 pr-14 ">
         {links.map((link) => (
           <Link key={link.href} href={link.href}>
             <div

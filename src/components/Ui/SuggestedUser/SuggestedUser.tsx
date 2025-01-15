@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client";
+
 import { Avatar } from "@nextui-org/avatar";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
@@ -18,7 +19,6 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
 
   const [isFollowing, setIsFollowing] = useState(false);
   const [loadingFollow, setLoadingFollow] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (currentUser && user?.following?.includes(currentUser?._id as never)) {
@@ -32,7 +32,6 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
     if (!user?._id) {
       toast.error("Please log in to follow.");
       router.push("/login");
-
       return;
     }
 
@@ -44,18 +43,18 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
 
       if (res.success) {
         setIsFollowing(true);
-        toast.success("follow  added!");
+        toast.success("Followed!");
       }
     } catch (error) {
       console.error(error);
-      toast.error("An error occurred while adding a Follow.");
+      toast.error("An error occurred while following.");
     }
   };
+
   const handleUnFollow = async () => {
     if (!user?._id) {
-      toast.error("Please log in to UnFollow.");
+      toast.error("Please log in to unfollow.");
       router.push("/login");
-
       return;
     }
 
@@ -67,61 +66,68 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
 
       if (res.success) {
         setIsFollowing(false);
-        toast.success("UnFollow  added!");
+        toast.success("Unfollowed!");
       }
     } catch (error) {
       console.error(error);
-
-      toast.error("An error occurred while adding a UnFollow.");
+      toast.error("An error occurred while unfollowing.");
     }
   };
 
   return (
-    <div className="p-4">
-      <div>
-        <div className="flex  items-center">
-          <Avatar
-            alt="User Avatar"
-            className="mr-2 cursor-pointer"
-            size="sm"
-            src={user?.profilePhoto || "/default-avatar.png"}
-            onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
-          />
-          <div className="mb-2 p-3 flex items-start">
-            <div>
-              <div
-                className="font-bold hover:underline cursor-pointer"
-                onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
-              >
-                {user?.name}
-                {user?.verified && (
-                  <span className="ml-2 text-green-500" title="Verified User">
-                    ✅
-                  </span>
-                )}
-              </div>
-              <p>Suggested for You</p>
-            </div>
-          </div>
-
-          {currentUser?._id === user?._id ? (
-            <Button>Its You</Button>
-          ) : currentUser ? (
-            isFollowing ? (
-              <Button
-                className="bg-green-500 text-white"
-                onClick={handleUnFollow}
-              >
-                UnFollow
-              </Button>
-            ) : (
-              <Button onClick={handleFollow}>Follow</Button>
-            )
-          ) : (
-            <Button onClick={() => router.push("/login")}>Login</Button>
+    <div className="p-4 flex items-center gap-4 border rounded-lg bg-white shadow-sm">
+      <Avatar
+        alt="User Avatar"
+        className="cursor-pointer"
+        size="lg"
+        src={user?.profilePhoto || "/default-avatar.png"}
+        onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
+      />
+      <div className="flex-1">
+        <div
+          className="font-bold hover:underline cursor-pointer"
+          onClick={() => router.push(`/dashboard/profile/${user?._id}`)}
+        >
+          {user?.name}
+          {user?.verified && (
+            <span className="ml-2 text-blue-500" title="Verified User">
+              ✅
+            </span>
           )}
         </div>
+        <p className="text-sm text-gray-500">Suggested for you</p>
       </div>
+      {currentUser?._id === user?._id ? (
+        <Button size="sm" disabled>
+          Its You
+        </Button>
+      ) : currentUser ? (
+        isFollowing ? (
+          <Button
+            size="sm"
+            className="bg-gray-200 text-black hover:bg-gray-300"
+            onClick={handleUnFollow}
+          >
+            Unfollow
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            className="bg-blue-500 text-white hover:bg-blue-600"
+            onClick={handleFollow}
+          >
+            Follow
+          </Button>
+        )
+      ) : (
+        <Button
+          size="sm"
+          className="bg-blue-500 text-white hover:bg-blue-600"
+          onClick={() => router.push("/login")}
+        >
+          Login
+        </Button>
+      )}
     </div>
   );
 };

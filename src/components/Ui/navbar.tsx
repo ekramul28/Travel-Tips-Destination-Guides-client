@@ -32,7 +32,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <NextUINavbar maxWidth="xl" position="sticky">
+      <NextUINavbar maxWidth="xl" position="sticky" className="bg-slate-200">
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           {/* Replace <li> with a div or span for the brand */}
           <NavbarBrand className="gap-3 max-w-fit">
@@ -40,15 +40,14 @@ export const Navbar = () => {
               className="flex justify-start items-center gap-1"
               href="/home"
             >
-              <Logo />
-              <p className="font-bold text-inherit">ACME</p>
+              <p className="font-bold text-inherit">Travel-Gide</p>
             </NextLink>
           </NavbarBrand>
           <LandingSearch />
         </NavbarContent>
 
         <NavbarContent>
-          <NavbarBrand className="hidden  md:flex gap-6 justify-center ml-2">
+          <NavbarBrand className="hidden  md:flex gap-10 justify-center ml-2">
             {siteConfig.navItems.map((item) => (
               <NavbarItem key={item.href}>
                 <NextLink
@@ -91,29 +90,26 @@ export const Navbar = () => {
         </NavbarContent>
 
         <NavbarMenu>
-          <LandingSearch />
-          <div className="mx-4 mt-2 flex flex-col gap-2">
+          <div className="mx-4 mt-2 flex flex-col gap-4">
             {siteConfig.navMenuItems.map((item, index) => (
-              <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  color={
-                    index === 2
-                      ? "primary"
-                      : index === siteConfig.navMenuItems.length - 1
-                        ? "danger"
-                        : "foreground"
-                  }
-                  href="#"
-                  size="lg"
+              <NavbarItem key={item.href}>
+                <NextLink
+                  className={clsx(
+                    linkStyles({ color: "foreground" }),
+                    "flex items-center gap-2 px-4 py-2 rounded-md transition-all text-sm font-medium text-black hover:bg-gray-100 data-[active=true]:text-primary data-[active=true]:font-semibold",
+                  )}
+                  color="foreground"
+                  href={item.href}
                 >
-                  {item.icon}
-                </Link>
-              </NavbarMenuItem>
+                  <span className="text-lg">{item.icon}</span>
+                  <span className="truncate">{item.label}</span>
+                </NextLink>
+              </NavbarItem>
             ))}
           </div>
         </NavbarMenu>
       </NextUINavbar>
-      <NextUINavbar className="top-14">
+      <NextUINavbar className="top-14 pl-4 hidden lg:block mx-auto ">
         <Filtering />
       </NextUINavbar>
     </>

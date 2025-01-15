@@ -46,55 +46,55 @@ export default function LandingSearch() {
   }, [isPending, isSuccess, data, searchTerm]);
 
   return (
-    <div className=" max-w-xl flex-1 mx-auto">
+    <div className="max-w-xl flex-1 mx-auto relative">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex-1">
+        <div className="relative">
           <Input
             {...register("search")}
             aria-label="Search"
             classNames={{
-              inputWrapper: "bg-default-100",
-              input: "text-sm",
+              inputWrapper:
+                "bg-gray-100 border border-gray-300 rounded-full w-[150px] lg:w-full shadow-sm",
+              input: "text-sm px-4 py-2",
             }}
-            placeholder="Search..."
+            placeholder="Search "
             size="lg"
             startContent={
-              <SearchIcon className="pointer-events-none flex-shrink-0 text-base text-default-400" />
+              <SearchIcon className="pointer-events-none flex-shrink-0 text-gray-500" />
             }
             type="text"
+            className="w-full focus:ring-2 focus:ring-blue-400 focus:outline-none"
           />
         </div>
       </form>
       {searchResults.length > 0 && (
-        <div className=" rounded-xl bg-default-100 p-3 mt-60">
+        <div className="absolute left-0 right-0 mt-2 rounded-lg bg-white p-3 shadow-lg z-10">
           <div className="space-y-3">
             {searchResults.map((item, index) => (
               <Link
                 key={index}
-                className="text-default-900 block rounded-md from-default-200 p-2 transition-all hover:bg-gradient-to-l"
+                className="text-gray-900 block rounded-md from-gray-200 p-2 transition-all hover:bg-gray-100"
                 href={`/postDetails/${item.id}`}
               >
-                <div>
-                  <div className="flex items-center gap-2">
-                    <img
-                      alt="item"
-                      className="h-20 w-20 rounded-md"
-                      src={item.thumbnail}
-                    />
-                    <div>
-                      <p className="text-lg font-semibold">{item.title}</p>
-                      <p className="mt-1 line-clamp-2 h-12 w-full text-sm">
-                        {item.description}
-                      </p>
-                    </div>
+                <div className="flex items-center gap-2">
+                  <img
+                    alt="item"
+                    className="h-10 w-10 rounded-md"
+                    src={item.thumbnail}
+                  />
+                  <div>
+                    <p className="text-sm font-medium">{item.title}</p>
+                    <p className="mt-1 text-xs text-gray-500 line-clamp-2">
+                      {item.description}
+                    </p>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
-          <div className="mt-3 flex justify-center border-t-1 border-default-50 pt-3">
+          <div className="mt-3 flex justify-center border-t pt-3">
             <button
-              className="flex items-center justify-center gap-1"
+              className="flex items-center justify-center gap-1 text-blue-600 hover:underline"
               onClick={() => handleSeeAll(searchTerm)}
             >
               <span>See All</span>

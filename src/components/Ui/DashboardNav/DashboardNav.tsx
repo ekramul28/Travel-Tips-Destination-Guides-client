@@ -38,7 +38,11 @@ export const DashboardNavbar = () => {
   };
 
   return (
-    <NextUINavbar maxWidth="full" className="bg-gray-200" position="sticky">
+    <NextUINavbar
+      maxWidth="full"
+      className="bg-gray-200 rounded-lg hidden md:block"
+      position="sticky"
+    >
       {/* Left Content */}
       <NavbarContent className="basis-1/4" justify="start">
         <NavbarBrand>

@@ -24,7 +24,7 @@ const Filtering = () => {
   };
 
   return (
-    <div className="my-5 flex items-center justify-end z-0">
+    <div className="my-5  flex items-center justify-end z-0 mx-auto w-full ">
       <div className="flex justify-center gap-1">
         {categories?.map(({ _id, name }: ICategory) => (
           <Button

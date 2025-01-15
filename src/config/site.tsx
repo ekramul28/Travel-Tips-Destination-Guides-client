@@ -4,6 +4,9 @@ import { FiHome } from "react-icons/fi";
 import { AiOutlineDollarCircle, AiOutlineContacts } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
 import { GrGroup } from "react-icons/gr";
+import { MdOutlineContacts } from "react-icons/md";
+import { HiOutlineUserGroup } from "react-icons/hi2";
+import { MdOutlinePayment } from "react-icons/md";
 export const siteConfig = {
   name: "Travel Tips & Destination Guides",
   description:
@@ -17,12 +20,12 @@ export const siteConfig = {
     {
       label: "Pricing",
       href: "/pricing",
-      icon: <AiOutlineDollarCircle size={30} />,
+      icon: <MdOutlinePayment size={30} />,
     },
     {
       label: "Contact",
       href: "/contact",
-      icon: <AiOutlineContacts size={30} />,
+      icon: <MdOutlineContacts size={30} />,
     },
     {
       label: "About",
@@ -32,7 +35,7 @@ export const siteConfig = {
     {
       label: "Group",
       href: "/group",
-      icon: <GrGroup size={24} />,
+      icon: <HiOutlineUserGroup size={24} />,
     },
   ],
   navMenuItems: [
