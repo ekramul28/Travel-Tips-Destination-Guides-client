@@ -6,10 +6,8 @@ import {
   NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
-  NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
-import { Link } from "@nextui-org/link";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
@@ -22,7 +20,6 @@ import NavbarDropdown from "./NavbarDropdown";
 
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
-import { Logo } from "@/src/assets/icons";
 import { useUser } from "@/src/context/user.provider";
 
 export const Navbar = () => {
@@ -32,7 +29,11 @@ export const Navbar = () => {
 
   return (
     <>
-      <NextUINavbar maxWidth="xl" position="sticky" className="bg-slate-200">
+      <NextUINavbar
+        maxWidth="xl"
+        position="sticky"
+        className="bg-[#FFFFFF] border-b-1"
+      >
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
           {/* Replace <li> with a div or span for the brand */}
           <NavbarBrand className="gap-3 max-w-fit">

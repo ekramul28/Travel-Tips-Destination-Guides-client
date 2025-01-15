@@ -28,14 +28,14 @@ export const siteConfig = {
       icon: <MdOutlineContacts size={30} />,
     },
     {
-      label: "About",
-      href: "/about",
-      icon: <CiCircleMore size={30} />,
-    },
-    {
       label: "Group",
       href: "/group",
       icon: <HiOutlineUserGroup size={24} />,
+    },
+    {
+      label: "About",
+      href: "/about",
+      icon: <CiCircleMore size={30} />,
     },
   ],
   navMenuItems: [

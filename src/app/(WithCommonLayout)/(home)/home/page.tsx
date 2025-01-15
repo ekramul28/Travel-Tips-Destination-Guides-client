@@ -5,10 +5,10 @@ import React from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiAddCircleLine } from "react-icons/ri";
 import { FiHome } from "react-icons/fi";
-import { AiOutlineContacts } from "react-icons/ai";
 import { CiCircleMore } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { TbBellRinging } from "react-icons/tb";
+import { MdOutlineContacts } from "react-icons/md";
 
 import { useUser } from "@/src/context/user.provider";
 
@@ -35,22 +35,24 @@ const Sidebar = () => {
       label: "Profile",
     },
     { href: "/notifications", icon: TbBellRinging, label: "Notifications" },
+    { href: "/contact", icon: MdOutlineContacts, label: "Contact" },
     { href: "/about", icon: CiCircleMore, label: "About" },
-    { href: "/contact", icon: AiOutlineContacts, label: "Contact" },
   ];
 
   return (
     <div className="fixed">
-      <div className="flex flex-col  items-start border-r-1 pr-14 ">
+      <div className="flex flex-col  items-start border-r-1 pr-10 ">
         {links.map((link) => (
           <Link key={link.href} href={link.href}>
             <div
-              className={`flex gap-2   items-start mt-8 ${
-                isActive(link.href) ? "text-gray-300" : "text-slate-700"
+              className={`flex gap-3 items-center p-4 rounded-lg transition duration-300 ${
+                isActive(link.href)
+                  ? "bg-blue-500 text-white shadow-md"
+                  : "w-[200px] text-slate-700 hover:bg-blue-100 hover:text-blue-600"
               }`}
             >
-              <link.icon size={30} />
-              <p className="text-2xl">{link.label}</p>
+              <link.icon size={24} className="shrink-0" />
+              <p className="text-lg font-medium">{link.label}</p>
             </div>
           </Link>
         ))}
