@@ -37,11 +37,7 @@ export const userLinks = [
     label: "My Post",
     icon: <MdOutlinePostAdd size={24} />,
   },
-  {
-    href: "/dashboard/account-settings",
-    label: "Account Settings",
-    icon: <AiOutlineSetting size={24} />,
-  },
+
   {
     href: "/dashboard/notifications",
     label: "Notifications",
@@ -63,11 +59,7 @@ export const adminLinks = [
     icon: <MdOutlinePostAdd size={24} />,
   },
   { href: "/admin/reports", label: "Reports", icon: <BsGraphUp size={24} /> },
-  {
-    href: "/admin/settings",
-    label: "Admin Settings",
-    icon: <FiSettings size={24} />,
-  },
+
   {
     href: "/admin/support-requests",
     label: "Support Requests",

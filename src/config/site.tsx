@@ -7,6 +7,7 @@ import { GrGroup } from "react-icons/gr";
 import { MdOutlineContacts } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { MdOutlinePayment } from "react-icons/md";
+import { RiContactsBook2Line } from "react-icons/ri";
 export const siteConfig = {
   name: "Travel Tips & Destination Guides",
   description:
@@ -15,17 +16,13 @@ export const siteConfig = {
     {
       label: "Home",
       href: "/home",
-      icon: <FiHome size={30} />,
+      icon: <FiHome size={24} />,
     },
-    {
-      label: "Pricing",
-      href: "/pricing",
-      icon: <MdOutlinePayment size={30} />,
-    },
+
     {
       label: "Contact",
       href: "/contact",
-      icon: <MdOutlineContacts size={30} />,
+      icon: <RiContactsBook2Line size={24} />,
     },
     {
       label: "Group",
@@ -33,41 +30,46 @@ export const siteConfig = {
       icon: <HiOutlineUserGroup size={24} />,
     },
     {
+      label: "Pricing",
+      href: "/pricing",
+      icon: <MdOutlinePayment size={24} />,
+    },
+    {
       label: "About",
       href: "/about",
-      icon: <CiCircleMore size={30} />,
+      icon: <CiCircleMore size={24} />,
     },
   ],
   navMenuItems: [
     {
       label: "Home",
       href: "/",
-      icon: <FiHome size={30} />,
+      icon: <FiHome size={24} />,
     },
     {
       label: "Pricing",
       href: "/pricing",
-      icon: <AiOutlineDollarCircle size={30} />,
+      icon: <AiOutlineDollarCircle size={24} />,
     },
     {
       label: "Contact",
       href: "/contact",
-      icon: <AiOutlineContacts size={30} />,
+      icon: <RiContactsBook2Line size={24} />,
     },
     {
       label: "About",
       href: "/about",
-      icon: <CiCircleMore size={30} />,
+      icon: <CiCircleMore size={24} />,
     },
     {
       label: "Group",
       href: "/group",
-      icon: <GrGroup size={30} />,
+      icon: <GrGroup size={24} />,
     },
     {
       label: "Logout",
       href: "/logout",
-      icon: <FaSignOutAlt size={30} />,
+      icon: <FaSignOutAlt size={24} />,
     },
   ],
   links: {

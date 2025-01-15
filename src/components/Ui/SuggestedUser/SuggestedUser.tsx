@@ -75,7 +75,7 @@ const SuggestedUser = ({ user }: { user: IUser }) => {
   };
 
   return (
-    <div className="p-4 flex items-center gap-4 border rounded-lg bg-white shadow-sm">
+    <div className="p-4 mt-2 flex items-center gap-4 border rounded-lg bg-white  dark:text-white dark:bg-black shadow-sm">
       <Avatar
         alt="User Avatar"
         className="cursor-pointer"

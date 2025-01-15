@@ -40,15 +40,14 @@ export const DashboardNavbar = () => {
   return (
     <NextUINavbar
       maxWidth="full"
-      className="bg-gray-200 rounded-lg hidden md:block"
+      className="bg-gray-200  rounded-lg hidden md:block"
       position="sticky"
     >
       {/* Left Content */}
       <NavbarContent className="basis-1/4" justify="start">
         <NavbarBrand>
           <Link className="flex justify-start items-center gap-1" href="/home">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">Travel Gide</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>

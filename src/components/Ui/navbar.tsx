@@ -2,40 +2,38 @@
 import {
   Navbar as NextUINavbar,
   NavbarContent,
-  NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuToggle,
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation"; // Import usePathname
 
 import LandingSearch from "../modules/home/Landing";
 import Filtering from "../modules/found-items/Filtering";
-
 import NavbarDropdown from "./NavbarDropdown";
-
 import { siteConfig } from "@/src/config/site";
 import { ThemeSwitch } from "@/src/components/Ui/theme-switch";
 import { useUser } from "@/src/context/user.provider";
 
 export const Navbar = () => {
   const { user } = useUser();
-
   const router = useRouter();
+  const pathname = usePathname(); // Get current path
 
   return (
     <>
       <NextUINavbar
         maxWidth="xl"
         position="sticky"
-        className="bg-[#FFFFFF] border-b-1"
+        className="bg-[#FFFFFF] dark:bg-black border-b-1"
       >
         <NavbarContent className="basis-1/5 sm:basis-full " justify="start">
-          {/* Replace <li> with a div or span for the brand */}
           <NavbarBrand className="gap-3 max-w-fit">
             <NextLink
               className="flex justify-start items-center gap-1"
@@ -48,13 +46,17 @@ export const Navbar = () => {
         </NavbarContent>
 
         <NavbarContent>
-          <NavbarBrand className="hidden  md:flex gap-10 justify-center ml-2">
+          <NavbarBrand className="hidden md:flex gap-10 justify-center ml-2">
             {siteConfig.navItems.map((item) => (
               <NavbarItem key={item.href}>
                 <NextLink
                   className={clsx(
                     linkStyles({ color: "foreground" }),
                     "data-[active=true]:text-primary data-[active=true]:font-medium ",
+                    // Apply active link styling
+                    // pathname === item.href
+                    //   ? "border-b-2  border-blue-500 text-blue-600"
+                    //   : "text-gray-700 hover:text-blue-600",
                   )}
                   color="foreground"
                   href={item.href}
@@ -97,7 +99,11 @@ export const Navbar = () => {
                 <NextLink
                   className={clsx(
                     linkStyles({ color: "foreground" }),
-                    "flex items-center gap-2 px-4 py-2 rounded-md transition-all text-sm font-medium text-black hover:bg-gray-100 data-[active=true]:text-primary data-[active=true]:font-semibold",
+                    "flex items-center gap-2 px-4 py-2 rounded-md transition-all text-sm font-medium text-black hover:bg-gray-100",
+                    // Active link styling
+                    pathname === item.href
+                      ? "border-b-2 border-blue-500 text-blue-600"
+                      : "text-gray-700 hover:text-blue-600",
                   )}
                   color="foreground"
                   href={item.href}

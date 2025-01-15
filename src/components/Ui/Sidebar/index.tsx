@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { user } = useUser();
 
   return (
-    <div className="h-screen w-[320px] fixed bg-slate-200  top-0 ">
+    <div className="h-screen   lg:w-64  fixed bg-slate-200  top-0 ">
       <div className="rounded-xl bg-default-100 p-2 h-[calc(100vh)]">
         <div className="h-[50px] w-[50px] rounded-md flex justify-end items-end">
           <Image

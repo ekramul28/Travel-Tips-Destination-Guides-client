@@ -139,7 +139,7 @@ export default function CreatePost() {
                 <FXSelect label="City" name="city" options={cityOptions} />
               </div>
             </div>
-            <div className="flex flex-wrap gap-2 py-2">
+            <div className="lg:flex flex-wrap gap-2 py-2">
               <div className="min-w-fit flex-1">
                 <FXSelect
                   disabled={!categorySuccess}

@@ -9,7 +9,7 @@ const usersId = async () => {
   const allUser = await getAllUser();
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 ">
       {allUser?.data?.map((user: IUser) => (
         <SuggestedUser key={user._id} user={user} />
       ))}

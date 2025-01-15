@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-sort-props */
+/* eslint-disable import/order */
 "use client";
 import { ReactNode, useState } from "react";
-import { HiDotsVertical } from "react-icons/hi"; // Importing a 3-dot icon
-import Container from "@/src/components/Ui/Container";
+import { HiDotsVertical } from "react-icons/hi"; // 3-dot menu icon
 import Sidebar from "@/src/components/Ui/Sidebar";
 import { DashboardNavbar } from "@/src/components/Ui/DashboardNav/DashboardNav";
+import Link from "next/link";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -11,42 +13,55 @@ export default function Layout({ children }: { children: ReactNode }) {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <Container>
-      <div className="min-h-screen grid grid-cols-1 lg:grid-cols-8 gap-4">
-        {/* 3-Dot Menu for Small Screens */}
-        <div className="flex lg:hidden items-center fixed top-0 w-full mx-auto z-50 mb-8 left-0 justify-between p-4 bg-gray-50 shadow-md">
-          <h1 className="text-xl font-semibold">Dashboard</h1>
+    <div className="flex min-h-screen ">
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block w-64 bg-gray-200">
+        <Sidebar />
+      </div>
+
+      {/* Mobile Sidebar */}
+      {isSidebarOpen && (
+        <div className="fixed top-0 left-0 z-50 w-50  h-full bg-slate-200 shadow-lg lg:hidden">
+          <Sidebar />
+          {/* Close Button */}
           <button
             onClick={toggleSidebar}
-            aria-label="Toggle Sidebar"
-            className="p-2 rounded-md text-gray-700 hover:bg-gray-200"
+            className="absolute top-4 right-4  text-black"
+            aria-label="Close Sidebar"
           >
-            <HiDotsVertical className="w-6 h-6" />
+            ✕
           </button>
         </div>
+      )}
 
-        {/* Sidebar */}
-        {isSidebarOpen && (
-          <div className="absolute z-50 rounded top-0 left-0 w-3/4 max-w-xs h-full bg-gray-200 text-black shadow-lg lg:relative lg:col-span-2 lg:block">
-            <Sidebar />
-            {/* Close Button */}
-            <button
-              onClick={toggleSidebar}
-              className="absolute top-4 right-4 text-black lg:hidden"
-            >
-              ✕
-            </button>
+      {/* Toggle Button for Mobile */}
+      <div className="lg:hidden fixed top-4 right-4 z-50">
+        <button
+          onClick={toggleSidebar}
+          aria-label="Toggle Sidebar"
+          className="p-2 text-gray-700 bg-gray-800 hover:bg-gray-700 rounded-md"
+        >
+          <HiDotsVertical className="w-6 h-6 text-white" />
+        </button>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1">
+        {/* Fixed Navbar */}
+        <div className="fixed top-0 blog lg:hidden left-0 w-full bg-gray-50 shadow-md z-40">
+          <div className="flex items-center justify-between p-4">
+            <h1 className="text-xl font-semibold">
+              <Link href="/">Dashboard</Link>
+            </h1>
           </div>
-        )}
-        <div className="lg:col-span-2 hidden lg:block">
-          <Sidebar />
         </div>
-        {/* Main content area */}
-        <div className="col-span-1 lg:col-span-6 bg-gray-50 p-4 lg:p-6 rounded-lg shadow-lg">
+
+        {/* Main Content */}
+        <div>
           <DashboardNavbar />
-          <div className="mt-16">{children}</div>
+          <div className="mt-20 lg:mt-0 p-6">{children}</div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 }

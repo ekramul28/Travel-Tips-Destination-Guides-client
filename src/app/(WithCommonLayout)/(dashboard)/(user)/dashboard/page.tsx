@@ -27,11 +27,9 @@ ChartJS.register(
 );
 
 const UserDashboard = () => {
-  // Refs to store chart instances
   const lineChartRef = useRef<any>(null);
   const pieChartRef = useRef<any>(null);
 
-  // Sample data for the charts
   const data1 = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
@@ -66,21 +64,8 @@ const UserDashboard = () => {
     ],
   };
 
-  // Options for the charts
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-    },
-  };
-
-  // Initialize charts after DOM has mounted
   useEffect(() => {
-    // Check if refs are valid before creating charts
     if (lineChartRef.current && pieChartRef.current) {
-      // Clean up and destroy previous chart instances to avoid memory leaks
       if (lineChartRef.current.chart) {
         lineChartRef.current.chart.destroy();
       }
@@ -91,11 +76,10 @@ const UserDashboard = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    <div className="p-4 lg:p-6 min-h-screen bg-gray-50">
       {/* Stats Section */}
-      <div className="flex justify-center items-center gap-6 mb-8">
-        {/* Card 1 */}
-        <Card className="w-full max-w-xs bg-white shadow-md">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <Card className="w-full bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">Your Post</h3>
           </CardHeader>
@@ -104,8 +88,7 @@ const UserDashboard = () => {
           </CardBody>
         </Card>
 
-        {/* Card 2 */}
-        <Card className="w-full max-w-xs bg-white shadow-md">
+        <Card className="w-full bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">
               Your Follower
@@ -116,8 +99,7 @@ const UserDashboard = () => {
           </CardBody>
         </Card>
 
-        {/* Card 3 */}
-        <Card className="w-full max-w-xs bg-white shadow-md">
+        <Card className="w-full bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">
               You Following
@@ -130,37 +112,26 @@ const UserDashboard = () => {
       </div>
 
       {/* Charts Section */}
-      <div className="flex justify-center items-center gap-6 mb-8">
-        {/* Pie Chart */}
-        <Card className="w-full max-w-xl bg-white shadow-md">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="w-full bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">
               User Activity
             </h3>
           </CardHeader>
           <CardBody className="p-6">
-            <Pie
-              ref={pieChartRef}
-              data={data2}
-              // options={options}
-              redraw={true} // Ensure chart redraws properly
-            />
+            <Pie ref={pieChartRef} data={data2} redraw={true} />
           </CardBody>
         </Card>
-        {/* Line Chart */}
-        <Card className="w-full max-w-xl bg-white shadow-md">
+
+        <Card className="w-full bg-white shadow-md">
           <CardHeader className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-700">
               Posts Over Time
             </h3>
           </CardHeader>
           <CardBody className="p-6">
-            <Line
-              ref={lineChartRef}
-              data={data1}
-              // options={options}
-              redraw={true} // Ensure chart redraws properly
-            />
+            <Line ref={lineChartRef} data={data1} redraw={true} />
           </CardBody>
         </Card>
       </div>

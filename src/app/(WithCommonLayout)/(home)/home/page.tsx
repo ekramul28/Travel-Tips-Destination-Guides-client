@@ -48,7 +48,7 @@ const Sidebar = () => {
               className={`flex gap-3 items-center p-4 rounded-lg transition duration-300 ${
                 isActive(link.href)
                   ? "bg-blue-500 text-white shadow-md"
-                  : "w-[200px] text-slate-700 hover:bg-blue-100 hover:text-blue-600"
+                  : "w-[200px] text-slate-700 dark:text-white hover:bg-blue-100 hover:text-blue-600"
               }`}
             >
               <link.icon size={24} className="shrink-0" />
