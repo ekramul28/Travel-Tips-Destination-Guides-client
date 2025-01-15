@@ -140,7 +140,7 @@ export default function CreatePost() {
               </div>
             </div>
             <div className="lg:flex flex-wrap gap-2 py-2">
-              <div className="min-w-fit flex-1">
+              <div className="min-w-fit flex-1 py-2">
                 <FXSelect
                   disabled={!categorySuccess}
                   label="Category"
@@ -149,7 +149,7 @@ export default function CreatePost() {
                 />
               </div>
 
-              <div className="flex flex-wrap gap-2 ">
+              <div className="flex flex-wrap gap-2 py-2">
                 <div className="min-w-fit flex-1">
                   <FXSelect
                     label="IsPremium"
@@ -162,7 +162,7 @@ export default function CreatePost() {
                 </div>
               </div>
 
-              <div className="min-w-fit flex-1">
+              <div className="min-w-fit flex-1 py-2">
                 <label
                   className="flex h-14 w-full cursor-pointer items-center justify-center rounded-xl border-2 border-default-200 text-default-500 shadow-sm transition-all duration-100 hover:border-default-400"
                   htmlFor="image"

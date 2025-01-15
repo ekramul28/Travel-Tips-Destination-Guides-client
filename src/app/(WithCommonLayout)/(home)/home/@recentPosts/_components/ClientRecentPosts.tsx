@@ -43,9 +43,11 @@ const ClientRecentPosts = ({
 
   return (
     <InfiniteScrollFn fetchData={fetchMoreData} hasMore={hasMore} post={posts}>
-      {posts.map((post: IPost) => (
-        <CardPage key={post._id} post={post} />
-      ))}
+      <div className="">
+        {posts.map((post: IPost) => (
+          <CardPage key={post._id} post={post} />
+        ))}
+      </div>
     </InfiniteScrollFn>
   );
 };

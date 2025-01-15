@@ -216,7 +216,7 @@ const CardPage = ({ post }: { post: IPost }) => {
   };
 
   return (
-    <Card className="p-2 m-4">
+    <Card className="mx-3">
       {/* Header */}
       <CardHeader className="flex items-center justify-between">
         <div className="flex items-center">
